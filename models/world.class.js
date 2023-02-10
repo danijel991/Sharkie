@@ -8,6 +8,9 @@ class World {
     lights = [
         new Light()
     ];
+    floors = [
+        new Floor()
+    ];
     canvas;
     ctx;
 
@@ -20,20 +23,25 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height);
-        this.enemies.forEach(enemy => {
-            this.ctx.drawImage(enemy.img,enemy.x,enemy.y,enemy.width,enemy.height);
-        });
-
-
-        this.lights.forEach(light => {
-            this.ctx.drawImage(light.img,light.x,light.y,light.width,light.height);
-        });
+        this.addToMap(this.character);
+        this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.lights);
+        this.addObjectsToMap(this.floors);
 
 
         let self = this;
         requestAnimationFrame(function () { //sobald alles darüber geladen wurde, wird das hier gezeichnet (asynchron)
             self.draw(); //this wird hier nicht erkannt, deswegen wird staattessen self als variable vergeben
         });
+    }
+
+    addObjectsToMap(objects) {
+        objects.forEach(o => {
+            this.addToMap(o);
+        });
+    }
+
+    addToMap(mo) {
+        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
     }
 }
