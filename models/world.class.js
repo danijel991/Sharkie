@@ -11,6 +11,11 @@ class World {
     floors = [
         new Floor()
     ];
+    backgroundObjects = [
+        new backgroundObject('img/3.Background/Layers/5._Water/D1.png', 0),
+        new backgroundObject('img/3.Background/Layers/3._Fondo 1/D1.png', 0),
+        new backgroundObject('img/3.Background/Layers/4._Fondo 2/D1.png', 0)
+    ];
     canvas;
     ctx;
 
@@ -23,10 +28,14 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.addToMap(this.character);
-        this.addObjectsToMap(this.enemies);
-        this.addObjectsToMap(this.lights);
+
+
+        this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.floors);
+        this.addObjectsToMap(this.lights);
+        this.addObjectsToMap(this.enemies);
+        this.addToMap(this.character);
+
 
 
         let self = this;
