@@ -2,6 +2,7 @@ class Fish extends MovableObject {
 
     height = 120;
     width = 130;
+    y = 250;
 
     images_enemy = [
         'img/2.Enemy/1.Pufferfish/1.Swim/1.swim1.png',

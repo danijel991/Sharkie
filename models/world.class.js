@@ -1,25 +1,11 @@
 class World {
     character = new Character();
-    enemies = [
-        new Fish(),
-        new Fish(),
-        new Fish(),
-    ];
-    lights = [
-        new Light()
-    ];
-    floors = [
-        new Floor()
-    ];
-    backgroundObjects = [
-        new backgroundObject('img/3.Background/Layers/5._Water/D1.png', 0),
-        new backgroundObject('img/3.Background/Layers/3._Fondo 1/D1.png', 0),
-        new backgroundObject('img/3.Background/Layers/4._Fondo 2/D1.png', 0)
-    ];
+    level = level1;
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
+    background_music = new Audio('audio/background_music.mp3');
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -27,6 +13,8 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.background_music.play();
+        this.background_music.volume = .1; //background-music-volume
     }
 
     setWorld() {
@@ -38,10 +26,9 @@ class World {
 
         this.ctx.translate(this.camera_x, 0);
 
-        this.addObjectsToMap(this.backgroundObjects);
-        this.addObjectsToMap(this.floors);
-        this.addObjectsToMap(this.lights);
-        this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.lights);
+        this.addObjectsToMap(this.level.enemies);
         this.addToMap(this.character);
 
         this.ctx.translate(-this.camera_x, 0);
