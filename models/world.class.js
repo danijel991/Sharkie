@@ -14,7 +14,7 @@ class World {
         this.draw();
         this.setWorld();
         this.background_music.play();
-        this.background_music.volume = .1; //background-music-volume
+        this.background_music.volume = 0; //background-music-volume
     }
 
     setWorld() {

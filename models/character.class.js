@@ -4,7 +4,7 @@ class Character extends MovableObject {
     height = 210;
     width = 150;
     speed = 3;
-    images_idle = [
+    IMAGES_SWIMMING = [
         'img/1.Sharkie/3.Swim/1.png',
         'img/1.Sharkie/3.Swim/2.png',
         'img/1.Sharkie/3.Swim/3.png',
@@ -17,7 +17,7 @@ class Character extends MovableObject {
 
     constructor() {
         super().loadImage('img/1.Sharkie/1.IDLE/1.png');
-        this.loadImages(this.images_idle);
+        this.loadImages(this.IMAGES_SWIMMING);
 
         this.animate();
     }
@@ -40,23 +40,16 @@ class Character extends MovableObject {
             } if (this.world.keyboard.DOWN && this.y < 250) {
                 this.y += this.speed;
                 this.swimming_sound.play();
-            }
+            } 
             this.world.camera_x = -this.x + 50;
         }, 1000 / 60);
 
         setInterval(() => {
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
 
-                // walk animation
-                let i = this.currentImage % this.images_idle.length;
-                let path = this.images_idle[i];
-                this.img = this.imgCache[path];
-                this.currentImage++;
+                // swim animation
+                this.playAnimation(this.IMAGES_SWIMMING);
             }
         }, 1000 / 6);
-    }
-
-    jump() {
-
     }
 }
