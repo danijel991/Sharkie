@@ -2,9 +2,12 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
+background_music = new Audio('audio/background_music.mp3');
+
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    playBgMusic();
 }
 
 document.addEventListener('keydown', (e) => {
@@ -42,3 +45,8 @@ document.addEventListener('keyup', (e) => {
         keyboard.SPACE = false;
     }
 });
+
+function playBgMusic() {
+        // background_music.play();
+        // background_music.volume = 0.1; //background-music-volume, milliseconds)
+}

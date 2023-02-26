@@ -4,6 +4,21 @@ class MovableObject {
     currentImage = 0;
     speed = 0.15;
     otherDirection = false;
+    speedY = 1;
+    accelecartion = 0;
+
+    applyGravity() {
+        setInterval(() => {
+            if (this.isAbouveGround()) {
+                this.y -= this.speedY;
+                this.speedY -= this.accelecartion;
+            }
+        }, 1000 / 25);
+    }
+
+    isAbouveGround() {
+        return this.y < 0;
+    }
 
     loadImage(path) {
         this.img = new Image(); //ist das Gleiche wie <img=id"" src="">
