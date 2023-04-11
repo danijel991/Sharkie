@@ -1,4 +1,4 @@
-class CoinBar extends Statusbar {
+class CoinBar extends statusBar {
     x = 10;
     y = 50;
     IMAGES = [

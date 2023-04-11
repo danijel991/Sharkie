@@ -1,4 +1,4 @@
-class Poisonbar extends Statusbar {
+class Poisonbar extends statusBar {
     x = 10;
     y = 100;
     IMAGES = [
