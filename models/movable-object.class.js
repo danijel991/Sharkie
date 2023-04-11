@@ -1,12 +1,10 @@
-class MovableObject {
-    img;
-    imgCache = {};
-    currentImage = 0;
+class MovableObject extends Drawableobject{
     speed = 0.15;
     otherDirection = false;
     speedY = 1;
     accelecartion = 0;
     energy = 100;
+    lastHit = 0;
 
     offset = {
         top: 0,
@@ -29,26 +27,6 @@ class MovableObject {
         return this.y < 0;
     }
 
-    loadImage(path) {
-        this.img = new Image(); //ist das Gleiche wie <img=id"" src="">
-        this.img.src = path;
-    }
-
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
-
-    drawFrame(ctx) {
-
-        if (this instanceof Character || this instanceof Fish) {
-            ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        }
-    }
-
     isColliding(obj) {
         return this.x + this.width - this.offset.right > obj.x + obj.offset.left &&
             this.y + this.height - this.offset.bottom > obj.y + obj.offset.top &&
@@ -60,20 +38,20 @@ class MovableObject {
         this.energy -= 5;
         if (this.energy < 0) {
             this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
         }
+    }
+
+    isHurt() {
+        let timepassed = new Date().getTime() - this.lastHit; // difference in milliseconds
+        timepassed = timepassed / 1000; //difference in seconds
+        // console.log(timepassed);
+        return  timepassed < 1.25; //wir wurden in den letzten 5 Sekunden getroffen
     }
 
     isDead() {
         return this.energy == 0;
-    }
-
-    loadImages(arr) {
-        arr.forEach(path => {
-            let img = new Image();
-            img.src = path;
-            img.style = 'transform:scaleX(-1)';
-            this.imgCache[path] = img;
-        });
     }
 
     playAnimation(images) {

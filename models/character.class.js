@@ -75,26 +75,30 @@ class Character extends MovableObject {
     ];
 
     IMAGES_HURT_POISONED = [
-
+        'img/1.Sharkie/5.Hurt/1.Poisoned/1.png',
+        'img/1.Sharkie/5.Hurt/1.Poisoned/2.png',
+        'img/1.Sharkie/5.Hurt/1.Poisoned/3.png',
+        'img/1.Sharkie/5.Hurt/1.Poisoned/4.png',
+        'img/1.Sharkie/5.Hurt/1.Poisoned/5.png'
     ];
     IMAGES_HURT_ELECTRIC_SHOCK = [
 
     ];
 
     IMAGES_DEAD_POISONED = [
-      'img/1.Sharkie/6.dead/1.Poisoned/1.png',
-      'img/1.Sharkie/6.dead/1.Poisoned/2.png',
-      'img/1.Sharkie/6.dead/1.Poisoned/3.png',
-      'img/1.Sharkie/6.dead/1.Poisoned/4.png',
-      'img/1.Sharkie/6.dead/1.Poisoned/5.png',
-      'img/1.Sharkie/6.dead/1.Poisoned/6.png',
-      'img/1.Sharkie/6.dead/1.Poisoned/7.png',
-      'img/1.Sharkie/6.dead/1.Poisoned/8.png',
-      'img/1.Sharkie/6.dead/1.Poisoned/9.png',
-      'img/1.Sharkie/6.dead/1.Poisoned/10.png',
-      'img/1.Sharkie/6.dead/1.Poisoned/11.png',
-      'img/1.Sharkie/6.dead/1.Poisoned/12.png',
-      'img/1.Sharkie/6.dead/1.Poisoned/1.png'
+        'img/1.Sharkie/6.dead/1.Poisoned/1.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/2.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/3.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/4.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/5.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/6.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/7.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/8.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/9.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/10.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/11.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/12.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/1.png'
     ];
     IMAGES_DEAD_ELECTRIC_SHOCK = [
         'img/1.Sharkie/6.dead/2.Electro_shock/1.png',
@@ -152,7 +156,9 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_POISONED);
-            } else if (this.world.keyboard.SPACE) {
+            } else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT_POISONED);
+            } if (this.world.keyboard.SPACE) {
                 this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
             }
 

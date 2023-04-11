@@ -74,7 +74,7 @@ class Fish extends MovableObject {
     ];
 
     IMAGES_JELLYFISH_LILA_DEAD = [
-        'img/2.Enemy/2 Jellyfish/Dead/Lila/L1.png'
+        'img/2.Enemy/2 Jellyfish/Dead/Lila/L1.png',
         'img/2.Enemy/2 Jellyfish/Dead/Lila/L2.png',
         'img/2.Enemy/2 Jellyfish/Dead/Lila/L3.png',
         'img/2.Enemy/2 Jellyfish/Dead/Lila/L4.png'
