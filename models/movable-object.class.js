@@ -14,14 +14,21 @@ class MovableObject extends Drawableobject{
     }
 
 
-    applyGravity() {
-        setInterval(() => {
-            if (this.isAbouveGround()) {
-                this.y -= this.speedY;
-                this.speedY -= this.accelecartion;
-            }
-        }, 1000 / 25);
-    }
+applyGravity() {
+    const gravity = 0.05; // adjust this value to control the strength of the underwater gravity
+    const buoyancy = 0.01; // adjust this value to control the buoyancy force
+
+    setInterval(() => {
+        if (this.isAbouveGround()) {
+            this.speedY -= gravity;
+            this.y += this.speedY;
+        } else {
+            this.speedY += buoyancy;
+            this.y += this.speedY;
+        }
+    }, 1000 / 25);
+}
+
 
     isAbouveGround() {
         return this.y < 0;
@@ -36,7 +43,8 @@ class MovableObject extends Drawableobject{
 
     hit() {
         this.energy -= 5;
-        if (this.energy < 0) {
+        if (this.energy <= 0) {
+
             this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();

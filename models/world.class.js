@@ -9,6 +9,7 @@ class World {
     coinBar = new CoinBar();
     Poisonbar = new Poisonbar();
     statusBar = [this.healthBar, this.coinBar, this.Poisonbar];
+    throwableObjects = [new ThrowableObject()];
   
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -46,6 +47,7 @@ class World {
         // this.ctx.translate(-this.camera_x, 0);
         this.addObjectsToMap(this.level.lights);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.character);
     
         this.ctx.translate(-this.camera_x, 0);
