@@ -9,54 +9,67 @@ class World {
     coinBar = new CoinBar();
     Poisonbar = new Poisonbar();
     statusBar = [this.healthBar, this.coinBar, this.Poisonbar];
-    throwableObjects = [new ThrowableObject()];
-  
+    throwableObjects = [];
+
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
     }
 
     setWorld() {
         this.character.world = this;
     }
 
-    checkCollisions() {
+    run() {
         setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    this.character.hit();
-                    this.healthBar.setPercentage(this.character.energy);
-                    this.coinBar.setPercentage(this.character.coins);
-                    this.Poisonbar.setPercentage(this.character.poison);
-                };
-            });
-        }, 1000);
+            this.checkCollisions();
+            this.ckeckThrowObjects();
+        }, 750);
     }
-    
+
+    checkCollisions() {
+        //check collisions
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                this.healthBar.setPercentage(this.character.energy);
+                this.coinBar.setPercentage(this.character.coins);
+                this.Poisonbar.setPercentage(this.character.poison);
+            };
+        });
+    }
+
+    ckeckThrowObjects() {
+        if (this.keyboard.D) {
+            let bubble = new ThrowableObject(this.character.x + 100, this.character.y + 100)
+            this.throwableObjects.push(bubble);
+        }
+    }
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    
+
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
-    
+
         // this.ctx.translate(-this.camera_x, 0);
         this.addObjectsToMap(this.level.lights);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.character);
-    
+
         this.ctx.translate(-this.camera_x, 0);
-    
+
         // Draw status bars
         this.statusBar.forEach(bar => {
             bar.draw(this.ctx);
         });
-    
+
         let self = this;
         requestAnimationFrame(function () { //sobald alles darüber geladen wurde, wird das hier gezeichnet (asynchron)
             self.draw(); //this wird hier nicht erkannt, deswegen wird staattessen self als variable vergeben
