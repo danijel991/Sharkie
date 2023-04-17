@@ -7,17 +7,23 @@ class Coin extends MovableObject {
     x = 100;
     y = 100;
 
+    IMAGES_ANIMATED_COINS = [
+        'img/4.Marks/coins/1.png',
+        'img/4.Marks/coins/2.png',
+        'img/4.Marks/coins/3.png',
+        'img/4.Marks/coins/4.png'
+    ];
+
     constructor(x, y) {
-        super().loadImage('img/coin/coin1.png');
+        super().loadImage('img/4.Marks/coins/1.png');
         this.x = x;
         this.y = y;
-        this.applyGravity();
-        this.animateCoin();
+        this.animate();
     }
 
-    animateCoin() {
+    animate() {
         setInterval(() => {
-            this.playAnimation(['img/coin/coin1.png', 'img/coin/coin2.png', 'img/coin/coin3.png', 'img/coin/coin4.png']);
+            this.playAnimation(this.IMAGES_ANIMATED_COINS);
         }, 100);
     }
 

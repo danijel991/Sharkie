@@ -1,13 +1,13 @@
 class Level {
     enemies;
-    coins;
+    collectableObjects;
     lights;
     backgroundObjects;
     level_end_x = 720 * 3;
 
-    constructor(enemies, coins, lights, backgroundObjects) {
+    constructor(enemies, collectableObjects, lights, backgroundObjects) {
         this.enemies = enemies;
-        this.coins = coins;
+        this.coins = collectableObjects;
         this.lights = lights;
         this.backgroundObjects = backgroundObjects;
 

@@ -9,8 +9,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     coinBar = new CoinBar();
     Poisonbar = new Poisonbar();
     statusBar = [this.healthBar, this.coinBar, this.Poisonbar];
-    coins = [];
-    maxCoins = 5;
+    coins = 0;
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
