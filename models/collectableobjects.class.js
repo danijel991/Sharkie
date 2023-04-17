@@ -1,10 +1,3 @@
-class CollectableObject extends DrawableObject {
+class CollectableObject extends Drawableobject {
 
-    width = 100;
-    height = 100;
-
-   
-    objectHide() {
-        this.y = 500;
-    }
 }
