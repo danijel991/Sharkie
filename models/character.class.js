@@ -128,7 +128,6 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_HURT_ELECTRIC_SHOCK);
         this.loadImages(this.IMAGES_DEAD_POISONED);
         this.loadImages(this.IMAGES_DEAD_ELECTRIC_SHOCK);
-        // this.applyGravity();
         this.animate();
     }
 

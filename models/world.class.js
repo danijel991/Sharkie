@@ -9,7 +9,8 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     coinBar = new CoinBar();
     Poisonbar = new Poisonbar();
     statusBar = [this.healthBar, this.coinBar, this.Poisonbar];
-    coins = 0;
+    // collectedCoins = 0;
+    // collectedPoisons = 0;
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -97,6 +98,8 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
         this.addObjectsToMap(this.level.lights);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
+        this.addObjectsToMap(this.level.coins);
+        // this.addObjectsToMap(this.level.poisons);
         this.addToMap(this.character);
 
         this.ctx.translate(-this.camera_x, 0);

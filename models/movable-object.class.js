@@ -14,20 +14,6 @@ class MovableObject extends Drawableobject {
         right: 0
     }
 
-    // applyGravity() {
-    //     const gravity = 0.000000000002; // adjust this value to control the strength of the underwater gravity
-    //     const buoyancy = 0.000000000001
-    //     setInterval(() => {
-    //         if (this.isAbouveGround()) {
-    //             this.speedY -= gravity;
-    //             this.y += this.speedY;
-    //         } else {
-    //             this.speedY += buoyancy;
-    //             this.y += this.speedY;
-    //         }
-    //     }, 1000 / 25);
-    // }
-
     isAbouveGround() {
         return this.y < 0;
     }

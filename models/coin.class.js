@@ -1,11 +1,15 @@
-class Coin extends MovableObject {
-    width = 50;
-    height = 50;
+class Coins extends MovableObject {
+    height = 130;
+    width = 130;
     img;
     currentImage = 0;
     imgCache = {};
-    x = 100;
-    y = 100;
+    offset = {
+        top: 40,
+        bottom: 40,
+        left: 40,
+        right: 40
+      }
 
     IMAGES_ANIMATED_COINS = [
         'img/4.Marks/coins/1.png',
@@ -14,10 +18,10 @@ class Coin extends MovableObject {
         'img/4.Marks/coins/4.png'
     ];
 
-    constructor(x, y) {
+    constructor() {
         super().loadImage('img/4.Marks/coins/1.png');
-        this.x = x;
-        this.y = y;
+        this.x = 400 + Math.random() * 2500;
+        this.y = 350 - Math.random() * 220;
         this.animate();
     }
 
@@ -25,9 +29,5 @@ class Coin extends MovableObject {
         setInterval(() => {
             this.playAnimation(this.IMAGES_ANIMATED_COINS);
         }, 100);
-    }
-
-    collect() {
-        // Collect coin logic here
     }
 }
