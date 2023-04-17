@@ -68,6 +68,6 @@ class Endboss extends MovableObject {
     animate() {
         setInterval(() => {
             this.playAnimation(this.IMAGES_BOSS_SWIM);
-        }, 1000);
+        }, 250);
     };
 }

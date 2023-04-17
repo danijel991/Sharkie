@@ -32,13 +32,22 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
             this.ckeckThrowObjects();
         }, 750);
     }
-    
+
     checkCollisions() {
         if (this.level.enemies) {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
                     this.character.hitByEnemy();
                     this.healthBar.setPercentage(this.character.energy);
+                }
+            });
+        }
+
+        if (this.level.coins) {
+            this.level.coins.forEach((coin) => {
+                if (this.character.isColliding(coin)) {
+                    this.character.fillCoinBar();
+                    this.coinBar.setPercentage(this.character.coinsAmount);
                 }
             });
         }

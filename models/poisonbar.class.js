@@ -1,6 +1,6 @@
 class Poisonbar extends statusBar {
-    x = 10;
-    y = 100;
+  x = 450;
+  y = 0;
     IMAGES = [
         'img/4.Marks/green/poisoned_bubbles/0.png',
         'img/4.Marks/green/poisoned_bubbles/20.png',
