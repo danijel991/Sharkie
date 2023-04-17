@@ -1,4 +1,4 @@
-class World {
+class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tastatur, kamera, health bars
     character = new Character();
     level = level1;
     canvas;
@@ -9,6 +9,8 @@ class World {
     coinBar = new CoinBar();
     Poisonbar = new Poisonbar();
     statusBar = [this.healthBar, this.coinBar, this.Poisonbar];
+    coins = [];
+    maxCoins = 5;
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -30,17 +32,43 @@ class World {
             this.ckeckThrowObjects();
         }, 750);
     }
-
+    
     checkCollisions() {
-        //check collisions
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                this.healthBar.setPercentage(this.character.energy);
-                this.coinBar.setPercentage(this.character.coins);
-                this.Poisonbar.setPercentage(this.character.poison);
-            };
-        });
+        if (this.level.enemies) {
+            this.level.enemies.forEach((enemy) => {
+                if (this.character.isColliding(enemy)) {
+                    this.character.hitByEnemy();
+                    this.healthBar.setPercentage(this.character.energy);
+                }
+            });
+        }
+
+        if (this.level.bosses) {
+            this.level.bosses.forEach((boss) => {
+                if (this.character.isColliding(boss)) {
+                    this.character.hitByBoss();
+                    this.healthBar.setPercentage(this.character.energy);
+                }
+            });
+        }
+
+        if (this.level.bubbleEnemies) {
+            this.level.bubbleEnemies.forEach((bubbleEnemy) => {
+                if (this.character.isColliding(bubbleEnemy)) {
+                    bubbleEnemy.pop();
+                    // Other logic for handling bubble enemy collisions
+                }
+            });
+        }
+
+        if (this.level.bubbleBosses) {
+            this.level.bubbleBosses.forEach((bubbleBoss) => {
+                if (this.character.isColliding(bubbleBoss)) {
+                    bubbleBoss.pop();
+                    // Other logic for handling bubble boss collisions
+                }
+            });
+        }
     }
 
     ckeckThrowObjects() {

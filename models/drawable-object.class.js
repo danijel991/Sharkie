@@ -3,18 +3,18 @@ class Drawableobject {
     imgCache = {};
     currentImage = 0;
 
-        loadImage(path) {
+    loadImage(path) {
         this.img = new Image(); //ist das Gleiche wie <img=id"" src="">
         this.img.src = path;
     }
-    
+
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
-        drawFrame(ctx) {
+    drawFrame(ctx) {
 
-        if (this instanceof Character || this instanceof Fish) {
+        if (this instanceof Character || this instanceof PufferFish ||this instanceof JellyFish || this instanceof Endboss) {
             ctx.beginPath();
             ctx.lineWidth = '3';
             ctx.strokeStyle = 'red';
@@ -23,7 +23,7 @@ class Drawableobject {
         }
     }
 
-        loadImages(arr) {
+    loadImages(arr) {
         arr.forEach(path => {
             let img = new Image();
             img.src = path;
