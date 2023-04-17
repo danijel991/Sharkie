@@ -5,9 +5,6 @@ class Drawableobject {
 
     loadImage(path) {
         this.img = new Image(); //ist das Gleiche wie <img=id"" src="">
-        this.img.onload = () => {
-            this.draw(ctx);
-        }
         this.img.src = path;
     }
 
@@ -29,11 +26,9 @@ class Drawableobject {
     loadImages(arr) {
         arr.forEach(path => {
             let img = new Image();
-            img.onload = () => {
-                this.imgCache[path] = img;
-            }
             img.src = path;
             img.style = 'transform:scaleX(-1)';
+            this.imgCache[path] = img;
         });
     }
 }
