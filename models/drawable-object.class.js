@@ -12,16 +12,38 @@ class Drawableobject {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height); // Drawing objects on the canvas
     }
 
+    // draw(ctx) { // try method
+    //     try {
+    //     ctx.drawImage(this.img, this.x, this.y, this.width, this.height); // Drawing objects on the canvas
+    // } catch(e){
+    //     console.warn('Error loading image', e);
+    //     console.log('Could not load image,', this.img.src)
+    // }
+    // }
+
     drawFrame(ctx) {
 
-        if (this instanceof Character || this instanceof PufferFish ||this instanceof JellyFish || this instanceof Endboss || this instanceof Coins ) {
+        if (this instanceof Character || this instanceof PufferFish || this instanceof JellyFish || this instanceof Endboss ||
+            this instanceof Coins || this instanceof Poisons) {
             ctx.beginPath(); //shows the frames
             ctx.lineWidth = '3';
             ctx.strokeStyle = 'red';
             ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.rect(this.x + this.offset.left, 
+                this.y + this.offset.top,
+                (this.x + this.width - this.offset.right) - 
+                (this.x + this.offset.left),
+                (this.y + this.height - this.offset.bottom) - 
+                (this.y + this.offset.top));
             ctx.stroke();
         }
     }
+
+
+            //         this.offset.bottom) - 
+            //         (this.y + this.offset.y));
+
+    // x = left  y = top width = right height= bottom
 
     loadImages(arr) {
         arr.forEach(path => {

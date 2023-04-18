@@ -2,12 +2,12 @@ class Poisonbar extends statusBar {
   x = 450;
   y = 0;
     IMAGES = [
-        'img/4.Marks/green/poisoned_bubbles/0.png',
-        'img/4.Marks/green/poisoned_bubbles/20.png',
-        'img/4.Marks/green/poisoned_bubbles/40.png',
-        'img/4.Marks/green/poisoned_bubbles/60.png',
-        'img/4.Marks/green/poisoned_bubbles/80.png',
-        'img/4.Marks/green/poisoned_bubbles/100.png'
+        './img/4.Marks/green/poisoned_bubbles/0.png',
+        './img/4.Marks/green/poisoned_bubbles/20.png',
+        './img/4.Marks/green/poisoned_bubbles/40.png',
+        './img/4.Marks/green/poisoned_bubbles/60.png',
+        './img/4.Marks/green/poisoned_bubbles/80.png',
+        './img/4.Marks/green/poisoned_bubbles/100.png'
     ];
   
     constructor() {

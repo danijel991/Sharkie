@@ -7,11 +7,11 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     camera_x = 0;
     healthBar = new HealthBar();
     coinBar = new CoinBar();
-    Poisonbar = new Poisonbar();
-    statusBar = [this.healthBar, this.coinBar, this.Poisonbar];
+    poisonbar = new Poisonbar();
+    statusBar = [this.healthBar, this.coinBar, this.poisonbar];
     // collectedCoins = 0;
     // collectedPoisons = 0;
-    throwableObjects = [];
+    throwableObjects = [new ThrowableObject()];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -27,13 +27,39 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     }
 
     run() {
+        this.collisionWithCharacter();
+        this.collisionWithObjects();
+        this.checkThrowObjects();
+    }
+
+    checkThrowObjects() {
         setInterval(() => {
-            this.checkCollisions();
-            this.ckeckThrowObjects();
+            this.checkThrowObjectsBubble();
+        }, 400);
+    }
+
+
+    checkThrowObjectsBubble() {
+        if (this.keyboard.D) {
+            let bubble = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+            this.throwableObjects.push(bubble);
+            console.log('bubble');
+        }
+    }
+
+    collisionWithCharacter() {
+        setInterval(() => {
+            this.checkCollisionsWithCaracter();
         }, 750);
     }
 
-    checkCollisions() {
+    collisionWithObjects() {
+        setInterval(() => {
+            this.checkCollisionsWithObjects();
+        }, 10);
+    }
+
+    checkCollisionsWithCaracter() {
         if (this.level.enemies) {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
@@ -43,49 +69,45 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
             });
         }
 
-        if (this.level.coins) {
-            this.level.coins.forEach((coin) => {
-                if (this.character.isColliding(coin)) {
-                    this.character.fillCoinBar();
-                    this.coinBar.setPercentage(this.character.coinsAmount);
-                }
-            });
-        }
-
-        if (this.level.bosses) {
-            this.level.bosses.forEach((boss) => {
+        if (this.level.endbosses) {
+            this.level.endbosses.forEach((boss) => {
                 if (this.character.isColliding(boss)) {
                     this.character.hitByBoss();
                     this.healthBar.setPercentage(this.character.energy);
                 }
             });
         }
+    }
 
-        if (this.level.bubbleEnemies) {
-            this.level.bubbleEnemies.forEach((bubbleEnemy) => {
-                if (this.character.isColliding(bubbleEnemy)) {
-                    bubbleEnemy.pop();
-                    // Other logic for handling bubble enemy collisions
+    checkCollisionsWithObjects() {
+        if (this.level.coins) {
+            this.level.coins.forEach((coin, index) => {
+                if (this.character.isColliding(coin)) {
+                    this.character.fillCoinBar();
+                    this.coinBar.setPercentage(this.character.coinsAmount);
+                    setTimeout(() => {
+                        coin.visible = false; // make the coin object invisible
+                        this.level.coins.splice(index, 1); // remove the coin from the coins array
+                    }, 0);
                 }
             });
         }
 
-        if (this.level.bubbleBosses) {
-            this.level.bubbleBosses.forEach((bubbleBoss) => {
-                if (this.character.isColliding(bubbleBoss)) {
-                    bubbleBoss.pop();
-                    // Other logic for handling bubble boss collisions
+        if (this.level.poisons) {
+            this.level.poisons.forEach((poison, index) => {
+                if (this.character.isColliding(poison)) {
+                    this.character.fillPoisonBar();
+                    this.poisonbar.setPercentage(this.character.poisonsAmount);
+                    setTimeout(() => {
+                        poison.visible = false; // make the poison object invisible
+                        this.level.poisons.splice(index, 1); // remove the poison from the poisons array
+                    }, 0);
                 }
             });
         }
     }
 
-    ckeckThrowObjects() {
-        if (this.keyboard.D) {
-            let bubble = new ThrowableObject(this.character.x + 100, this.character.y + 100)
-            this.throwableObjects.push(bubble);
-        }
-    }
+
 
 
     draw() {
@@ -95,11 +117,12 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
         this.addObjectsToMap(this.level.backgroundObjects);
 
         // this.ctx.translate(-this.camera_x, 0);
-        this.addObjectsToMap(this.level.lights);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.throwableObjects);
+        this.addObjectsToMap(this.level.endbosses);
+        this.addObjectsToMap(this.level.lights);
         this.addObjectsToMap(this.level.coins);
-        // this.addObjectsToMap(this.level.poisons);
+        this.addObjectsToMap(this.level.poisons);
+        this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.character);
 
         this.ctx.translate(-this.camera_x, 0);

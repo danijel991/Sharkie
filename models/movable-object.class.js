@@ -5,6 +5,7 @@ class MovableObject extends Drawableobject {
     accelecartion = 0;
     energy = 100;
     coinsAmount = 0;
+    poisonsAmount = 0;
     lastHit = 0;
 
     offset = {
@@ -33,20 +34,27 @@ class MovableObject extends Drawableobject {
             this.lastHit = new Date().getTime();
         }
     }
+
+    hitByBoss() {
+        this.energy -= 10;
+        if (this.energy <= 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
     fillCoinBar() {
-        this.coinsAmount += 5;
+        this.coinsAmount += 10;
         if (this.coinsAmount <= 0) {
             this.coinsAmount = 0;
         }
     }
 
-    hitByBoss() {
-        this.energy -= 20;
-        if (this.energy <= 0) {
-            this.energy = 0;
-            // Game over logic
-        } else {
-            this.lastHit = new Date().getTime();
+    fillPoisonBar() {
+        this.poisonsAmount += 10;
+        if (this.poisonsAmount <= 0) {
+            this.poisonsAmount = 0;
         }
     }
 
@@ -86,16 +94,23 @@ class MovableObject extends Drawableobject {
         }, 1000 / 60);
     }
 
-
-
     update() {
         super.update(); // Call the update method of the parent class
-      
         // Update the position of the jellyfish based on its direction and speed
         if (this.direction === -1) {
-          this.moveUpDown();
+            this.moveUpDown();
         } else {
-          this.moveDownUP();
+            this.moveDownUP();
         }
-      }
+    }
+    animateCollectables() {
+        let startY = this.y;
+        let time = 0;
+        setInterval(() => {
+            time += 1;
+            this.y = startY + Math.sin(time / 100) * 20;
+        }, 1000 / 60);
+    }
 }
+
+

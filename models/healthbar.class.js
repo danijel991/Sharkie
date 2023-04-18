@@ -2,12 +2,12 @@ class HealthBar extends statusBar {
     x = 10;
     y = 0;
     IMAGES = [
-      'img/4.Marks/green/Life/0.png',
-      'img/4.Marks/green/Life/20.png',
-      'img/4.Marks/green/Life/40.png',
-      'img/4.Marks/green/Life/60.png',
-      'img/4.Marks/green/Life/80.png',
-      'img/4.Marks/green/Life/100.png'
+      './img/4.Marks/green/Life/0.png',
+      './img/4.Marks/green/Life/20.png',
+      './img/4.Marks/green/Life/40.png',
+      './img/4.Marks/green/Life/60.png',
+      './img/4.Marks/green/Life/80.png',
+      './img/4.Marks/green/Life/100.png'
   ];
   
     constructor() {

@@ -2,7 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
-background_music = new Audio('audio/background_music.mp3');
+background_music = new Audio('./audio/background_music.mp3');
 
 function init() {
     canvas = document.getElementById('canvas');
