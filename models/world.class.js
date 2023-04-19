@@ -11,7 +11,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     statusBar = [this.healthBar, this.coinBar, this.poisonbar];
     // collectedCoins = 0;
     // collectedPoisons = 0;
-    throwableObjects = [new ThrowableObject()];
+    throwableObjects = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -40,10 +40,12 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
 
 
     checkThrowObjectsBubble() {
+        const MovableObjectExtend = MovableObject;
         if (this.keyboard.D) {
             let bubble = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bubble);
             console.log('bubble');
+            MovableObjectExtend.emptyPoisonbar();
         }
     }
 

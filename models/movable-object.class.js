@@ -4,8 +4,8 @@ class MovableObject extends Drawableobject {
     speedY = 1;
     accelecartion = 0;
     energy = 100;
-    coinsAmount = 0;
-    poisonsAmount = 0;
+    coinsAmount = 1;
+    poisonsAmount = 20;
     lastHit = 0;
 
     offset = {
@@ -53,6 +53,13 @@ class MovableObject extends Drawableobject {
 
     fillPoisonBar() {
         this.poisonsAmount += 10;
+        if (this.poisonsAmount <= 0) {
+            this.poisonsAmount = 0;
+        }
+    }
+
+    emptyPoisonbar() {
+        this.poisonsAmount -= 10;
         if (this.poisonsAmount <= 0) {
             this.poisonsAmount = 0;
         }
