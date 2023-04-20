@@ -8,10 +8,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     healthBar = new HealthBar();
     coinBar = new CoinBar();
     poisonbar = new Poisonbar();
-    movableobjectextend = new MovableObject();
     statusBar = [this.healthBar, this.coinBar, this.poisonbar];
-    // collectedCoins = 0;
-    // collectedPoisons = 0;
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -45,7 +42,8 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
             let bubble = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bubble);
             console.log('bubble');
-            this.movableobjectextend.emptyPoisonbar();
+            this.character.emptyPoisonbar();
+            this.poisonbar.setPercentage(this.character.poisonsAmount);
         }
     }
 
