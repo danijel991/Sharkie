@@ -155,6 +155,8 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_POISONED);
+                    console.log("GAME OVER");
+                    stopGame();
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT_POISONED);
             } if (this.world.keyboard.SPACE) {
