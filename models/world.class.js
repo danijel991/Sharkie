@@ -38,7 +38,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
 
 
     checkThrowObjectsBubble() {
-        if (this.keyboard.D && this.character.poisonsAmount >= 1){
+        if (this.keyboard.D && this.character.poisonsAmount >= 1) {
             let bubble = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bubble);
             console.log('bubble');
@@ -63,6 +63,15 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
         if (this.level.enemies) {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
+                    this.character.hitByEnemy();
+                    this.healthBar.setPercentage(this.character.energy);
+                }
+            });
+        }
+
+        if (this.level.jellyfishes) {
+            this.level.jellyfishes.forEach((jellyfish) => {
+                if (this.character.isColliding(jellyfish)) {
                     this.character.hitByEnemy();
                     this.healthBar.setPercentage(this.character.energy);
                 }
@@ -118,6 +127,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
 
         // this.ctx.translate(-this.camera_x, 0);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.jellyfishes);
         this.addObjectsToMap(this.level.endbosses);
         this.addObjectsToMap(this.level.lights);
         this.addObjectsToMap(this.level.coins);
