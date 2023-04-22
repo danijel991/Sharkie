@@ -38,7 +38,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
 
 
     checkThrowObjectsBubble() {
-        if (this.keyboard.D) {
+        if (this.keyboard.D && this.character.poisonsAmount >= 1){
             let bubble = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bubble);
             console.log('bubble');

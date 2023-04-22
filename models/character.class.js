@@ -162,7 +162,7 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_HURT_POISONED);
             } if (this.world.keyboard.SPACE) {
                 this.playAnimation(this.IMAGES_ATTACK_FIN_SLAP);
-            } if (this.world.keyboard.D) {
+            } if (this.world.keyboard.D && this.poisonsAmount >= 1) {
                 this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
             }
 
@@ -172,18 +172,4 @@ class Character extends MovableObject {
             }
         }, 1000 / 6);
     }
-
-    playAttackBubble() {
-        let i = this.attack;
-        let path = this.IMAGES_ATTACK_BUBBLE[i];
-        this.img = this.imageCache[path];
-        this.attack++;
-    };
-
-    playAttackFinalSlap() {
-        let i = this.attack;
-        let path = this.IMAGES_ATTACK_FIN_SLAP[i];
-        this.img = this.imageCache[path];
-        this.attack++;
-    };
 }
