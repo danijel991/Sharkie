@@ -161,16 +161,16 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_DEAD_POISONED);
                 console.log("GAME OVER");
                 // stopGame();
-            } else if (this.isHurt()) if (this.world.keyboard.SPACE) {
+            } else if (this.world.keyboard.SPACE) {
                 this.playAnimation(this.IMAGES_ATTACK_FIN_SLAP);
-            } if (this.world.keyboard.D && this.poisonsAmount >= 1) {
-                this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
-            }
+            } if (this.world.keyboard.D && this.poisonsAmount >= 1 && this.otherDirection == false) {
+            this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
+        }
 
             else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
-                // swim animation
-                this.playAnimation(this.IMAGES_SWIMMING);
-            }
-        }, 1000 / 6);
+            // swim animation
+            this.playAnimation(this.IMAGES_SWIMMING);
+        }
+    }, 1000 / 6);
     }
 }

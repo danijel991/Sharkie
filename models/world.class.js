@@ -33,12 +33,12 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     checkThrowObjects() {
         setInterval(() => {
             this.checkThrowObjectsBubble();
-        }, 400);
+        }, 1000);
     }
 
 
     checkThrowObjectsBubble() {
-        if (this.keyboard.D && this.character.poisonsAmount >= 1) {
+        if (this.keyboard.D && this.character.poisonsAmount >= 1 && this.character.otherDirection == false) {
             let bubble = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bubble);
             console.log('bubble');

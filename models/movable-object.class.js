@@ -8,7 +8,6 @@ class MovableObject extends Drawableobject {
     bossenergy = 100;
     coinsAmount = 0;
     poisonsAmount = 0;
-    lastHit = 0;
 
     offset = {
         top: 0,
@@ -67,12 +66,6 @@ class MovableObject extends Drawableobject {
         }
     }
 
-    isHurt() {
-        let timepassed = new Date().getTime() - this.lastHit; // difference in milliseconds
-        timepassed = timepassed / 1000; //difference in seconds
-        // console.log(timepassed);
-        return timepassed < 1.25; //wir wurden in den letzten 5 Sekunden getroffen
-    }
 
     isDead() {
         return this.energy == 0;
