@@ -1,6 +1,8 @@
 class HealthBar extends statusBar {
-    x = 10;
+    x = 25;
     y = 0;
+    width = 200;
+    height = 60;
     IMAGES = [
       './img/4.Marks/green/Life/0.png',
       './img/4.Marks/green/Life/20.png',

@@ -4,6 +4,7 @@ class Character extends MovableObject {
     height = 210;
     width = 150;
     speed = 3;
+    attack = 0;
 
     //images of character
     IMAGES_SWIMMING = [
@@ -155,11 +156,13 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_POISONED);
-                    console.log("GAME OVER");
-                    // stopGame();
+                console.log("GAME OVER");
+                // stopGame();
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT_POISONED);
             } if (this.world.keyboard.SPACE) {
+                this.playAnimation(this.IMAGES_ATTACK_FIN_SLAP);
+            } if (this.world.keyboard.D) {
                 this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
             }
 
@@ -169,4 +172,18 @@ class Character extends MovableObject {
             }
         }, 1000 / 6);
     }
+
+    playAttackBubble() {
+        let i = this.attack;
+        let path = this.IMAGES_ATTACK_BUBBLE[i];
+        this.img = this.imageCache[path];
+        this.attack++;
+    };
+
+    playAttackFinalSlap() {
+        let i = this.attack;
+        let path = this.IMAGES_ATTACK_FIN_SLAP[i];
+        this.img = this.imageCache[path];
+        this.attack++;
+    };
 }

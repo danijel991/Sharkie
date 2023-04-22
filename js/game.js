@@ -3,17 +3,17 @@ let world;
 let keyboard = new Keyboard();
 let fullscreenState = false;
 
-background_music = new Audio('./audio/background_music.mp3');
+let background_music = new Audio('./audio/background_music.mp3');
+background_music.volume = 0.1; //set audio volume
+let isPlaying = false;
 
 let intervalIds = [];
 let i = 1;
 
-
-
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    playBgMusic();
+    // playBgMusic();
 }
 
 // function setStopableInterval(fn, time) {
@@ -86,9 +86,24 @@ document.addEventListener('keyup', (e) => {
 });
 
 function playBgMusic() {
-    // background_music.play();
-    // background_music.volume = 0.1; //background-music-volume, milliseconds)
+    background_music.play();
+    isPlaying = true;
 }
+
+function togglePlay() {
+    if (isPlaying) {
+        background_music.pause()
+    } else {
+        background_music.play();
+    }
+};
+background_music.onplaying = function () {
+    background_music.volume = 0.1;
+    isPlaying = true;
+};
+background_music.onpause = function () {
+    isPlaying = false;
+};
 
 function fullscreen() {
     let fullscreen = document.getElementById('fullscreen');
