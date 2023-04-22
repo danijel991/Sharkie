@@ -79,6 +79,9 @@ class Character extends MovableObject {
         './img/1.Sharkie/5.Hurt/1.Poisoned/5.png'
     ];
     IMAGES_HURT_ELECTRIC_SHOCK = [
+        'img/1.Sharkie/5.Hurt/2.Electric_shock/1.png',
+        'img/1.Sharkie/5.Hurt/2.Electric_shock/2.png',
+        'img/1.Sharkie/5.Hurt/2.Electric_shock/3.png'
     ];
     IMAGES_DEAD_POISONED = [
         './img/1.Sharkie/6.dead/1.Poisoned/1.png',
@@ -158,9 +161,7 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_DEAD_POISONED);
                 console.log("GAME OVER");
                 // stopGame();
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT_POISONED);
-            } if (this.world.keyboard.SPACE) {
+            } else if (this.isHurt()) if (this.world.keyboard.SPACE) {
                 this.playAnimation(this.IMAGES_ATTACK_FIN_SLAP);
             } if (this.world.keyboard.D && this.poisonsAmount >= 1) {
                 this.playAnimation(this.IMAGES_ATTACK_BUBBLE);

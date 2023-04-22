@@ -60,11 +60,12 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     }
 
     checkCollisionsWithCaracter() {
-        if (this.level.enemies) {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
+        if (this.level.pufferfishes) {
+            this.level.pufferfishes.forEach((pufferfish) => {
+                if (this.character.isColliding(pufferfish)) {
                     this.character.hitByEnemy();
                     this.healthBar.setPercentage(this.character.energy);
+                    this.character.playAnimation(this.character.IMAGES_HURT_POISONED);
                 }
             });
         }
@@ -74,6 +75,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
                 if (this.character.isColliding(jellyfish)) {
                     this.character.hitByEnemy();
                     this.healthBar.setPercentage(this.character.energy);
+                    this.character.playAnimation(this.character.IMAGES_HURT_ELECTRIC_SHOCK);
                 }
             });
         }
@@ -83,6 +85,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
                 if (this.character.isColliding(boss)) {
                     this.character.hitByBoss();
                     this.healthBar.setPercentage(this.character.energy);
+                    this.character.playAnimation(this.character.IMAGES_HURT_POISONED);
                 }
             });
         }
@@ -126,7 +129,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
         this.addObjectsToMap(this.level.backgroundObjects);
 
         // this.ctx.translate(-this.camera_x, 0);
-        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.pufferfishes);
         this.addObjectsToMap(this.level.jellyfishes);
         this.addObjectsToMap(this.level.endbosses);
         this.addObjectsToMap(this.level.lights);
