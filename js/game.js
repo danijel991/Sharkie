@@ -60,6 +60,10 @@ document.addEventListener('keydown', (e) => {
         keyboard.F = true;
         fullscreen();
     }
+    if (e.keyCode == 72) {
+        keyboard.F = true;
+        toggleHelp();
+    }
 });
 
 document.addEventListener('keyup', (e) => {
@@ -82,6 +86,9 @@ document.addEventListener('keyup', (e) => {
         keyboard.D = false;
     }
     if (e.keyCode == 70) {
+        keyboard.F = false;
+    }
+    if (e.keyCode == 72) {
         keyboard.F = false;
     }
 });
@@ -113,8 +120,10 @@ function fullscreen() {
         let fullscreenbutton = document.getElementById('fullscreen-button');
         fullscreenbutton.innerHTML = 'Klick here leave fullscreen or press F again';
         enterFullscreen(fullscreen);
+        console.log(fullscreenState);
     } else {
         fullscreenState = false;
+        console.log(fullscreenState);
         document.getElementById('fullscreen-button');
 
         exitFullscreen();
@@ -140,26 +149,21 @@ function exitFullscreen() {
 }
 
 function toggleHelp() {
-
     let btn = document.getElementById('toggleHelp');
     let help = document.getElementById('HowToPlay');
     let full = document.getElementById('fullscreen');
 
-    if (helpisopen == true) {
-        !helpisopen;
-        help.style.display = 'none';
-        full.style.display = 'block';
-        
-        btn.innerHTML = 'How to play';
-
-        console.log('helpisopen = ' + helpisopen);
-
-    } else {
+    if (!helpisopen) {
         helpisopen = true;
         full.style.display = 'none';
         help.style.display = 'flex';
-
-        btn.innerHTML = 'Close help';
+        btn.innerHTML = 'Close help or press H';
+        console.log('helpisopen = ' + helpisopen);
+    } else {
+        helpisopen = false;
+        help.style.display = 'none';
+        full.style.display = 'block';
+        btn.innerHTML = 'Klick to learn how to play or press H';
         console.log('helpisopen = ' + helpisopen);
     }
 }

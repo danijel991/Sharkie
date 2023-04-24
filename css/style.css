@@ -8,6 +8,9 @@ body {
 
 canvas {
     background-color: rgb(0, 0, 0);
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
 }
 
 h1 {
@@ -34,4 +37,12 @@ h1 {
 
 #fullscreen {
     display: block;
+}
+
+button {
+    background-color: #382ca2;
+    color: white;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    z-index: 99;
 }
