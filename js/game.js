@@ -2,6 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let fullscreenState = false;
+let helpisopen = false;
 
 let background_music = new Audio('./audio/background_music.mp3');
 background_music.volume = 0.1; //set audio volume
@@ -118,7 +119,6 @@ function fullscreen() {
 
         exitFullscreen();
     }
-
 }
 
 function enterFullscreen(element) {
@@ -136,5 +136,30 @@ function exitFullscreen() {
         document.exitFullscreen();
     } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
+    }
+}
+
+function toggleHelp() {
+
+    let btn = document.getElementById('toggleHelp');
+    let help = document.getElementById('HowToPlay');
+    let full = document.getElementById('fullscreen');
+
+    if (helpisopen == true) {
+        !helpisopen;
+        help.style.display = 'none';
+        full.style.display = 'block';
+        
+        btn.innerHTML = 'How to play';
+
+        console.log('helpisopen = ' + helpisopen);
+
+    } else {
+        helpisopen = true;
+        full.style.display = 'none';
+        help.style.display = 'flex';
+
+        btn.innerHTML = 'Close help';
+        console.log('helpisopen = ' + helpisopen);
     }
 }

@@ -31,13 +31,31 @@
 </head>
 
 <body onload="init()">
+    <div id="HowToPlay">
+        <h2>How to play</h2>
+        <span>Usw arrow keys to move Sharkie</span><br>
+        <span>Arrow left - move left</span><br>
+        <span>Arrow right - move right</span><br>
+        <span>Arrow up - move up</span><br>
+        <span>Arrow down - move down</span><br>
+        <button onclick="toggleHelp()" id="toggleHelp"></button>
+    </div>
+
     <div id="fullscreen">
-        <button onclick="fullscreen()" id="fullscreen-button">Klick here to enter fullscreen or press F</button>
-        <button onclick="toggleSfx()" id="toggleSfx">toggleSfx</button>
-        <button onclick="togglePlay()" id="toggleMusic">toggleMusic</button>
-    <h1>Sharkie</h1>
-    <canvas id="canvas" width="720" height="480"></canvas> <!--Hier wird eingestellt wie groß der canvas sein soll-->
-</div>
+        <div canvasOver>
+            <button onclick="fullscreen()" id="fullscreen-button">Klick here to enter fullscreen or press F</button>
+            <button onclick="toggleSfx()" id="toggleSfx">toggleSfx</button>
+            <button onclick="togglePlay()" id="toggleMusic">toggleMusic</button>
+        </div>
+        <h1>Sharkie</h1>
+        <canvas id="canvas" width="720" height="480"></canvas>
+        <!--Hier wird eingestellt wie groß der canvas sein soll-->
+            <div class="canvasSub">
+        <button onclick="toggleHelp()" id="toggleHelp">How to play</button>
+    </div>
+    </div>
+
+
 </body>
 
 </html>

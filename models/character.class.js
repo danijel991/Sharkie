@@ -159,18 +159,42 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_POISONED);
-                console.log("GAME OVER");
-                // stopGame();
+                this.stopGame();
+
             } else if (this.world.keyboard.SPACE) {
                 this.playAnimation(this.IMAGES_ATTACK_FIN_SLAP);
             } if (this.world.keyboard.D && this.poisonsAmount >= 1 && this.otherDirection == false) {
-            this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
-        }
+                this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
+            }
 
             else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
-            // swim animation
-            this.playAnimation(this.IMAGES_SWIMMING);
-        }
-    }, 1000 / 6);
+                // swim animation
+                this.playAnimation(this.IMAGES_SWIMMING);
+            } else
+                this.checkIdle();
+        }, 1000 / 4.5);
+    }
+
+    checkIdle() {
+        // setTimeout(this.animateIdle(), 3000);
+        this.animateIdle();
+
+    }
+    checkIdleLong() {
+        this.animateIdleLong();
+        // setTimeout(this.animateIdleLong(), 5000);
+    }
+
+    animateIdle() {
+        console.log('Idle');
+        this.playAnimation(this.IMAGES_IDLE);
+    }
+    animateIdleLong() {
+        console.log('IdleLong');
+        this.playAnimation(this.IMAGES_LONG_IDLE);
+    }
+
+    stopGame() {
+        console.log("GAME OVER");
     }
 }

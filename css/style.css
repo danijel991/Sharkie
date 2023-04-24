@@ -13,3 +13,25 @@ canvas {
 h1 {
     color: #382ca2;
 }
+
+#HowToPlay {
+    color: white;
+    height: 480px;
+    width: 720px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.displayNone {
+    display: none;
+}
+
+.displayFlex {
+    display: flex;
+}
+
+#fullscreen {
+    display: block;
+}
