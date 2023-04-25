@@ -118,7 +118,7 @@ function fullscreen() {
     if (!fullscreenState) {
         fullscreenState = true;
         let fullscreenbutton = document.getElementById('fullscreen-button');
-        fullscreenbutton.innerHTML = 'Klick here leave fullscreen or press F again';
+        fullscreenbutton.innerHTML = 'Exit fullscreen (F)';
         enterFullscreen(fullscreen);
         console.log(fullscreenState);
     } else {
@@ -157,13 +157,13 @@ function toggleHelp() {
         helpisopen = true;
         full.style.display = 'none';
         help.style.display = 'flex';
-        btn.innerHTML = 'Close help or press H';
+        btn.innerHTML = 'Close help (H)';
         console.log('helpisopen = ' + helpisopen);
     } else {
         helpisopen = false;
         help.style.display = 'none';
         full.style.display = 'block';
-        btn.innerHTML = 'Klick to learn how to play or press H';
+        btn.innerHTML = 'How to play (H)';
         console.log('helpisopen = ' + helpisopen);
     }
 }

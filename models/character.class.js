@@ -6,6 +6,9 @@ class Character extends MovableObject {
     speed = 3;
     attack = 0;
 
+    world;
+    spaceAlreadyPressed = false;
+
     //images of character
     IMAGES_SWIMMING = [
         './img/1.Sharkie/3.Swim/1.png',
@@ -137,42 +140,52 @@ class Character extends MovableObject {
 
     animate() {
         setInterval(() => {
+
             // this.swimming_sound.pause();
             this.swimming_sound.volume = .5;
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
                 this.swimming_sound.play();
+
             } if (this.world.keyboard.LEFT && this.x > -100) {
                 this.otherDirection = true;
                 this.moveLeft();
                 this.swimming_sound.play();
+
             } if (this.world.keyboard.UP && this.y > 0) {
                 this.y -= this.speed;
                 this.swimming_sound.play();
+
             } if (this.world.keyboard.DOWN && this.y < 250) {
                 this.y += this.speed;
                 this.swimming_sound.play();
             }
+
             this.world.camera_x = -this.x + 50;
+
         }, 1000 / 60);
 
         setInterval(() => {
+
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_POISONED);
                 this.stopGame();
 
             } else if (this.world.keyboard.SPACE) {
                 this.playAnimation(this.IMAGES_ATTACK_FIN_SLAP);
-            } if (this.world.keyboard.D && this.poisonsAmount >= 1 && this.otherDirection == false) {
+
+            } else if (this.world.keyboard.D && this.poisonsAmount >= 1 && this.otherDirection == false && this.energy >= 1) {
                 this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
             }
 
             else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
                 // swim animation
                 this.playAnimation(this.IMAGES_SWIMMING);
-            } else
+
+            } else if (this.noKeyPressed() && !this.isDead())
                 this.checkIdle();
-        }, 1000 / 4.5);
+
+        }, 500);
     }
 
     checkIdle() {
@@ -196,5 +209,15 @@ class Character extends MovableObject {
 
     stopGame() {
         console.log("GAME OVER");
+    }
+
+    noKeyPressed() {
+        return !this.world.keyboard.RIGHT &&
+            !this.world.keyboard.LEFT &&
+            !this.world.keyboard.UP &&
+            !this.world.keyboard.DOWN &&
+            // !this.spaceAlreadyPressed &&
+            !this.world.keyboard.D &&
+            !this.attacked
     }
 }

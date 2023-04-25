@@ -3,6 +3,7 @@ class Endboss extends MovableObject {
     height = 500;
     width = 600;
     y = -25;
+    x = 2200;
 
     IMAGES_BOSS_INTRO = [
         './img/2.Enemy/3_Final_Enemy/1.Introduce/1.png',
@@ -62,13 +63,12 @@ class Endboss extends MovableObject {
         top: 150,
         bottom: 70,
         left: 37,
-        right: 37    
+        right: 37
     }
 
     constructor() { //super wird geschrieben, wenn Methoden vom übergeordneten obejkt aufgerufen werden sollen
         super().loadImage(this.IMAGES_BOSS_SWIM[0]);
         this.loadImages(this.IMAGES_BOSS_SWIM);
-        this.x = 400;
         this.animate();
     }
 

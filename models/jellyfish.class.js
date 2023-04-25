@@ -26,11 +26,13 @@ class JellyFish extends MovableObject {
         right: 10
     }
 
-    constructor() { //super wird geschrieben, wenn Methoden vom übergeordneten obejkt aufgerufen werden sollen
+    constructor(x,y) { //super wird geschrieben, wenn Methoden vom übergeordneten obejkt aufgerufen werden sollen
         super().loadImage('./img/2.Enemy/2_Jellyfish/Regular_damage/Lila_1.png');
         this.loadImages(this.IMAGES_JELLYFISH_LILA);
-        this.x = 200 + Math.random() * 1500 - 1; //immer Zahl zwischen 200 und 700
-        this.y = 200 + Math.random() * 200 - 1;
+        // this.x = 200 + Math.random() * 1500 - 1; //immer Zahl zwischen 200 und 700
+        // this.y = 200 + Math.random() * 200 - 1;
+        this.x=x;
+        this.y=y;
         this.speed = 0.15 + Math.random() * 0.15;
         this.animate();
     }

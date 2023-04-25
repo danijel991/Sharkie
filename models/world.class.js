@@ -1,5 +1,8 @@
 class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tastatur, kamera, health bars
     character = new Character();
+    endboss = new Endboss();
+    pufferfish = new PufferFish();
+    jellyfish = new JellyFish();
     level = level1;
     canvas;
     ctx;
@@ -28,6 +31,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
         this.collisionWithCharacter();
         this.collisionWithObjects();
         this.checkThrowObjects();
+        this.collisionWithBallistics();
     }
 
     checkThrowObjects() {
@@ -38,7 +42,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
 
 
     checkThrowObjectsBubble() {
-        if (this.keyboard.D && this.character.poisonsAmount >= 1 && this.character.otherDirection == false) {
+        if (this.keyboard.D && this.character.poisonsAmount >= 1 && this.character.otherDirection == false && this.character.energy >= 1) {
             let bubble = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bubble);
             console.log('bubble');
@@ -59,9 +63,15 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
         }, 10);
     }
 
+    collisionWithBallistics() {
+        setInterval(() => {
+            this.checkCollisionsWithBubbles();
+        }, 100);
+    }
+
     checkCollisionsWithCaracter() {
-        if (this.level.pufferfishes) {
-            this.level.pufferfishes.forEach((pufferfish) => {
+        if (this.level.pufferfish) {
+            this.level.pufferfish.forEach((pufferfish) => {
                 if (this.character.isColliding(pufferfish)) {
                     this.character.hitByEnemy();
                     this.healthBar.setPercentage(this.character.energy);
@@ -70,8 +80,8 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
             });
         }
 
-        if (this.level.jellyfishes) {
-            this.level.jellyfishes.forEach((jellyfish) => {
+        if (this.level.jellyfish) {
+            this.level.jellyfish.forEach((jellyfish) => {
                 if (this.character.isColliding(jellyfish)) {
                     this.character.hitByEnemy();
                     this.healthBar.setPercentage(this.character.energy);
@@ -80,8 +90,8 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
             });
         }
 
-        if (this.level.endbosses) {
-            this.level.endbosses.forEach((boss) => {
+        if (this.level.endboss) {
+            this.level.endboss.forEach((boss) => {
                 if (this.character.isColliding(boss)) {
                     this.character.hitByBoss();
                     this.healthBar.setPercentage(this.character.energy);
@@ -90,6 +100,32 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
             });
         }
     }
+
+    checkCollisionsWithBubbles() {
+        this.throwableObjects.forEach((bubble, bubbleIndex) => {
+    
+            let pufferfishIndex = this.level.pufferfish.findIndex(pufferfish => pufferfish.isColliding(bubble));
+            let jellyfishIndex = this.level.jellyfish.findIndex(jellyfish => jellyfish.isColliding(bubble));
+            let bossIndex = this.level.endboss.findIndex(boss => boss.isColliding(bubble));
+    
+            if (pufferfishIndex !== -1) {
+                this.level.pufferfish.splice(pufferfishIndex, 1);
+                this.throwableObjects.splice(bubbleIndex, 1);
+            } else if (jellyfishIndex !== -1) {
+                this.level.jellyfish.splice(jellyfishIndex, 1);
+                this.throwableObjects.splice(bubbleIndex, 1);
+            } else if (bossIndex !== -1) {
+                this.level.endboss[bossIndex].energy -= 20;
+                console.log('Boss Energy = ' + this.level.endboss[bossIndex].energy);
+                this.throwableObjects.splice(bubbleIndex, 1);
+    
+                if (this.level.endboss[bossIndex].energy <= 0) {
+                    this.level.endboss.splice(bossIndex, 1);
+                }
+            }
+        });
+    }
+    
 
     checkCollisionsWithObjects() {
         if (this.level.coins) {
@@ -119,9 +155,6 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
         }
     }
 
-
-
-
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -129,9 +162,9 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
         this.addObjectsToMap(this.level.backgroundObjects);
 
         // this.ctx.translate(-this.camera_x, 0);
-        this.addObjectsToMap(this.level.pufferfishes);
-        this.addObjectsToMap(this.level.jellyfishes);
-        this.addObjectsToMap(this.level.endbosses);
+        this.addObjectsToMap(this.level.pufferfish);
+        this.addObjectsToMap(this.level.jellyfish);
+        this.addObjectsToMap(this.level.endboss);
         this.addObjectsToMap(this.level.lights);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.poisons);
