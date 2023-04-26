@@ -113,6 +113,7 @@ background_music.onpause = function () {
     isPlaying = false;
 };
 
+
 function fullscreen() {
     let fullscreen = document.getElementById('fullscreen');
     if (!fullscreenState) {
@@ -166,4 +167,6 @@ function toggleHelp() {
         btn.innerHTML = 'How to play (H)';
         console.log('helpisopen = ' + helpisopen);
     }
+
+
 }

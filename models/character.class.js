@@ -6,9 +6,6 @@ class Character extends MovableObject {
     speed = 3;
     attack = 0;
 
-    world;
-    spaceAlreadyPressed = false;
-
     //images of character
     IMAGES_SWIMMING = [
         './img/1.Sharkie/3.Swim/1.png',
@@ -122,7 +119,13 @@ class Character extends MovableObject {
     }
 
     world;
+    endboss = new Endboss();
+    pufferfish = new PufferFish();
+    jellyfish = new JellyFish();
     swimming_sound = new Audio('./audio/char_swim.mp3');
+    hurt_sfx = new Audio('./audio/hurt.mp3');
+    hurt_shocked_sfx = new Audio('./audio/shocked.mp3');
+
 
     constructor() {
         super().loadImage('./img/1.Sharkie/1.IDLE/1.png');
@@ -139,7 +142,8 @@ class Character extends MovableObject {
     }
 
     animate() {
-        setInterval(() => {
+
+        this.animateIntervalId = setInterval(() => {
 
             // this.swimming_sound.pause();
             this.swimming_sound.volume = .5;
@@ -165,7 +169,7 @@ class Character extends MovableObject {
 
         }, 1000 / 60);
 
-        setInterval(() => {
+        this.keyboardIntervalId = setInterval(() => {
 
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_POISONED);
@@ -182,7 +186,7 @@ class Character extends MovableObject {
                 // swim animation
                 this.playAnimation(this.IMAGES_SWIMMING);
 
-            } else if (this.noKeyPressed() && !this.isDead())
+            } else if (!this.isDead())
                 this.checkIdle();
 
         }, 500);
@@ -208,16 +212,13 @@ class Character extends MovableObject {
     }
 
     stopGame() {
-        console.log("GAME OVER");
-    }
-
-    noKeyPressed() {
-        return !this.world.keyboard.RIGHT &&
-            !this.world.keyboard.LEFT &&
-            !this.world.keyboard.UP &&
-            !this.world.keyboard.DOWN &&
-            // !this.spaceAlreadyPressed &&
-            !this.world.keyboard.D &&
-            !this.attacked
+        setTimeout(() => {
+            console.log("GAME OVER");
+            clearInterval(this.animateIntervalId);
+            clearInterval(this.keyboardIntervalId);
+            clearInterval(this.jellyfish.animatedJellyFishId); //need to be fixed
+            clearInterval(this.pufferfish.animatedPuffFishId); //need to be fixed
+            clearInterval(this.pufferfish.animatedPuffFisLefthId); //need to be fixed
+        }, 1000);
     }
 }

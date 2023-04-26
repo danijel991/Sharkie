@@ -75,7 +75,8 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
                 if (this.character.isColliding(pufferfish)) {
                     this.character.hitByEnemy();
                     this.healthBar.setPercentage(this.character.energy);
-                    this.character.playAnimation(this.character.IMAGES_HURT_POISONED);
+                    this.character.playAnimation(this.character.IMAGES_HURT_POISONED);    
+                    this.character.hurt_sfx.play();    
                 }
             });
         }
@@ -86,6 +87,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
                     this.character.hitByEnemy();
                     this.healthBar.setPercentage(this.character.energy);
                     this.character.playAnimation(this.character.IMAGES_HURT_ELECTRIC_SHOCK);
+                    this.character.hurt_shocked_sfx.play();
                 }
             });
         }
@@ -96,6 +98,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
                     this.character.hitByBoss();
                     this.healthBar.setPercentage(this.character.energy);
                     this.character.playAnimation(this.character.IMAGES_HURT_POISONED);
+                    this.character.hurt_sfx.play();
                 }
             });
         }

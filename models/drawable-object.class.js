@@ -27,7 +27,7 @@ class Drawableobject {
             this instanceof Coins || this instanceof Poisons) {
             ctx.beginPath(); //shows the frames
             ctx.lineWidth = '3';
-            ctx.strokeStyle = 'red';
+            ctx.strokeStyle = 'transparent';
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.rect(this.x + this.offset.left, 
                 this.y + this.offset.top,

@@ -66,6 +66,8 @@ class Endboss extends MovableObject {
         right: 37
     }
 
+    boss_intro = new Audio('./audio/boss_intro.mp3');
+
     constructor() { //super wird geschrieben, wenn Methoden vom übergeordneten obejkt aufgerufen werden sollen
         super().loadImage(this.IMAGES_BOSS_SWIM[0]);
         this.loadImages(this.IMAGES_BOSS_SWIM);

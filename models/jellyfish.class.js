@@ -39,7 +39,7 @@ class JellyFish extends MovableObject {
 
     animate() {
         this.animateJellyFish();
-        setInterval(() => {
+        this.animatedJellyFishId = setInterval(() => {
             this.playAnimation(this.IMAGES_JELLYFISH_LILA);
         }, 1000);
     }
