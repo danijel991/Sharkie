@@ -15,7 +15,6 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     throwableObjects = [];
     coin_sound = new Audio('./audio/coin.mp3');
     bottle_sound = new Audio('./audio/bottle.mp3');
-    moOb = new MovableObject();
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -74,33 +73,35 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     }
 
     checkCollisionsWithCaracter() {
-        if (this.level.pufferfish) {
+        {
             this.level.pufferfish.forEach((pufferfish) => {
                 if (this.character.isColliding(pufferfish)) {
+                    this.character.hit(5);
                     this.healthBar.setPercentage(this.character.energy);
                     this.character.characterIsHurt = true;
-                    this.moOb.hit(5);
+
                 }
             });
         }
 
-        if (this.level.jellyfish) {
+        {
             this.level.jellyfish.forEach((jellyfish) => {
                 if (this.character.isColliding(jellyfish)) {
+                    this.character.hit(5);
                     this.healthBar.setPercentage(this.character.energy);
                     this.character.characterIsHurtByJelly = true;
-                    this.moOb.hit(5);
+                    this.character.electrized = true;
                 }
             });
         }
 
-        if (this.level.endboss) {
+        {
             this.level.endboss.forEach((boss) => {
                 if (this.character.isColliding(boss)) {
-                    this.healthBar.setPercentage(this.character.energy);
-                    this.character.playAnimation(this.character.IMAGES_HURT_POISONED);
                     this.character.attackedByBoss = true;
-                    this.moOb.hit(10);
+                    this.character.hit(10);
+                    this.healthBar.setPercentage(this.character.energy);
+
                 }
             });
         }

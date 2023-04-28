@@ -129,6 +129,7 @@ class Character extends MovableObject {
     characterIsHurt = false;
     characterIsHurtByJelly = false;
     attackedByBoss = false;
+    electrized = false;
 
 
     constructor() {
@@ -177,7 +178,11 @@ class Character extends MovableObject {
 
         this.keyboardIntervalId = setInterval(() => {
 
-            if (this.isDead()) {
+            if (this.electrized == true && this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD_ELECTRIC_SHOCK);
+                this.stopGame();
+
+            } else if (this.electrized == false && this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_POISONED);
                 this.stopGame();
 
@@ -193,7 +198,7 @@ class Character extends MovableObject {
 
             } else if (this.attackedByBoss == true) {
                 this.playAnimation(this.IMAGES_HURT_POISONED);
-                
+
                 this.hurt_sfx.play();
                 this.attackedByBoss = false;
 
@@ -208,7 +213,7 @@ class Character extends MovableObject {
             }
 
             else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
-                
+
                 this.playAnimation(this.IMAGES_SWIMMING);
 
             } else
