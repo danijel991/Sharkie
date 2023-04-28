@@ -66,7 +66,9 @@ class Endboss extends MovableObject {
         right: 37
     }
 
+    world;
     boss_intro = new Audio('./audio/boss_intro.mp3');
+    hadFirstContact = false;
 
     constructor() { //super wird geschrieben, wenn Methoden vom übergeordneten obejkt aufgerufen werden sollen
         super().loadImage(this.IMAGES_BOSS_SWIM[0]);
@@ -75,13 +77,21 @@ class Endboss extends MovableObject {
     }
 
     animate() {
-        // introBoss();
+        let i = 0;
         setInterval(() => {
-            this.playAnimation(this.IMAGES_BOSS_SWIM);
-        }, 250);
-    };
 
-    // introBoss() {
-    //     this.loadImages(this.IMAGES_BOSS_INTRO);
-    // }
+            if (i < 10) {
+                this.playAnimation(this.IMAGES_BOSS_INTRO);
+            } else {
+                this.playAnimation(this.IMAGES_BOSS_SWIM);
+            }
+            i++;
+
+            if (world.character.x > 2800 && !hadFirstContact) {
+                i = 0;
+                hadFirstContact = true;
+            }
+        }, 150);
+    }
+
 }

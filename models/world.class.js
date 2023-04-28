@@ -25,6 +25,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
 
     setWorld() {
         this.character.world = this;
+        this.endboss.world = this;
     }
 
     run() {
