@@ -76,7 +76,6 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
         if (this.level.pufferfish) {
             this.level.pufferfish.forEach((pufferfish) => {
                 if (this.character.isColliding(pufferfish)) {
-                    this.character.hitByEnemy();
                     this.healthBar.setPercentage(this.character.energy);
                     this.character.playAnimation(this.character.IMAGES_HURT_POISONED);    
                     this.character.hurt_sfx.play();    
@@ -87,7 +86,6 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
         if (this.level.jellyfish) {
             this.level.jellyfish.forEach((jellyfish) => {
                 if (this.character.isColliding(jellyfish)) {
-                    this.character.hitByEnemy();
                     this.healthBar.setPercentage(this.character.energy);
                     this.character.playAnimation(this.character.IMAGES_HURT_ELECTRIC_SHOCK);
                     this.character.hurt_shocked_sfx.play();
@@ -98,10 +96,10 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
         if (this.level.endboss) {
             this.level.endboss.forEach((boss) => {
                 if (this.character.isColliding(boss)) {
-                    this.endboss.playAnimation(this.endboss.IMAGES_BOSS_ATTACK);
                     this.character.hitByBoss();
                     this.healthBar.setPercentage(this.character.energy);
                     this.character.playAnimation(this.character.IMAGES_HURT_POISONED);
+                    this.endboss.playAnimation(this.endboss.IMAGES_BOSS_ATTACK);
                     this.character.hurt_sfx.play();
                 }
             });

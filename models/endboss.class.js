@@ -108,5 +108,20 @@ class Endboss extends MovableObject {
     animateEndBoss() {
     }
 
+    hitByBoss() {
+        if (this.level.endboss) {
+            this.level.endboss.forEach((boss) => {
+                if (this.character.isColliding(boss)) {
+                    boss.bossAttack(); // call bossAttack method instead of playAnimation
+                    this.character.hitByBoss();
+                    this.healthBar.setPercentage(this.character.energy);
+                    this.character.playAnimation(this.character.IMAGES_HURT_POISONED);
+                    this.character.hurt_sfx.play();
+                }
+            });
+        }
+    }
+
+
 
 }
