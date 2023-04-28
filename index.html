@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/fonts.css">
     <link rel="shortcut icon" href="img/favico.png" type="image/x-icon">
     <script src="./models/drawable-object.class.js"></script>
     <script src="./models/movable-object.class.js"></script>
@@ -30,7 +31,7 @@
     <title>Sharkie</title>
 </head>
 
-<body onload="init()">
+<body>
     <div id="HowToPlay">
         <h2>How to play</h2>
         <span>Usw arrow keys to move Sharkie</span><br>
@@ -49,9 +50,9 @@
         </div>
         <h1>Sharkie</h1>
         <canvas id="canvas" width="720" height="480"></canvas>
-        <!--Hier wird eingestellt wie groß der canvas sein soll-->
+
             <div class="canvasSub">
-        
+                <button onclick="initLevel();init()" class="btn-container btn-text" id="toggleMusic">Start game</button>
     </div>
     </div>
 

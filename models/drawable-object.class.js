@@ -12,15 +12,6 @@ class Drawableobject {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height); // Drawing objects on the canvas
     }
 
-    // draw(ctx) { // try method
-    //     try {
-    //     ctx.drawImage(this.img, this.x, this.y, this.width, this.height); // Drawing objects on the canvas
-    // } catch(e){
-    //     console.warn('Error loading image', e);
-    //     console.log('Could not load image,', this.img.src)
-    // }
-    // }
-
     drawFrame(ctx) {
 
         if (this instanceof Character || this instanceof PufferFish || this instanceof JellyFish || this instanceof Endboss ||
@@ -38,12 +29,6 @@ class Drawableobject {
             ctx.stroke();
         }
     }
-
-
-            //         this.offset.bottom) - 
-            //         (this.y + this.offset.y));
-
-    // x = left  y = top width = right height= bottom
 
     loadImages(arr) {
         arr.forEach(path => {

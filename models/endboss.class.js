@@ -89,9 +89,11 @@ class Endboss extends MovableObject {
                 if (i < 10) {
                     this.x = 2200;
                     this.playAnimation(this.IMAGES_BOSS_INTRO);
-                }
-                else {
-                    this.animateEndBoss();
+
+                } else if (world.character.attackedByBoss == true) {
+                    this.playAnimation(this.IMAGES_BOSS_ATTACK);
+
+                } else {
                     this.playAnimation(this.IMAGES_BOSS_SWIM);
                 };
                 i++;
@@ -102,26 +104,5 @@ class Endboss extends MovableObject {
                 }
             }, 10000 / 60);
         }, 2500);
-
     }
-
-    animateEndBoss() {
-    }
-
-    hitByBoss() {
-        if (this.level.endboss) {
-            this.level.endboss.forEach((boss) => {
-                if (this.character.isColliding(boss)) {
-                    boss.bossAttack(); // call bossAttack method instead of playAnimation
-                    this.character.hitByBoss();
-                    this.healthBar.setPercentage(this.character.energy);
-                    this.character.playAnimation(this.character.IMAGES_HURT_POISONED);
-                    this.character.hurt_sfx.play();
-                }
-            });
-        }
-    }
-
-
-
 }

@@ -15,6 +15,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     throwableObjects = [];
     coin_sound = new Audio('./audio/coin.mp3');
     bottle_sound = new Audio('./audio/bottle.mp3');
+    moOb = new MovableObject();
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -77,8 +78,8 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
             this.level.pufferfish.forEach((pufferfish) => {
                 if (this.character.isColliding(pufferfish)) {
                     this.healthBar.setPercentage(this.character.energy);
-                    this.character.playAnimation(this.character.IMAGES_HURT_POISONED);    
-                    this.character.hurt_sfx.play();    
+                    this.character.characterIsHurt = true;
+                    this.moOb.hit(5);
                 }
             });
         }
@@ -87,8 +88,8 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
             this.level.jellyfish.forEach((jellyfish) => {
                 if (this.character.isColliding(jellyfish)) {
                     this.healthBar.setPercentage(this.character.energy);
-                    this.character.playAnimation(this.character.IMAGES_HURT_ELECTRIC_SHOCK);
-                    this.character.hurt_shocked_sfx.play();
+                    this.character.characterIsHurtByJelly = true;
+                    this.moOb.hit(5);
                 }
             });
         }
@@ -96,11 +97,10 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
         if (this.level.endboss) {
             this.level.endboss.forEach((boss) => {
                 if (this.character.isColliding(boss)) {
-                    this.character.hitByBoss();
                     this.healthBar.setPercentage(this.character.energy);
                     this.character.playAnimation(this.character.IMAGES_HURT_POISONED);
-                    this.endboss.playAnimation(this.endboss.IMAGES_BOSS_ATTACK);
-                    this.character.hurt_sfx.play();
+                    this.character.attackedByBoss = true;
+                    this.moOb.hit(10);
                 }
             });
         }
@@ -108,11 +108,11 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
 
     checkCollisionsWithBubbles() {
         this.throwableObjects.forEach((bubble, bubbleIndex) => {
-    
+
             let pufferfishIndex = this.level.pufferfish.findIndex(pufferfish => pufferfish.isColliding(bubble));
             let jellyfishIndex = this.level.jellyfish.findIndex(jellyfish => jellyfish.isColliding(bubble));
             let bossIndex = this.level.endboss.findIndex(boss => boss.isColliding(bubble));
-    
+
             if (pufferfishIndex !== -1) {
                 this.level.pufferfish.splice(pufferfishIndex, 1);
                 this.throwableObjects.splice(bubbleIndex, 1);
@@ -123,14 +123,14 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
                 this.level.endboss[bossIndex].energy -= 20;
                 console.log('Boss Energy = ' + this.level.endboss[bossIndex].energy);
                 this.throwableObjects.splice(bubbleIndex, 1);
-    
+
                 if (this.level.endboss[bossIndex].energy <= 0) {
                     this.level.endboss.splice(bossIndex, 1);
                 }
             }
         });
     }
-    
+
 
     checkCollisionsWithObjects() {
         if (this.level.coins) {

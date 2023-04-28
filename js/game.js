@@ -13,29 +13,10 @@ let i = 1;
 
 function init() {
     canvas = document.getElementById('canvas');
+    canvas.style.display = 'block';
     world = new World(canvas, keyboard,);
     // playBgMusic();
 }
-
-// function setStopableInterval(fn, time) {
-//     let id = setInterval(fn, time);
-//     intervalIds.push(id);
-// }
-// setStopableInterval(sayHello, 500);
-// setStopableInterval(sayGoodbye, 500);
-
-// function stopGame() {
-//     intervalIds.forEach(clearInterval);
-// }
-
-// function sayHello() {
-//     console.log('Hallo', i);
-//     i++;
-// }
-// function sayGoodbye() {
-//     console.log('Tschüss', i);
-//     i++;
-// }
 
 document.addEventListener('keydown', (e) => {
     if (e.keyCode == 39) {

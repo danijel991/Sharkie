@@ -126,6 +126,9 @@ class Character extends MovableObject {
     hurt_sfx = new Audio('./audio/hurt.mp3');
     hurt_shocked_sfx = new Audio('./audio/shocked.mp3');
     bubble_sfx = new Audio('./audio/bubble_shot.mp3');
+    characterIsHurt = false;
+    characterIsHurtByJelly = false;
+    attackedByBoss = false;
 
 
     constructor() {
@@ -149,8 +152,6 @@ class Character extends MovableObject {
         this.hurt_shocked_sfx.volume = .3;
 
         this.animateIntervalId = setInterval(() => {
-
-            // this.swimming_sound.pause();
 
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
@@ -180,6 +181,22 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_DEAD_POISONED);
                 this.stopGame();
 
+            } else if (this.characterIsHurt == true) {
+                this.playAnimation(this.IMAGES_HURT_POISONED);
+                this.hurt_sfx.play();
+                this.characterIsHurt = false;
+
+            } else if (this.characterIsHurtByJelly == true) {
+                this.playAnimation(this.IMAGES_HURT_ELECTRIC_SHOCK);
+                this.hurt_shocked_sfx.play();
+                this.characterIsHurtByJelly = false;
+
+            } else if (this.attackedByBoss == true) {
+                this.playAnimation(this.IMAGES_HURT_POISONED);
+                
+                this.hurt_sfx.play();
+                this.attackedByBoss = false;
+
             } else if (this.world.keyboard.SPACE) {
                 this.playAnimation(this.IMAGES_ATTACK_FIN_SLAP);
 
@@ -191,10 +208,10 @@ class Character extends MovableObject {
             }
 
             else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
-                // swim animation
+                
                 this.playAnimation(this.IMAGES_SWIMMING);
 
-            } else if (!this.isDead())
+            } else
                 this.checkIdle();
 
         }, 500);
