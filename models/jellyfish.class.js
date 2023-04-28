@@ -43,4 +43,13 @@ class JellyFish extends MovableObject {
             this.playAnimation(this.IMAGES_JELLYFISH_LILA);
         }, 1000);
     }
+
+    animateJellyFish() {
+        let startY = this.y;
+        let time = 0;
+        setInterval(() => {
+            time += 1;
+            this.y = startY + Math.sin(time / 50) * 20;
+        }, 1000 / 60);
+    }
 }

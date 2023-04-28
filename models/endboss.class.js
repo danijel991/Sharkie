@@ -3,7 +3,8 @@ class Endboss extends MovableObject {
     height = 500;
     width = 600;
     y = -25;
-    x = 2200;
+    x = 2500;
+    world;
 
     IMAGES_BOSS_INTRO = [
         './img/2.Enemy/3_Final_Enemy/1.Introduce/1.png',
@@ -66,32 +67,46 @@ class Endboss extends MovableObject {
         right: 37
     }
 
-    world;
     boss_intro = new Audio('./audio/boss_intro.mp3');
     hadFirstContact = false;
+    attackImgIndex = 0;
 
     constructor() { //super wird geschrieben, wenn Methoden vom übergeordneten obejkt aufgerufen werden sollen
-        super().loadImage(this.IMAGES_BOSS_SWIM[0]);
+        super().loadImage(this.IMAGES_BOSS_INTRO[0]);
+        this.loadImages(this.IMAGES_BOSS_INTRO);
         this.loadImages(this.IMAGES_BOSS_SWIM);
+        this.loadImages(this.IMAGES_BOSS_ATTACK);
+        this.loadImages(this.IMAGES_BOSS_HURT);
+        this.loadImages(this.IMAGES_BOSS_DEAD);
+        this.speed = 1.5;
         this.animate();
     }
 
     animate() {
-        let i = 0;
-        setInterval(() => {
+        setTimeout(() => {
+            let i = 0;
+            setInterval(() => {
+                if (i < 10) {
+                    this.x = 2200;
+                    this.playAnimation(this.IMAGES_BOSS_INTRO);
+                }
+                else {
+                    this.animateEndBoss();
+                    this.playAnimation(this.IMAGES_BOSS_SWIM);
+                };
+                i++;
 
-            if (i < 10) {
-                this.playAnimation(this.IMAGES_BOSS_INTRO);
-            } else {
-                this.playAnimation(this.IMAGES_BOSS_SWIM);
-            }
-            i++;
+                if (world.character.x > 1450 && !this.hadFirstContact) {
+                    i = 0;
+                    this.hadFirstContact = true;
+                }
+            }, 10000 / 60);
+        }, 2500);
 
-            if (world.character.x > 2800 && !hadFirstContact) {
-                i = 0;
-                hadFirstContact = true;
-            }
-        }, 150);
     }
+
+    animateEndBoss() {
+    }
+
 
 }

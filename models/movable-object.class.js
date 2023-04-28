@@ -85,15 +85,6 @@ class MovableObject extends Drawableobject {
         this.x -= this.speed;
     }
 
-    animateJellyFish() {
-        let startY = this.y;
-        let time = 0;
-        setInterval(() => {
-            time += 1;
-            this.y = startY + Math.sin(time / 50) * 20;
-        }, 1000 / 60);
-    }
-
     update() {
         super.update(); // Call the update method of the parent class
         // Update the position of the jellyfish based on its direction and speed

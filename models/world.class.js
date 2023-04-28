@@ -13,6 +13,8 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     poisonbar = new Poisonbar();
     statusBar = [this.healthBar, this.coinBar, this.poisonbar];
     throwableObjects = [];
+    coin_sound = new Audio('./audio/coin.mp3');
+    bottle_sound = new Audio('./audio/bottle.mp3');
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -96,6 +98,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
         if (this.level.endboss) {
             this.level.endboss.forEach((boss) => {
                 if (this.character.isColliding(boss)) {
+                    this.endboss.playAnimation(this.endboss.IMAGES_BOSS_ATTACK);
                     this.character.hitByBoss();
                     this.healthBar.setPercentage(this.character.energy);
                     this.character.playAnimation(this.character.IMAGES_HURT_POISONED);
@@ -139,6 +142,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
                     this.coinBar.setPercentage(this.character.coinsAmount);
                     setTimeout(() => {
                         coin.visible = false; // make the coin object invisible
+                        this.coin_sound.play();
                         this.level.coins.splice(index, 1); // remove the coin from the coins array
                     }, 0);
                 }
@@ -152,6 +156,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
                     this.poisonbar.setPercentage(this.character.poisonsAmount);
                     setTimeout(() => {
                         poison.visible = false; // make the poison object invisible
+                        this.bottle_sound.play();
                         this.level.poisons.splice(index, 1); // remove the poison from the poisons array
                     }, 0);
                 }

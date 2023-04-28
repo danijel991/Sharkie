@@ -1,6 +1,6 @@
 class Character extends MovableObject {
     y = 80;
-    x = 0;
+    x = 1400;
     height = 210;
     width = 150;
     speed = 3;
@@ -125,6 +125,7 @@ class Character extends MovableObject {
     swimming_sound = new Audio('./audio/char_swim.mp3');
     hurt_sfx = new Audio('./audio/hurt.mp3');
     hurt_shocked_sfx = new Audio('./audio/shocked.mp3');
+    bubble_sfx = new Audio('./audio/bubble_shot.mp3');
 
 
     constructor() {
@@ -143,10 +144,14 @@ class Character extends MovableObject {
 
     animate() {
 
+        this.swimming_sound.volume = .5;
+        this.bubble_sfx.volume = .3;
+        this.hurt_shocked_sfx.volume = .3;
+
         this.animateIntervalId = setInterval(() => {
 
             // this.swimming_sound.pause();
-            this.swimming_sound.volume = .5;
+
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
                 this.swimming_sound.play();
@@ -180,6 +185,9 @@ class Character extends MovableObject {
 
             } else if (this.world.keyboard.D && this.poisonsAmount >= 1 && this.otherDirection == false && this.energy >= 1) {
                 this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
+                setTimeout(() => {
+                    this.bubble_sfx.play();
+                }, 150);
             }
 
             else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
