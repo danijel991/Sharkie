@@ -27,6 +27,7 @@ class JellyFish extends MovableObject {
     constructor(x, y) {
         super().loadImage('./img/2.Enemy/2_Jellyfish/Regular_damage/Lila_1.png');
         this.loadImages(this.IMAGES_JELLYFISH_LILA);
+        this.loadImages(this.IMAGES_JELLYFISH_LILA_DEAD);
         this.x = x;
         this.y = y;
         this.speed = 0.15 + Math.random() * 0.15;
@@ -47,5 +48,9 @@ class JellyFish extends MovableObject {
             time += 1;
             this.y = startY + Math.sin(time / 50) * 20;
         }, 1000 / 60);
+    }
+
+    deadJelly() {
+        this.playAnimation(this.IMAGES_JELLYFISH_LILA_DEAD);
     }
 }

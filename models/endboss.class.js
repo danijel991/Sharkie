@@ -5,6 +5,8 @@ class Endboss extends MovableObject {
     y = -25;
     x = 2500;
     world;
+    bossIsHurt = false;
+    bossDead = false;
 
     IMAGES_BOSS_INTRO = [
         './img/2.Enemy/3_Final_Enemy/1.Introduce/1.png',
@@ -71,6 +73,7 @@ class Endboss extends MovableObject {
     hadFirstContact = false;
     attackImgIndex = 0;
 
+
     constructor() { //super wird geschrieben, wenn Methoden vom übergeordneten obejkt aufgerufen werden sollen
         super().loadImage(this.IMAGES_BOSS_INTRO[0]);
         this.loadImages(this.IMAGES_BOSS_INTRO);
@@ -86,13 +89,19 @@ class Endboss extends MovableObject {
         setTimeout(() => {
             let i = 0;
             setInterval(() => {
-                if (i < 10) {
+                if (this.bossDead == true || this.energy <= 0) {
+                    this.playAnimation(this.IMAGES_BOSS_DEAD);
+                        gameWin = true;
+                } else if (i < 10) {
                     this.x = 2200;
                     this.playAnimation(this.IMAGES_BOSS_INTRO);
 
                 } else if (world.character.attackedByBoss == true) {
                     this.playAnimation(this.IMAGES_BOSS_ATTACK);
 
+                } else if (this.bossIsHurt == true) {
+                    this.bossIsHurted();
+                    this.playAnimation(this.IMAGES_BOSS_HURT);
                 } else {
                     this.playAnimation(this.IMAGES_BOSS_SWIM);
                 };
@@ -104,5 +113,11 @@ class Endboss extends MovableObject {
                 }
             }, 10000 / 60);
         }, 2500);
+    }
+
+    bossIsHurted() {
+        setTimeout(() => {
+            this.bossIsHurt == false;
+        }, 500);
     }
 }

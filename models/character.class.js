@@ -1,6 +1,6 @@
 class Character extends MovableObject {
     y = 80;
-    x = 1400;
+    x = 0;
     height = 210;
     width = 150;
     speed = 3;
@@ -244,11 +244,10 @@ class Character extends MovableObject {
     stopGame() {
         setTimeout(() => {
             console.log("GAME OVER");
-            clearInterval(this.animateIntervalId);
-            clearInterval(this.keyboardIntervalId);
-            clearInterval(this.jellyfish.animatedJellyFishId); //need to be fixed
-            clearInterval(this.pufferfish.animatedPuffFishId); //need to be fixed
-            clearInterval(this.pufferfish.animatedPuffFisLefthId); //need to be fixed
+            gameOver = true;
+            clearInterval(
+                this.animateIntervalId,this.keyboardIntervalId,this.jellyfish.animatedJellyFishId,this.pufferfish.animatedPuffFishId,this.pufferfish.animatedPuffFisLefthId
+                );
         }, 1000);
     }
 }

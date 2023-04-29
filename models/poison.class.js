@@ -25,8 +25,7 @@ class Poisons extends MovableObject {
     constructor(x,y) {
         super().loadImage('./img/4.Marks/poison/animated/1.png');
         this.loadImages(this.IMAGES_ANIMATED_POISONS);
-        // this.x = 0 + Math.random() * 1500 - 1; //immer Zahl zwischen 200 und 700
-        // this.y = 0 + Math.random() * 400 - 1;
+        this.bottle_sound = new Audio('./audio/bottle.mp3');
         this.x=x;
         this.y=y;
         this.speed = 0.15 + Math.random() * 0.15;
@@ -38,5 +37,9 @@ class Poisons extends MovableObject {
         setInterval(() => {
             this.playAnimation(this.IMAGES_ANIMATED_POISONS);
         }, 1000);
+    }
+    
+    poisonSound() {
+        this.bottle_sound.play();
     }
 }

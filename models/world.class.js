@@ -3,6 +3,8 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     endboss = new Endboss();
     pufferfish = new PufferFish();
     jellyfish = new JellyFish();
+    coin = new Coins();
+    poison = new Poisons();
     level = level1;
     canvas;
     ctx;
@@ -13,8 +15,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     poisonbar = new Poisonbar();
     statusBar = [this.healthBar, this.coinBar, this.poisonbar];
     throwableObjects = [];
-    coin_sound = new Audio('./audio/coin.mp3');
-    bottle_sound = new Audio('./audio/bottle.mp3');
+
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -79,7 +80,6 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
                     this.character.hit(5);
                     this.healthBar.setPercentage(this.character.energy);
                     this.character.characterIsHurt = true;
-
                 }
             });
         }
@@ -101,7 +101,6 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
                     this.character.attackedByBoss = true;
                     this.character.hit(10);
                     this.healthBar.setPercentage(this.character.energy);
-
                 }
             });
         }
@@ -109,28 +108,40 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
 
     checkCollisionsWithBubbles() {
         this.throwableObjects.forEach((bubble, bubbleIndex) => {
-
-            let pufferfishIndex = this.level.pufferfish.findIndex(pufferfish => pufferfish.isColliding(bubble));
-            let jellyfishIndex = this.level.jellyfish.findIndex(jellyfish => jellyfish.isColliding(bubble));
+            let pFishIndex = this.level.pufferfish.findIndex(pufferfish => pufferfish.isColliding(bubble));
+            let jellyIndex = this.level.jellyfish.findIndex(jellyfish => jellyfish.isColliding(bubble));
             let bossIndex = this.level.endboss.findIndex(boss => boss.isColliding(bubble));
 
-            if (pufferfishIndex !== -1) {
-                this.level.pufferfish.splice(pufferfishIndex, 1);
+            if (pFishIndex !== -1) {
+                if (this.level.pufferfish[pFishIndex]) { // add this check
+                    this.level.pufferfish[pFishIndex].trashEnergy -= 20;
+                    console.log('Pufferfish Energy = ' + this.level.pufferfish[pFishIndex].trashEnergy);
+                    this.throwableObjects.splice(bubbleIndex, 1);
+                    if (this.level.pufferfish[pFishIndex].trashEnergy <= 0) {
+                        this.pufferfish.puffFishDead = true;
+                    }
+                }
+            } else if (jellyIndex !== -1) {
                 this.throwableObjects.splice(bubbleIndex, 1);
-            } else if (jellyfishIndex !== -1) {
-                this.level.jellyfish.splice(jellyfishIndex, 1);
-                this.throwableObjects.splice(bubbleIndex, 1);
-            } else if (bossIndex !== -1) {
-                this.level.endboss[bossIndex].energy -= 20;
-                console.log('Boss Energy = ' + this.level.endboss[bossIndex].energy);
-                this.throwableObjects.splice(bubbleIndex, 1);
+                console.log('Jelly Boom on jelly nr', jellyIndex);
 
-                if (this.level.endboss[bossIndex].energy <= 0) {
-                    this.level.endboss.splice(bossIndex, 1);
+            } else if (bossIndex !== -1) {
+                if (this.level.endboss[bossIndex]) { // add this check
+                    this.level.endboss[bossIndex].energy -= 20;
+                    console.log('Boss Energy = ' + this.level.endboss[bossIndex].energy);
+                    this.throwableObjects.splice(bubbleIndex, 1);
+
+                    if (this.level.endboss[bossIndex].energy <= 0) {
+                        setTimeout(() => {
+                            this.level.endboss.splice(bossIndex, 1);
+                        }, 1500);
+                    }
                 }
             }
         });
     }
+
+
 
 
     checkCollisionsWithObjects() {
@@ -141,7 +152,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
                     this.coinBar.setPercentage(this.character.coinsAmount);
                     setTimeout(() => {
                         coin.visible = false; // make the coin object invisible
-                        this.coin_sound.play();
+                        this.coin.coinSound();
                         this.level.coins.splice(index, 1); // remove the coin from the coins array
                     }, 0);
                 }
@@ -155,7 +166,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
                     this.poisonbar.setPercentage(this.character.poisonsAmount);
                     setTimeout(() => {
                         poison.visible = false; // make the poison object invisible
-                        this.bottle_sound.play();
+                        this.poison.poisonSound();
                         this.level.poisons.splice(index, 1); // remove the poison from the poisons array
                     }, 0);
                 }

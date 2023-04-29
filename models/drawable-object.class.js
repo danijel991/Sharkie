@@ -9,8 +9,11 @@ class Drawableobject {
     }
 
     draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height); // Drawing objects on the canvas
+        if (this.img) {
+            ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        }
     }
+
 
     drawFrame(ctx) {
 
@@ -20,11 +23,11 @@ class Drawableobject {
             ctx.lineWidth = '3';
             ctx.strokeStyle = 'transparent';
             ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.rect(this.x + this.offset.left, 
+            ctx.rect(this.x + this.offset.left,
                 this.y + this.offset.top,
-                (this.x + this.width - this.offset.right) - 
+                (this.x + this.width - this.offset.right) -
                 (this.x + this.offset.left),
-                (this.y + this.height - this.offset.bottom) - 
+                (this.y + this.height - this.offset.bottom) -
                 (this.y + this.offset.top));
             ctx.stroke();
         }

@@ -4,8 +4,9 @@ class MovableObject extends Drawableobject {
     speedY = 1;
     accelecartion = 0;
     energy = 100;
+    trashEnergy = 20;
     coinsAmount = 0;
-    poisonsAmount = 0;
+    poisonsAmount = 100;
 
     offset = {
         top: 0,

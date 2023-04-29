@@ -3,6 +3,8 @@ let world;
 let keyboard = new Keyboard();
 let fullscreenState = false;
 let helpisopen = false;
+let gameOver = false;
+let gameWin = false;
 
 let background_music = new Audio('./audio/background_music.mp3');
 background_music.volume = 0.1; //set audio volume
@@ -14,8 +16,10 @@ let i = 1;
 function init() {
     canvas = document.getElementById('canvas');
     canvas.style.display = 'block';
-    world = new World(canvas, keyboard,);
+    world = new World(canvas, keyboard);
     // playBgMusic();
+    gameOver = false;
+    checkGameOver();
 }
 
 document.addEventListener('keydown', (e) => {
@@ -130,6 +134,24 @@ function exitFullscreen() {
     }
 }
 
+function checkGameOver() {
+    document.getElementById('toggleGame').innerHTML = 'Restart game';
+    setInterval(() => {
+        if (gameOver == true) {
+            console.log('game over');
+            gameIsOver();
+        } else if (gameWin == true) {
+            console.log('Winner');
+            gameIsOver();
+        }
+        console.log('gameover listener on');
+    }, 2000);
+}
+
+function gameIsOver() {
+    world.character.stopGame();
+}
+
 function toggleHelp() {
     let btn = document.getElementById('toggleHelp');
     let help = document.getElementById('HowToPlay');
@@ -148,6 +170,4 @@ function toggleHelp() {
         btn.innerHTML = 'How to play (H)';
         console.log('helpisopen = ' + helpisopen);
     }
-
-
 }
