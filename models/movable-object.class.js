@@ -6,7 +6,7 @@ class MovableObject extends Drawableobject {
     energy = 100;
     trashEnergy = 20;
     coinsAmount = 0;
-    poisonsAmount = 100;
+    poisonsAmount = 0;
 
     offset = {
         top: 0,
@@ -56,7 +56,6 @@ class MovableObject extends Drawableobject {
         }
     }
 
-
     isDead() {
         return this.energy == 0;
     }
@@ -78,14 +77,15 @@ class MovableObject extends Drawableobject {
     }
 
     update() {
-        super.update(); // Call the update method of the parent class
-        // Update the position of the jellyfish based on its direction and speed
+        super.update();
+
         if (this.direction === -1) {
             this.moveUpDown();
         } else {
             this.moveDownUP();
         }
     }
+    
     animateCollectables() {
         let startY = this.y;
         let time = 0;

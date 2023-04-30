@@ -135,13 +135,18 @@ function exitFullscreen() {
 }
 
 function checkGameOver() {
+
+    let canvasScreen = document.getElementById('canvas');
     document.getElementById('toggleGame').innerHTML = 'Restart game';
     setInterval(() => {
         if (gameOver == true) {
             console.log('game over');
+            canvasScreen.innerHTML = 'Game over';
             gameIsOver();
         } else if (gameWin == true) {
             console.log('Winner');
+            canvasScreen.innerHTML = 'Winner'
+
             gameIsOver();
         }
         console.log('gameover listener on');

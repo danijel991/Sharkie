@@ -73,5 +73,4 @@ function initLevel() {
             new backgroundObject('./img/3.Background/Layers/2._Floor/D1.png', 720 * 4)
         ],
     );
-
 }

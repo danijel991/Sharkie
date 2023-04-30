@@ -32,12 +32,20 @@ class JellyFish extends MovableObject {
         this.y = y;
         this.speed = 0.15 + Math.random() * 0.15;
         this.animate();
+        this.jellyDead = false;
     }
 
     animate() {
         this.animateJellyFish();
         this.animatedJellyFishId = setInterval(() => {
             this.playAnimation(this.IMAGES_JELLYFISH_LILA);
+        }, 1000);
+
+        setInterval(() => {
+            if (this.jellyDead) {
+                console.log(this.jellyDead);
+                this.deadJelly();
+            }
         }, 1000);
     }
 
@@ -51,6 +59,8 @@ class JellyFish extends MovableObject {
     }
 
     deadJelly() {
+        clearInterval(this.animatedJellyFishId);
         this.playAnimation(this.IMAGES_JELLYFISH_LILA_DEAD);
+        console.log('jellyDead');
     }
 }

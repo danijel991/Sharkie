@@ -1,9 +1,6 @@
 class PufferFish extends MovableObject {
-
     height = 120;
     width = 130;
-
-    //Pufferfish
 
     IMAGES_PUFFERFISH_SWIM = [
         './img/2.Enemy/1_Pufferfish/1.Swim/1.swim1.png',
@@ -42,13 +39,10 @@ class PufferFish extends MovableObject {
         right: 10
     }
 
-
-    constructor(x, y) { //super wird geschrieben, wenn Methoden vom übergeordneten obejkt aufgerufen werden sollen
+    constructor(x, y) {
         super().loadImage('./img/2.Enemy/1_Pufferfish/1.Swim/1.swim1.png');
         this.loadImages(this.IMAGES_PUFFERFISH_SWIM);
         this.loadImages(this.IMAGES_PUFFERFISH_DEAD);
-        // this.x = 200 + Math.random() * 1500 - 1; //immer Zahl zwischen 200 und 700
-        // this.y = 200 + Math.random() * 200 - 1;
         this.x = x;
         this.y = y;
         this.speed = 0.15 + Math.random() * 0.15;
@@ -57,23 +51,22 @@ class PufferFish extends MovableObject {
     }
 
     animate() {
-        if (this.puffFishDead == true) {
-            console.log(this.puffFishDead);
-            dieAnimation();
-        } else {
-            this.animatedPuffFisLefthId = setInterval(() => {
-                this.moveLeft();
-            }, 1000 / 60);
-            this.animatedPuffFishId = setInterval(() => {
-                this.playAnimation(this.IMAGES_PUFFERFISH_SWIM);
-            }, 1000);
-        }
+        this.fishMotionInterval = setInterval(() => {
+            this.moveLeft();
+            this.playAnimation(this.IMAGES_PUFFERFISH_SWIM);
+        }, 1000 / 60);
 
+        setInterval(() => {
+            if (this.puffFishDead) {
+                console.log(this.puffFishDead);
+                this.deadFish();
+            }
+        }, 1000);
     }
 
-    dieAnimation() {
-        clearInterval(this.animatedPuffFisLefthId, this.animatedPuffFishId);
+    deadFish() {
+        clearInterval(this.fishMotionInterval);
         this.playAnimation(this.IMAGES_PUFFERFISH_DEAD);
-        console.log('deadaimation');
+        console.log('fishDead');
     }
 }

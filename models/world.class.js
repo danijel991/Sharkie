@@ -16,7 +16,6 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     statusBar = [this.healthBar, this.coinBar, this.poisonbar];
     throwableObjects = [];
 
-
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -29,6 +28,8 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     setWorld() {
         this.character.world = this;
         this.endboss.world = this;
+        this.pufferfish.world = this;
+        this.jellyfish.world = this;
     }
 
     run() {
@@ -74,36 +75,28 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     }
 
     checkCollisionsWithCaracter() {
-        {
-            this.level.pufferfish.forEach((pufferfish) => {
-                if (this.character.isColliding(pufferfish)) {
-                    this.character.hit(5);
-                    this.healthBar.setPercentage(this.character.energy);
-                    this.character.characterIsHurt = true;
-                }
-            });
-        }
-
-        {
-            this.level.jellyfish.forEach((jellyfish) => {
-                if (this.character.isColliding(jellyfish)) {
-                    this.character.hit(5);
-                    this.healthBar.setPercentage(this.character.energy);
-                    this.character.characterIsHurtByJelly = true;
-                    this.character.electrized = true;
-                }
-            });
-        }
-
-        {
-            this.level.endboss.forEach((boss) => {
-                if (this.character.isColliding(boss)) {
-                    this.character.attackedByBoss = true;
-                    this.character.hit(10);
-                    this.healthBar.setPercentage(this.character.energy);
-                }
-            });
-        }
+        this.level.pufferfish.forEach((pufferfish) => {
+            if (this.character.isColliding(pufferfish)) {
+                this.character.hit(5);
+                this.healthBar.setPercentage(this.character.energy);
+                this.character.characterIsHurt = true;
+            }
+        });
+        this.level.jellyfish.forEach((jellyfish) => {
+            if (this.character.isColliding(jellyfish)) {
+                this.character.hit(5);
+                this.healthBar.setPercentage(this.character.energy);
+                this.character.characterIsHurtByJelly = true;
+                this.character.electrized = true;
+            }
+        });
+        this.level.endboss.forEach((boss) => {
+            if (this.character.isColliding(boss)) {
+                this.character.attackedByBoss = true;
+                this.character.hit(10);
+                this.healthBar.setPercentage(this.character.energy);
+            }
+        });
     }
 
     checkCollisionsWithBubbles() {
@@ -112,37 +105,43 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
             let jellyIndex = this.level.jellyfish.findIndex(jellyfish => jellyfish.isColliding(bubble));
             let bossIndex = this.level.endboss.findIndex(boss => boss.isColliding(bubble));
 
-            if (pFishIndex !== -1) {
-                if (this.level.pufferfish[pFishIndex]) { // add this check
-                    this.level.pufferfish[pFishIndex].trashEnergy -= 20;
-                    console.log('Pufferfish Energy = ' + this.level.pufferfish[pFishIndex].trashEnergy);
-                    this.throwableObjects.splice(bubbleIndex, 1);
-                    if (this.level.pufferfish[pFishIndex].trashEnergy <= 0) {
-                        this.pufferfish.puffFishDead = true;
-                    }
-                }
-            } else if (jellyIndex !== -1) {
+            if (pFishIndex != -1) {
+                this.level.pufferfish[pFishIndex].trashEnergy -= 20;
+                console.log('Pufferfish Energy = ' + this.level.pufferfish[pFishIndex].trashEnergy);
                 this.throwableObjects.splice(bubbleIndex, 1);
-                console.log('Jelly Boom on jelly nr', jellyIndex);
+                if (this.level.pufferfish[pFishIndex].trashEnergy <= 0) {
+                    this.level.pufferfish[pFishIndex].puffFishDead = true;
+                    console.log(this.level.pufferfish[pFishIndex].puffFishDead);
+                    setTimeout(() => {
+                        this.level.pufferfish.splice(pFishIndex, 1);
+                    }, 2000);
+                }
 
-            } else if (bossIndex !== -1) {
-                if (this.level.endboss[bossIndex]) { // add this check
-                    this.level.endboss[bossIndex].energy -= 20;
-                    console.log('Boss Energy = ' + this.level.endboss[bossIndex].energy);
-                    this.throwableObjects.splice(bubbleIndex, 1);
+            } else if (jellyIndex != -1) {
+                this.level.jellyfish[jellyIndex].trashEnergy -= 20;
+                console.log('Jelly Energy = ' + this.level.jellyfish[jellyIndex].trashEnergy);
+                this.throwableObjects.splice(bubbleIndex, 1);
+                if (this.level.jellyfish[jellyIndex].trashEnergy <= 0) {
+                    this.level.jellyfish[jellyIndex].jellyDead = true;
+                    console.log(this.level.jellyfish[jellyIndex].jellyDead);
+                    setTimeout(() => {
+                        this.level.jellyfish.splice(jellyIndex, 1);
+                    }, 2000);
+                }
 
-                    if (this.level.endboss[bossIndex].energy <= 0) {
-                        setTimeout(() => {
-                            this.level.endboss.splice(bossIndex, 1);
-                        }, 1500);
-                    }
+            } else if (bossIndex != -1) {
+                this.level.endboss[bossIndex].energy -= 20;
+                console.log('Boss Energy = ' + this.level.endboss[bossIndex].energy);
+                this.throwableObjects.splice(bubbleIndex, 1);
+
+                if (this.level.endboss[bossIndex].energy <= 0) {
+                    setTimeout(() => {
+                        this.level.endboss.splice(bossIndex, 1);
+                    }, 1500);
                 }
             }
         });
     }
-
-
-
 
     checkCollisionsWithObjects() {
         if (this.level.coins) {
@@ -179,8 +178,6 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
 
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
-
-        // this.ctx.translate(-this.camera_x, 0);
         this.addObjectsToMap(this.level.pufferfish);
         this.addObjectsToMap(this.level.jellyfish);
         this.addObjectsToMap(this.level.endboss);
@@ -189,7 +186,6 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
         this.addObjectsToMap(this.level.poisons);
         this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.character);
-
         this.ctx.translate(-this.camera_x, 0);
 
         // Draw status bars
