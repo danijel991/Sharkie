@@ -43,7 +43,6 @@ class JellyFish extends MovableObject {
 
         setInterval(() => {
             if (this.jellyDead) {
-                console.log(this.jellyDead);
                 this.deadJelly();
             }
         }, 1000);
@@ -61,6 +60,5 @@ class JellyFish extends MovableObject {
     deadJelly() {
         clearInterval(this.animatedJellyFishId);
         this.playAnimation(this.IMAGES_JELLYFISH_LILA_DEAD);
-        console.log('jellyDead');
     }
 }

@@ -58,7 +58,6 @@ class PufferFish extends MovableObject {
 
         setInterval(() => {
             if (this.puffFishDead) {
-                console.log(this.puffFishDead);
                 this.deadFish();
             }
         }, 1000);
@@ -67,6 +66,6 @@ class PufferFish extends MovableObject {
     deadFish() {
         clearInterval(this.fishMotionInterval);
         this.playAnimation(this.IMAGES_PUFFERFISH_DEAD);
-        console.log('fishDead');
+
     }
 }

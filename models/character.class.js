@@ -127,6 +127,7 @@ class Character extends MovableObject {
     characterIsHurtByJelly = false;
     attackedByBoss = false;
     electrized = false;
+    slap = false;
 
     constructor() {
         super().loadImage('./img/1.Sharkie/1.IDLE/1.png');
@@ -184,7 +185,9 @@ class Character extends MovableObject {
                 this.hurt_sfx.play();
                 this.attackedByBoss = false;
             } else if (this.world.keyboard.SPACE) {
+                this.slap = true;
                 this.playAnimation(this.IMAGES_ATTACK_FIN_SLAP);
+                this.slap = false;
             } else if (this.world.keyboard.D && this.poisonsAmount >= 1 && this.otherDirection == false && this.energy >= 1) {
                 this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
                 setTimeout(() => {
@@ -194,7 +197,7 @@ class Character extends MovableObject {
             else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
                 this.playAnimation(this.IMAGES_SWIMMING);
             } else
-            this.playAnimation(this.IMAGES_IDLE);
+                this.playAnimation(this.IMAGES_IDLE);
         }, 500);
     }
 }

@@ -50,7 +50,6 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
         if (this.keyboard.D && this.character.poisonsAmount >= 1 && this.character.otherDirection == false && this.character.energy >= 1) {
             let bubble = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bubble);
-            console.log('bubble');
             this.character.emptyPoisonbar();
             this.poisonbar.setPercentage(this.character.poisonsAmount);
         }
@@ -107,11 +106,9 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
 
             if (pFishIndex != -1) {
                 this.level.pufferfish[pFishIndex].trashEnergy -= 20;
-                console.log('Pufferfish Energy = ' + this.level.pufferfish[pFishIndex].trashEnergy);
                 this.throwableObjects.splice(bubbleIndex, 1);
                 if (this.level.pufferfish[pFishIndex].trashEnergy <= 0) {
                     this.level.pufferfish[pFishIndex].puffFishDead = true;
-                    console.log(this.level.pufferfish[pFishIndex].puffFishDead);
                     setTimeout(() => {
                         this.level.pufferfish.splice(pFishIndex, 1);
                     }, 2000);
@@ -119,11 +116,9 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
 
             } else if (jellyIndex != -1) {
                 this.level.jellyfish[jellyIndex].trashEnergy -= 20;
-                console.log('Jelly Energy = ' + this.level.jellyfish[jellyIndex].trashEnergy);
                 this.throwableObjects.splice(bubbleIndex, 1);
                 if (this.level.jellyfish[jellyIndex].trashEnergy <= 0) {
                     this.level.jellyfish[jellyIndex].jellyDead = true;
-                    console.log(this.level.jellyfish[jellyIndex].jellyDead);
                     setTimeout(() => {
                         this.level.jellyfish.splice(jellyIndex, 1);
                     }, 2000);
@@ -131,7 +126,6 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
 
             } else if (bossIndex != -1) {
                 this.level.endboss[bossIndex].energy -= 20;
-                this.level.endboss[bossIndex].bossIsHurt = true;
                 this.throwableObjects.splice(bubbleIndex, 1);
 
                 if (this.level.endboss[bossIndex].energy <= 0) {
