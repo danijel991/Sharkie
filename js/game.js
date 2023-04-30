@@ -5,11 +5,9 @@ let fullscreenState = false;
 let helpisopen = false;
 let gameOver = false;
 let gameWin = false;
-
 let background_music = new Audio('./audio/background_music.mp3');
 background_music.volume = 0.1; //set audio volume
 let isPlaying = false;
-
 let intervalIds = [];
 let i = 1;
 
@@ -18,8 +16,8 @@ function init() {
     canvas.style.display = 'block';
     world = new World(canvas, keyboard);
     // playBgMusic();
-    gameOver = false;
     checkGameOver();
+    resetGame();
 }
 
 document.addEventListener('keydown', (e) => {
@@ -135,26 +133,50 @@ function exitFullscreen() {
 }
 
 function checkGameOver() {
-
     let canvasScreen = document.getElementById('canvas');
-    document.getElementById('toggleGame').innerHTML = 'Restart game';
-    setInterval(() => {
-        if (gameOver == true) {
-            console.log('game over');
-            canvasScreen.innerHTML = 'Game over';
-            gameIsOver();
-        } else if (gameWin == true) {
-            console.log('Winner');
-            canvasScreen.innerHTML = 'Winner'
+    let winScreen = document.getElementById('winnerScreen');
+    let gOverScreen = document.getElementById('gameOverScreen');
 
-            gameIsOver();
+    document.getElementById('toggleGame').innerHTML = 'Restart game';
+    let gameListener = setInterval(() => {
+        if (gameOver == true) {
+            canvasScreen.style.display = 'none';
+            console.log('game over');
+            winScreen.style.display = 'none';
+            gOverScreen.style.display = 'block';
+            gameOver = false;
+            gameIsOver(gameListener);
+        } else if (gameWin == true) {
+            canvasScreen.style.display = 'none';
+            console.log('Winner');
+            gOverScreen.style.display = 'none';
+            winScreen.style.display = 'block';
+            gameIsOver(gameListener);
+            gameWin = false;
         }
-        console.log('gameover listener on');
+        console.log('GameStatus Listener');
     }, 2000);
 }
 
-function gameIsOver() {
-    world.character.stopGame();
+function gameIsOver(gameListener) {
+    stopGame();
+    clearInterval(gameListener);
+}
+
+function resetGame() {
+
+    let canvasScreen = document.getElementById('canvas');
+    let winScreen = document.getElementById('winnerScreen');
+    let gOverScreen = document.getElementById('gameOverScreen');
+
+    if (gameOver == true || gameWin == true) {
+        gOverScreen.style.display = 'none';
+        winScreen.style.display = 'none';
+        canvasScreen.style.display = 'block';
+    }
+
+    gameOver = false;
+    gameWin = false;
 }
 
 function toggleHelp() {
@@ -176,3 +198,21 @@ function toggleHelp() {
         console.log('helpisopen = ' + helpisopen);
     }
 }
+
+function stopGame(vari) {
+    setTimeout(() => {
+        console.log("Ending Intervals");
+        if (vari == 2) {
+            gameWin = true;
+        } else if (vari == 1) {
+            gameOver = true;
+        }
+        clearInterval(world.character.animateIntervalId);
+        clearInterval(world.character.keyboardIntervalId);
+        clearInterval(world.jellyfish.animatedJellyFishId);
+        clearInterval(world.pufferfish.fishMotionInterval);
+        clearInterval(world.endboss.endbossAnimation);
+    }, 1000);
+}
+
+

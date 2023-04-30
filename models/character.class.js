@@ -180,11 +180,11 @@ class Character extends MovableObject {
 
             if (this.electrized == true && this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_ELECTRIC_SHOCK);
-                this.stopGame();
+                stopGame(2);
 
             } else if (this.electrized == false && this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_POISONED);
-                this.stopGame();
+                stopGame(2);
 
             } else if (this.characterIsHurt == true) {
                 this.playAnimation(this.IMAGES_HURT_POISONED);
@@ -239,15 +239,5 @@ class Character extends MovableObject {
     animateIdleLong() {
         console.log('IdleLong');
         this.playAnimation(this.IMAGES_LONG_IDLE);
-    }
-
-    stopGame() {
-        setTimeout(() => {
-            console.log("GAME OVER");
-            gameOver = true;
-            clearInterval(
-                this.animateIntervalId,this.keyboardIntervalId,this.jellyfish.animatedJellyFishId,this.pufferfish.animatedPuffFishId,this.pufferfish.animatedPuffFisLefthId
-                );
-        }, 1000);
     }
 }
