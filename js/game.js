@@ -18,6 +18,8 @@ function init() {
     // playBgMusic();
     checkGameOver();
     resetGame();
+    gameWin = false;
+    gameOver = false;
 }
 
 document.addEventListener('keydown', (e) => {
@@ -202,9 +204,9 @@ function toggleHelp() {
 function stopGame(vari) {
     setTimeout(() => {
         console.log("Ending Intervals");
-        if (vari == 2) {
+        if (vari == 1) {
             gameWin = true;
-        } else if (vari == 1) {
+        } else if (vari == 2) {
             gameOver = true;
         }
         clearInterval(world.character.animateIntervalId);

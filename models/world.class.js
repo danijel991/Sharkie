@@ -131,7 +131,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
 
             } else if (bossIndex != -1) {
                 this.level.endboss[bossIndex].energy -= 20;
-                console.log('Boss Energy = ' + this.level.endboss[bossIndex].energy);
+                this.level.endboss[bossIndex].bossIsHurt = true;
                 this.throwableObjects.splice(bubbleIndex, 1);
 
                 if (this.level.endboss[bossIndex].energy <= 0) {

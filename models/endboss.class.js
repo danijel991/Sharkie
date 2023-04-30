@@ -99,24 +99,17 @@ class Endboss extends MovableObject {
                     this.playAnimation(this.IMAGES_BOSS_ATTACK);
 
                 } else if (this.bossIsHurt == true) {
-                    this.bossIsHurted();
                     this.playAnimation(this.IMAGES_BOSS_HURT);
+                    this.bossIsHurt = false;
                 } else {
                     this.playAnimation(this.IMAGES_BOSS_SWIM);
                 };
                 i++;
-
                 if (world.character.x > 1450 && !this.hadFirstContact) {
                     i = 0;
                     this.hadFirstContact = true;
                 }
             }, 10000 / 60);
         }, 2500);
-    }
-
-    bossIsHurted() {
-        setTimeout(() => {
-            this.bossIsHurt == false;
-        }, 500);
     }
 }

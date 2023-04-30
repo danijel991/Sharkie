@@ -1,12 +1,10 @@
 class Character extends MovableObject {
     y = 80;
-    x = 0;
+    x = 1000;
     height = 210;
     width = 150;
     speed = 3;
     attack = 0;
-
-    //images of character
     IMAGES_SWIMMING = [
         './img/1.Sharkie/3.Swim/1.png',
         './img/1.Sharkie/3.Swim/2.png',
@@ -110,7 +108,6 @@ class Character extends MovableObject {
         './img/1.Sharkie/6.dead/2.Electro_shock/9.png',
         './img/1.Sharkie/6.dead/2.Electro_shock/10.png'
     ];
-
     offset = {
         top: 100,
         bottom: 45,
@@ -131,7 +128,6 @@ class Character extends MovableObject {
     attackedByBoss = false;
     electrized = false;
 
-
     constructor() {
         super().loadImage('./img/1.Sharkie/1.IDLE/1.png');
         this.loadImages(this.IMAGES_SWIMMING);
@@ -147,97 +143,58 @@ class Character extends MovableObject {
     }
 
     animate() {
-
         this.swimming_sound.volume = .5;
         this.bubble_sfx.volume = .3;
         this.hurt_shocked_sfx.volume = .3;
-
         this.animateIntervalId = setInterval(() => {
-
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
                 this.swimming_sound.play();
-
             } if (this.world.keyboard.LEFT && this.x > -100) {
                 this.otherDirection = true;
                 this.moveLeft();
                 this.swimming_sound.play();
-
             } if (this.world.keyboard.UP && this.y > 0) {
                 this.y -= this.speed;
                 this.swimming_sound.play();
-
             } if (this.world.keyboard.DOWN && this.y < 250) {
                 this.y += this.speed;
                 this.swimming_sound.play();
             }
-
             this.world.camera_x = -this.x + 50;
-
         }, 1000 / 60);
 
         this.keyboardIntervalId = setInterval(() => {
-
             if (this.electrized == true && this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_ELECTRIC_SHOCK);
                 stopGame(2);
-
             } else if (this.electrized == false && this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_POISONED);
                 stopGame(2);
-
             } else if (this.characterIsHurt == true) {
                 this.playAnimation(this.IMAGES_HURT_POISONED);
                 this.hurt_sfx.play();
                 this.characterIsHurt = false;
-
             } else if (this.characterIsHurtByJelly == true) {
                 this.playAnimation(this.IMAGES_HURT_ELECTRIC_SHOCK);
                 this.hurt_shocked_sfx.play();
                 this.characterIsHurtByJelly = false;
-
             } else if (this.attackedByBoss == true) {
                 this.playAnimation(this.IMAGES_HURT_POISONED);
-
                 this.hurt_sfx.play();
                 this.attackedByBoss = false;
-
             } else if (this.world.keyboard.SPACE) {
                 this.playAnimation(this.IMAGES_ATTACK_FIN_SLAP);
-
             } else if (this.world.keyboard.D && this.poisonsAmount >= 1 && this.otherDirection == false && this.energy >= 1) {
                 this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
                 setTimeout(() => {
                     this.bubble_sfx.play();
                 }, 150);
             }
-
             else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
-
                 this.playAnimation(this.IMAGES_SWIMMING);
-
             } else
-                this.checkIdle();
-
+            this.playAnimation(this.IMAGES_IDLE);
         }, 500);
-    }
-
-    checkIdle() {
-        // setTimeout(this.animateIdle(), 3000);
-        this.animateIdle();
-
-    }
-    checkIdleLong() {
-        this.animateIdleLong();
-        // setTimeout(this.animateIdleLong(), 5000);
-    }
-
-    animateIdle() {
-        console.log('Idle');
-        this.playAnimation(this.IMAGES_IDLE);
-    }
-    animateIdleLong() {
-        console.log('IdleLong');
-        this.playAnimation(this.IMAGES_LONG_IDLE);
     }
 }
