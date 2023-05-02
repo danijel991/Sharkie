@@ -130,7 +130,7 @@ class Character extends MovableObject {
     slap = false;
 
     constructor() {
-        super().loadImage('./img/1.Sharkie/1.IDLE/1.png');
+        super().loadImage(this.IMAGES_LONG_IDLE[0]);
         this.loadImages(this.IMAGES_SWIMMING);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_LONG_IDLE);

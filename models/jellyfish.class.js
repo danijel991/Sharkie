@@ -25,7 +25,7 @@ class JellyFish extends MovableObject {
     }
 
     constructor(x, y) {
-        super().loadImage('./img/2.Enemy/2_Jellyfish/Regular_damage/Lila_1.png');
+        super().loadImage(this.IMAGES_JELLYFISH_LILA[0]);
         this.loadImages(this.IMAGES_JELLYFISH_LILA);
         this.loadImages(this.IMAGES_JELLYFISH_LILA_DEAD);
         this.x = x;

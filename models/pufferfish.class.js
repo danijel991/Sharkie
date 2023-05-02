@@ -40,7 +40,7 @@ class PufferFish extends MovableObject {
     }
 
     constructor(x, y) {
-        super().loadImage('./img/2.Enemy/1_Pufferfish/1.Swim/1.swim1.png');
+        super().loadImage(this.IMAGES_PUFFERFISH_SWIM[0]);
         this.loadImages(this.IMAGES_PUFFERFISH_SWIM);
         this.loadImages(this.IMAGES_PUFFERFISH_DEAD);
         this.x = x;
