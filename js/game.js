@@ -1,4 +1,6 @@
 let canvas;
+let winScreen;
+let gOverScreen;
 let world;
 let keyboard = new Keyboard();
 let fullscreenState = false;
@@ -12,10 +14,14 @@ let intervalIds = [];
 let i = 1;
 
 function init() {
+
     canvas = document.getElementById('canvas');
-    canvas.style.display = 'block';
+    winScreen = document.getElementById('winnerScreen');
+    gOverScreen = document.getElementById('gameOverScreen');
+    
     world = new World(canvas, keyboard);
     // playBgMusic();
+    canvas.style.display = 'block';
     checkGameOver();
     resetGame();
     gameWin = false;
@@ -85,11 +91,12 @@ function playBgMusic() {
 
 function togglePlay() {
     if (isPlaying) {
-        background_music.pause()
+        background_music.pause();
     } else {
         background_music.play();
     }
-};
+}
+
 background_music.onplaying = function () {
     background_music.volume = 0.1;
     isPlaying = true;
@@ -97,7 +104,6 @@ background_music.onplaying = function () {
 background_music.onpause = function () {
     isPlaying = false;
 };
-
 
 function fullscreen() {
     let fullscreen = document.getElementById('fullscreen');
@@ -135,21 +141,18 @@ function exitFullscreen() {
 }
 
 function checkGameOver() {
-    let canvasScreen = document.getElementById('canvas');
-    let winScreen = document.getElementById('winnerScreen');
-    let gOverScreen = document.getElementById('gameOverScreen');
 
     document.getElementById('toggleGame').innerHTML = 'Restart game';
     let gameListener = setInterval(() => {
         if (gameOver == true) {
-            canvasScreen.style.display = 'none';
+            canvas.style.display = 'none';
             console.log('game over');
             winScreen.style.display = 'none';
             gOverScreen.style.display = 'block';
             gameOver = false;
             gameIsOver(gameListener);
         } else if (gameWin == true) {
-            canvasScreen.style.display = 'none';
+            canvas.style.display = 'none';
             console.log('Winner');
             gOverScreen.style.display = 'none';
             winScreen.style.display = 'block';
@@ -167,14 +170,10 @@ function gameIsOver(gameListener) {
 
 function resetGame() {
 
-    let canvasScreen = document.getElementById('canvas');
-    let winScreen = document.getElementById('winnerScreen');
-    let gOverScreen = document.getElementById('gameOverScreen');
-
     if (gameOver == true || gameWin == true) {
         gOverScreen.style.display = 'none';
         winScreen.style.display = 'none';
-        canvasScreen.style.display = 'block';
+        canvas.style.display = 'block';
     }
 
     gameOver = false;
