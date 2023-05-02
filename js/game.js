@@ -33,6 +33,7 @@ function init() {
     resetGame();
     gameWin = false;
     gameOver = false;
+    touchEventListener();
 }
 
 document.addEventListener('keydown', (e) => {
@@ -258,7 +259,7 @@ function mobileScreenListener() {
             mobilescreen = false;
         }
 
-        if (canvasblock.style.display != "block") { 
+        if (canvasblock.style.display != "block") {
             gametogglebtn.style.display = "block"
             canvasOver.style.display = "flex"
             canvassub.style.display = "flex"
@@ -273,4 +274,67 @@ function mobileScreenListener() {
 
         }
     }, 500);
+}
+
+function touchEventListener() {
+    const arrowup = document.getElementById('touchbtn-up');
+    const arrowleft = document.getElementById('touchbtn-left');
+    const arrowdown = document.getElementById('touchbtn-down');
+    const arrowright = document.getElementById('touchbtn-right');
+    const bubbletouch = document.getElementById('bubbleAttackTouch');
+    const slaptouch = document.getElementById('slapAttackTouch');
+
+    arrowup.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        console.log('arrowup');
+        keyboard.UP = true;
+    });
+    arrowup.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        console.log('arrowup');
+        keyboard.UP = false;
+    });
+    arrowleft.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = true;
+    });
+    arrowleft.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = false;
+    });
+    arrowright.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = true;
+    });
+    arrowright.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = false;
+    });
+    arrowdown.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.DOWN = true;
+    });
+    arrowdown.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.DOWN = false;
+    });
+    bubbletouch.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.D = true;
+    });
+    bubbletouch.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.D = false;
+    });
+    slaptouch.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.SPACE = true;
+    });
+    slaptouch.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.SPACE = false;
+    });
+
+
+
 }

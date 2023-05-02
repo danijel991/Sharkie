@@ -33,18 +33,25 @@
 </head>
 
 <body onload="mobileScreenListener()">
+    <div id="rotaDisplay">
+        <h1 id>Please rotate your device</h1>
+    </div>
     <div id="HowToPlay">
         <h2>Instructions</h2><br>
-        <span>Be the shark, face the dangers and defeat Orqi, the evil orca that makes his nuisance in the deep waters.
-            Use the fin attack to beat the opponents with Sharkie. When you have collected the poison bottles, you can
-            also shoot bubbles.</span><br>
-        <span>Usw arrow keys to move Sharkie</span><br>
-        <span>Arrow left - move left</span><br>
-        <span>Arrow right - move right</span><br>
-        <span>Arrow up - move up</span><br>
-        <span>Arrow down - move down</span><br>
-        <span>Space - Fins attack</span><br>
-        <span>D - Shoot bubbles</span><br>
+        <div class="span-wrap">
+            <span>Be the shark, face the dangers and defeat Orqi, the evil orca that makes his nuisance in the deep
+                waters.
+                Use the fin attack to beat the opponents with Sharkie. When you have collected the poison bottles, you
+                can
+                also shoot bubbles.</span><br>
+            <span>Usw arrow keys to move Sharkie</span><br>
+            <span>Arrow left - move left</span><br>
+            <span>Arrow right - move right</span><br>
+            <span>Arrow up - move up</span><br>
+            <span>Arrow down - move down</span><br>
+            <span>Space/Fins button - Fins attack</span><br>
+            <span>D/Shoot button - Shoot bubbles</span><br>
+        </div>
         <button onclick="toggleHelp()" class="btn-container btn-text" id="toggleHelp">How to play</button>
     </div>
 
@@ -68,8 +75,27 @@
                 game</button>
         </div>
 
-        <div>
-            <img id="playButtonsLeft" src="./img/Buttons/Key/arrow keys.png" alt="">
+        <div id="touch-area-left">
+            <img id="touch-area-left-img" src="./img/Buttons/Key/arrow keys.png" alt="">
+            <div class="touchbtn-left">
+                <div class="touchbtn-rows touchbtn-first-row">
+                    <div class="test-color" id="touchbtn-up">A</div>
+                </div>
+                <div class="touchbtn-rows touchbtn-second-row">
+                    <div class="test-color" id="touchbtn-left">B</div>
+                    <div class="test-color" id="touchbtn-down">C</div>
+                    <div class="test-color" id="touchbtn-right">D</div>
+
+                </div>
+            </div>
+        </div>
+        <div id="touch-area-right">
+            <div id="bubbleAttackTouch" class="attack-btn">
+                <img src="./img/touchbtns/arrow_btn_bubble.png" alt="">
+            </div>
+            <div id="slapAttackTouch" class="attack-btn">
+                <img src="./img/touchbtns/arrow_btn_slap.png" alt="">
+            </div>
         </div>
     </div>
 
