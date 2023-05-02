@@ -32,7 +32,7 @@
     <title>Sharkie</title>
 </head>
 
-<body>
+<body onload="mobileScreenListener()">
     <div id="HowToPlay">
         <h2>Instructions</h2><br>
         <span>Be the shark, face the dangers and defeat Orqi, the evil orca that makes his nuisance in the deep waters.
@@ -45,25 +45,31 @@
         <span>Arrow down - move down</span><br>
         <span>Space - Fins attack</span><br>
         <span>D - Shoot bubbles</span><br>
-        <button onclick="toggleHelp()" class="btn-container btn-text" id="toggleHelp">How to play (H)</button>
+        <button onclick="toggleHelp()" class="btn-container btn-text" id="toggleHelp">How to play</button>
     </div>
 
+    <button onclick="window.location.reload()" id="debugBtn" class="btn-container btn-text">refresh</button>
+
     <div id="fullscreen">
-        <div canvasOver>
-            <button onclick="fullscreen()" class="btn-container btn-text" id="fullscreen-button">Fullscreen (F)</button>
-            <button onclick="toggleHelp()" class="btn-container btn-text" id="toggleHelp">How to play (H)</button>
+        <div class="canvasOver" id="canvasOver">
+            <button onclick="fullscreen()" class="btn-container btn-text" id="fullscreen-button">Fullscreen</button>
+            <button onclick="toggleHelp()" class="btn-container btn-text" id="toggleHelp">How to play</button>
             <button onclick="togglePlay()" class="btn-container btn-text" id="toggleMusic">Toggle music</button>
         </div>
-        <h1>Sharkie</h1>
+        <h1 id="gameTitle">Sharkie</h1>
 
         <div class="canvas-field">
             <img id="gameOverScreen" class="displayNone" src="./img/Buttons/Tittles/Gameover/gameover(1).png" alt="">
             <img id="winnerScreen" class="displayNone" src="./img/Buttons/Tittles/Win/winner(1).png" alt="">
             <canvas id="canvas" width="720" height="480"></canvas>
         </div>
-        <div class="canvasSub">
+        <div class="canvasSub" id="canvasSub">
             <button onclick="initLevel();init();resetGame()" class="btn-container btn-text" id="toggleGame">Start
                 game</button>
+        </div>
+
+        <div>
+            <img id="playButtonsLeft" src="./img/Buttons/Key/arrow keys.png" alt="">
         </div>
     </div>
 

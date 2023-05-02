@@ -1,18 +1,50 @@
 * {
-    font-family: "Luckiest Guy" !important;
+    font-family: 'Luckiest Guy' !important;
 }
 
-body {
+#playButtonsLeft {
+    display: none;
+}
+
+#debugBtn {
+    position: fixed !important;
+    z-index: 999 !important;
+    right: 5px !important;
+    bottom: 5px !important;
+    width: 80px !important;
+    font-size: 12px !important;
+    word-spacing: 0;
+}
+
+body,
+html {
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+#fullscreen {
+    position: fixed;
+    display: block;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url("../img/3.Background/background.png");
+    background-image: url('../img/3.Background/background.png');
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     overflow: hidden;
+}
+
+#fullscreen>div:nth-child(1),
+.canvasSub {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-top: 10px;
 }
 
 .canvas-field {
@@ -29,8 +61,7 @@ body {
     margin: auto;
     left: 0;
     right: 0;
-    top: 0;
-    bottom: 0;
+    top: 60px;
     height: auto;
     width: 75%;
 }
@@ -41,17 +72,14 @@ body {
     margin: auto;
     left: 0;
     right: 0;
-    top: 0;
-    bottom: 0;
-    background: rgba(132, 0, 255, 0.45);
+    top: 50px;
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     height: auto;
-    width: 55%;
-
+    width: 85%;
+    z-index: 10;
 }
 
 canvas {
@@ -60,7 +88,7 @@ canvas {
     margin-left: auto;
     display: none;
     border-radius: 10px;
-    border: 4px solid rgb(132, 0, 255);
+    border: border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 h1 {
@@ -81,6 +109,19 @@ h1 {
     align-items: center;
     flex-direction: column;
     text-shadow: rgb(0, 0, 0) 1px 0 10px;
+    text-align: center;
+    /* Absolute centering: */
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    background-image: url('../img/3.Background/Dark/1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
 }
 
 .displayNone {
@@ -91,27 +132,23 @@ h1 {
     display: flex;
 }
 
-#fullscreen {
-    display: block;
-}
-
-#fullscreen>div:nth-child(1),
-.canvasSub {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    padding-top: 10px;
-}
-
 /* Button container */
 .btn-container {
     display: inline-block;
     position: relative;
     overflow: hidden;
     height: 50px;
-    border-radius: 25px;
-    background-color: rgb(132, 0, 255);
-    border: rgb(132, 0, 255) solid;
+    /* border-radius: 25px; */
+    /* background-color: rgb(132, 0, 255);
+    border: rgb(132, 0, 255) solid; */
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    color: rgba(255, 255, 255, 0.8);
+    z-index: 9;
 }
 
 /* Button text */
@@ -123,10 +160,14 @@ h1 {
     height: 100px%;
     color: #fff;
     font-size: 16px;
-    font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 2px;
     transition: transform 0.2s ease;
+    margin: 10px;
+}
+
+#toggleGame {
+    z-index: 999;
 }
 
 /* Hover effect */
@@ -146,10 +187,101 @@ h1 {
     canvas {
         width: 100%;
     }
+
+    #winnerScreen {
+        width: 75%;
+        bottom: 50px;
+    }
+
+
+    #fullscreen-button {
+        display: none;
+    }
+
+    .btn-text {
+        width: 170px;
+        margin: 6px;
+        padding: 0;
+    }
+
+    .btn-container {
+        height: 40px;
+    }
+
+    h1 {
+        font-size: 42px;
+    }
 }
 
 @media only screen and (max-height: 480px) {
     canvas {
         height: 100vh;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    canvas {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-height: 480px),
+(max-width: 720px) {
+
+    #toggleGame {
+        position: fixed;
+        bottom: 25%;
+        top: 75%;
+    }
+
+
+    #winnerScreen {
+        width: 75%;
+        bottom: 50%;
+        top: 50%;
+    }
+
+
+    #fullscreen-button {
+        display: none;
+    }
+
+    .btn-text {
+        width: 170px;
+        margin: 6px;
+        padding: 0;
+    }
+
+    .btn-container {
+        height: 40px;
+    }
+
+    h1 {
+        font-size: 42px;
+    }
+
+    h2 {
+        margin: 0;
+    }
+
+    #HowToPlay {
+        font-size: 16px;
+        font-weight: 200;
+    }
+
+    #HowToPlay > span {
+        font-size: 14px;
+        font-weight: 200;
+    }
+
+    #fullscreen {
+    }
+
+    #playButtonsLeft {
+        display: block;
+        height: 35%;
+        position: fixed;
+        left: 5px;
+        bottom: 5px;
     }
 }

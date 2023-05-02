@@ -91,7 +91,7 @@ class Endboss extends MovableObject {
             this.endbossAnimation = setInterval(() => {
                 if (this.bossDead == true || this.energy <= 0) {
                     this.playAnimation(this.IMAGES_BOSS_DEAD);
-                    stopGame(1);
+                    console.log('boss');
                 } else if (i < 10) {
                     this.x = 2200;
                     this.playAnimation(this.IMAGES_BOSS_INTRO);
@@ -112,4 +112,14 @@ class Endboss extends MovableObject {
             }, 10000 / 60);
         }, 2500);
     }
+
+    bossDeadListener() {
+        setInterval(() => {
+            if (this.bossDead == true || this.energy <= 0) {
+                stopGame(1);
+            }
+        }, 100);
+    }
+
+
 }

@@ -43,7 +43,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     }
 
     checkThrowObjects() {
-        setInterval(() => {
+        this.checkCollisionID = setInterval(() => {
             this.checkThrowObjectsBubble();
         }, 1000);
     }
@@ -59,19 +59,19 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     }
 
     collisionWithCharacter() {
-        setInterval(() => {
+        this.checkCollisionCharacterID = setInterval(() => {
             this.checkCollisionsWithCaracter();
         }, 750);
     }
 
     collisionWithObjects() {
-        setInterval(() => {
+        this.checkCollisionObjectID = setInterval(() => {
             this.checkCollisionsWithObjects();
         }, 10);
     }
 
     collisionWithBallistics() {
-        setInterval(() => {
+        this.checkCollisionBallisticsID = setInterval(() => {
             this.checkCollisionsWithBubbles();
         }, 100);
     }
@@ -144,8 +144,8 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
             } else if (bossIndex != -1) {
                 this.level.endboss[bossIndex].energy -= 20;
                 this.throwableObjects.splice(bubbleIndex, 1);
-
                 if (this.level.endboss[bossIndex].energy <= 0) {
+                    this.level.endboss[bossIndex].bossDead = true;
                     setTimeout(() => {
                         this.level.endboss.splice(bossIndex, 1);
                     }, 1500);

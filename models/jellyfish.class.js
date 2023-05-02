@@ -41,7 +41,7 @@ class JellyFish extends MovableObject {
             this.playAnimation(this.IMAGES_JELLYFISH_LILA);
         }, 1000);
 
-        setInterval(() => {
+        this.animatedJellyFishIdDead = setInterval(() => {
             if (this.jellyDead) {
                 this.deadJelly();
             }
@@ -51,7 +51,7 @@ class JellyFish extends MovableObject {
     animateJellyFish() {
         let startY = this.y;
         let time = 0;
-        setInterval(() => {
+        this.animatedJellyFishIdMotion = setInterval(() => {
             time += 1;
             this.y = startY + Math.sin(time / 50) * 20;
         }, 1000 / 60);

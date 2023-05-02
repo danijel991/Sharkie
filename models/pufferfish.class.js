@@ -56,7 +56,7 @@ class PufferFish extends MovableObject {
             this.playAnimation(this.IMAGES_PUFFERFISH_SWIM);
         }, 1000 / 60);
 
-        setInterval(() => {
+        this.fishMotionIntervalDead =  setInterval(() => {
             if (this.puffFishDead) {
                 this.deadFish();
             }
