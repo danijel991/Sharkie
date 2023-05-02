@@ -35,6 +35,14 @@ class MovableObject extends Drawableobject {
         }
     }
 
+    isInvulnerable() {
+        if (this.timepassed < 2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     fillCoinBar() {
         this.coinsAmount += 15;
         if (this.coinsAmount > 100) {
@@ -85,7 +93,7 @@ class MovableObject extends Drawableobject {
             this.moveDownUP();
         }
     }
-    
+
     animateCollectables() {
         let startY = this.y;
         let time = 0;

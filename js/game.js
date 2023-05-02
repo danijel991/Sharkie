@@ -3,6 +3,7 @@ let winScreen;
 let gOverScreen;
 let world;
 let keyboard = new Keyboard();
+let assets = new Assets();
 let fullscreenState = false;
 let helpisopen = false;
 let gameOver = false;
@@ -18,8 +19,8 @@ function init() {
     canvas = document.getElementById('canvas');
     winScreen = document.getElementById('winnerScreen');
     gOverScreen = document.getElementById('gameOverScreen');
-    
-    world = new World(canvas, keyboard);
+
+    world = new World(canvas, keyboard, assets);
     // playBgMusic();
     canvas.style.display = 'block';
     checkGameOver();

@@ -1,6 +1,7 @@
 class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tastatur, kamera, health bars
-    character = new Character();
-    endboss = new Endboss();
+    assets;
+    character = new Character(this, assets);
+    endboss = new Endboss(this, assets);
     pufferfish = new PufferFish();
     jellyfish = new JellyFish();
     coin = new Coins();
@@ -14,12 +15,14 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     coinBar = new CoinBar();
     poisonbar = new Poisonbar();
     statusBar = [this.healthBar, this.coinBar, this.poisonbar];
+    alreadyAttacking = false;
     throwableObjects = [];
 
-    constructor(canvas, keyboard) {
+    constructor(canvas, keyboard, assets) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.assets = assets;
         this.draw();
         this.setWorld();
         this.run();
@@ -74,13 +77,26 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     }
 
     checkCollisionsWithCaracter() {
-        this.level.pufferfish.forEach((pufferfish) => {
-            if (this.character.isColliding(pufferfish)) {
+        this.level.pufferfish.forEach((pufferfish, index) => {
+            if (this.character.isColliding(pufferfish) && this.keyboard.SPACE && !this.alreadyAttacking) {
+                this.alreadyAttacking = true;
+                this.level.pufferfish.trashEnergy -= 20;
+                setTimeout(() => {
+                    this.level.pufferfish.splice(index, 1);
+                    this.alreadyAttacking = false;
+                }, 600)
+            }
+            if (this.character.isColliding(pufferfish) && this.character.energy != 0 && !this.character.isInvulnerable() && !this.keyboard.SPACE) {
+                this.character.hittedByPufferfish = true;
                 this.character.hit(5);
                 this.healthBar.setPercentage(this.character.energy);
                 this.character.characterIsHurt = true;
-            }
-        });
+                setTimeout(() => {
+                    this.character.hittedByPufferfish = false;
+                }, 900);
+            };
+        })
+
         this.level.jellyfish.forEach((jellyfish) => {
             if (this.character.isColliding(jellyfish)) {
                 this.character.hit(5);
@@ -89,6 +105,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
                 this.character.electrized = true;
             }
         });
+
         this.level.endboss.forEach((boss) => {
             if (this.character.isColliding(boss)) {
                 this.character.attackedByBoss = true;

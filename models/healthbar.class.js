@@ -10,7 +10,7 @@ class HealthBar extends statusBar {
       './img/4.Marks/green/Life/60.png',
       './img/4.Marks/green/Life/80.png',
       './img/4.Marks/green/Life/100.png'
-  ];
+  ]
   
     constructor() {
       super();

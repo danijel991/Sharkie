@@ -8,7 +8,7 @@ class PufferFish extends MovableObject {
         './img/2.Enemy/1_Pufferfish/1.Swim/1.swim3.png',
         './img/2.Enemy/1_Pufferfish/1.Swim/1.swim4.png',
         './img/2.Enemy/1_Pufferfish/1.Swim/1.swim5.png'
-    ];
+    ]
 
     IMAGES_PUFFERFISH_TRANSITION = [
         './img/2.Enemy/1_Pufferfish/2.transition/1.transition1.png',
@@ -24,13 +24,13 @@ class PufferFish extends MovableObject {
         './img/2.Enemy/1_Pufferfish/3.Bubbleeswim/1.bubbleswim3.png',
         './img/2.Enemy/1_Pufferfish/3.Bubbleeswim/1.bubbleswim4.png',
         './img/2.Enemy/1_Pufferfish/3.Bubbleeswim/1.bubbleswim5.png'
-    ];
+    ]
 
     IMAGES_PUFFERFISH_DEAD = [
         './img/2.Enemy/1_Pufferfish/4.DIE/1.png',
         './img/2.Enemy/1_Pufferfish/4.DIE/2.png',
         './img/2.Enemy/1_Pufferfish/4.DIE/3.png'
-    ];
+    ]
 
     offset = {
         top: 10,

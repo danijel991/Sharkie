@@ -1,113 +1,11 @@
 class Character extends MovableObject {
     y = 80;
-    x = 1000;
+    x = 0;
     height = 210;
     width = 150;
     speed = 3;
     attack = 0;
-    IMAGES_SWIMMING = [
-        './img/1.Sharkie/3.Swim/1.png',
-        './img/1.Sharkie/3.Swim/2.png',
-        './img/1.Sharkie/3.Swim/3.png',
-        './img/1.Sharkie/3.Swim/4.png',
-        './img/1.Sharkie/3.Swim/5.png',
-        './img/1.Sharkie/3.Swim/6.png'
-    ];
-    IMAGES_IDLE = [
-        './img/1.Sharkie/1.IDLE/1.png',
-        './img/1.Sharkie/1.IDLE/2.png',
-        './img/1.Sharkie/1.IDLE/3.png',
-        './img/1.Sharkie/1.IDLE/4.png',
-        './img/1.Sharkie/1.IDLE/5.png',
-        './img/1.Sharkie/1.IDLE/6.png',
-        './img/1.Sharkie/1.IDLE/7.png',
-        './img/1.Sharkie/1.IDLE/8.png',
-        './img/1.Sharkie/1.IDLE/9.png',
-        './img/1.Sharkie/1.IDLE/10.png',
-        './img/1.Sharkie/1.IDLE/11.png',
-        './img/1.Sharkie/1.IDLE/12.png',
-        './img/1.Sharkie/1.IDLE/13.png',
-        './img/1.Sharkie/1.IDLE/14.png',
-        './img/1.Sharkie/1.IDLE/15.png',
-        './img/1.Sharkie/1.IDLE/16.png',
-        './img/1.Sharkie/1.IDLE/17.png',
-        './img/1.Sharkie/1.IDLE/18.png'
-    ];
-    IMAGES_LONG_IDLE = [
-        './img/1.Sharkie/2.Long_IDLE/i1.png',
-        './img/1.Sharkie/2.Long_IDLE/i2.png',
-        './img/1.Sharkie/2.Long_IDLE/i3.png',
-        './img/1.Sharkie/2.Long_IDLE/i4.png',
-        './img/1.Sharkie/2.Long_IDLE/i5.png',
-        './img/1.Sharkie/2.Long_IDLE/i6.png',
-        './img/1.Sharkie/2.Long_IDLE/i7.png',
-        './img/1.Sharkie/2.Long_IDLE/i8.png',
-        './img/1.Sharkie/2.Long_IDLE/i9.png',
-        './img/1.Sharkie/2.Long_IDLE/i10.png',
-        './img/1.Sharkie/2.Long_IDLE/i11.png',
-        './img/1.Sharkie/2.Long_IDLE/i12.png',
-        './img/1.Sharkie/2.Long_IDLE/i13.png',
-        './img/1.Sharkie/2.Long_IDLE/i14.png'
-    ];
-    IMAGES_ATTACK_BUBBLE = [
-        './img/1.Sharkie/4.Attack/Bubble_trap/op1_(with_bubble_formation)/1.png',
-        './img/1.Sharkie/4.Attack/Bubble_trap/op1_(with_bubble_formation)/2.png',
-        './img/1.Sharkie/4.Attack/Bubble_trap/op1_(with_bubble_formation)/3.png',
-        './img/1.Sharkie/4.Attack/Bubble_trap/op1_(with_bubble_formation)/4.png',
-        './img/1.Sharkie/4.Attack/Bubble_trap/op1_(with_bubble_formation)/5.png',
-        './img/1.Sharkie/4.Attack/Bubble_trap/op1_(with_bubble_formation)/6.png',
-        './img/1.Sharkie/4.Attack/Bubble_trap/op1_(with_bubble_formation)/7.png',
-        './img/1.Sharkie/4.Attack/Bubble_trap/op1_(with_bubble_formation)/8.png'
-    ];
-    IMAGES_ATTACK_FIN_SLAP = [
-        './img/1.Sharkie/4.Attack/Fin_slap/1.png',
-        './img/1.Sharkie/4.Attack/Fin_slap/2.png',
-        './img/1.Sharkie/4.Attack/Fin_slap/3.png',
-        './img/1.Sharkie/4.Attack/Fin_slap/4.png',
-        './img/1.Sharkie/4.Attack/Fin_slap/5.png',
-        './img/1.Sharkie/4.Attack/Fin_slap/6.png',
-        './img/1.Sharkie/4.Attack/Fin_slap/7.png',
-        './img/1.Sharkie/4.Attack/Fin_slap/8.png'
-    ];
-    IMAGES_HURT_POISONED = [
-        './img/1.Sharkie/5.Hurt/1.Poisoned/1.png',
-        './img/1.Sharkie/5.Hurt/1.Poisoned/2.png',
-        './img/1.Sharkie/5.Hurt/1.Poisoned/3.png',
-        './img/1.Sharkie/5.Hurt/1.Poisoned/4.png',
-        './img/1.Sharkie/5.Hurt/1.Poisoned/5.png'
-    ];
-    IMAGES_HURT_ELECTRIC_SHOCK = [
-        'img/1.Sharkie/5.Hurt/2.Electric_shock/1.png',
-        'img/1.Sharkie/5.Hurt/2.Electric_shock/2.png',
-        'img/1.Sharkie/5.Hurt/2.Electric_shock/3.png'
-    ];
-    IMAGES_DEAD_POISONED = [
-        './img/1.Sharkie/6.dead/1.Poisoned/1.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/2.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/3.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/4.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/5.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/6.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/7.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/8.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/9.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/10.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/11.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/12.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/1.png'
-    ];
-    IMAGES_DEAD_ELECTRIC_SHOCK = [
-        './img/1.Sharkie/6.dead/2.Electro_shock/1.png',
-        './img/1.Sharkie/6.dead/2.Electro_shock/2.png',
-        './img/1.Sharkie/6.dead/2.Electro_shock/3.png',
-        './img/1.Sharkie/6.dead/2.Electro_shock/4.png',
-        './img/1.Sharkie/6.dead/2.Electro_shock/5.png',
-        './img/1.Sharkie/6.dead/2.Electro_shock/6.png',
-        './img/1.Sharkie/6.dead/2.Electro_shock/7.png',
-        './img/1.Sharkie/6.dead/2.Electro_shock/8.png',
-        './img/1.Sharkie/6.dead/2.Electro_shock/9.png',
-        './img/1.Sharkie/6.dead/2.Electro_shock/10.png'
-    ];
+    
     offset = {
         top: 100,
         bottom: 45,
@@ -116,9 +14,10 @@ class Character extends MovableObject {
     }
 
     world;
-    endboss = new Endboss();
-    pufferfish = new PufferFish();
-    jellyfish = new JellyFish();
+    assets;
+    // endboss = new Endboss();
+    // pufferfish = new PufferFish();
+    // jellyfish = new JellyFish();
     swimming_sound = new Audio('./audio/char_swim.mp3');
     hurt_sfx = new Audio('./audio/hurt.mp3');
     hurt_shocked_sfx = new Audio('./audio/shocked.mp3');
@@ -128,18 +27,22 @@ class Character extends MovableObject {
     attackedByBoss = false;
     electrized = false;
     slap = false;
+    checkAlreadyRunning = false;
+    spaceAlreadyPressed = false;
 
-    constructor() {
-        super().loadImage(this.IMAGES_LONG_IDLE[0]);
-        this.loadImages(this.IMAGES_SWIMMING);
-        this.loadImages(this.IMAGES_IDLE);
-        this.loadImages(this.IMAGES_LONG_IDLE);
-        this.loadImages(this.IMAGES_ATTACK_BUBBLE);
-        this.loadImages(this.IMAGES_ATTACK_FIN_SLAP);
-        this.loadImages(this.IMAGES_HURT_POISONED);
-        this.loadImages(this.IMAGES_HURT_ELECTRIC_SHOCK);
-        this.loadImages(this.IMAGES_DEAD_POISONED);
-        this.loadImages(this.IMAGES_DEAD_ELECTRIC_SHOCK);
+    constructor(world,assets) {
+        super().loadImage('img/1.Sharkie/2.Long_IDLE/i1.png');
+        this.world = world;
+        this.assets = assets;
+        this.loadImages(this.assets.IMAGES_SWIMMING);
+        this.loadImages(this.assets.IMAGES_IDLE);
+        this.loadImages(this.assets.IMAGES_LONG_IDLE);
+        this.loadImages(this.assets.IMAGES_ATTACK_BUBBLE);
+        this.loadImages(this.assets.IMAGES_ATTACK_FIN_SLAP);
+        this.loadImages(this.assets.IMAGES_HURT_POISONED);
+        this.loadImages(this.assets.IMAGES_HURT_ELECTRIC_SHOCK);
+        this.loadImages(this.assets.IMAGES_DEAD_POISONED);
+        this.loadImages(this.assets.IMAGES_DEAD_ELECTRIC_SHOCK);
         this.animate();
     }
 
@@ -167,37 +70,89 @@ class Character extends MovableObject {
 
         this.keyboardIntervalId = setInterval(() => {
             if (this.electrized == true && this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD_ELECTRIC_SHOCK);
+                this.playAnimation(this.assets.IMAGES_DEAD_ELECTRIC_SHOCK);
                 stopGame(2);
             } else if (this.electrized == false && this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD_POISONED);
+                this.playAnimation(this.assets.IMAGES_DEAD_POISONED);
                 stopGame(2);
             } else if (this.characterIsHurt == true) {
-                this.playAnimation(this.IMAGES_HURT_POISONED);
+                this.playAnimation(this.assets.IMAGES_HURT_POISONED);
                 this.hurt_sfx.play();
                 this.characterIsHurt = false;
             } else if (this.characterIsHurtByJelly == true) {
-                this.playAnimation(this.IMAGES_HURT_ELECTRIC_SHOCK);
+                this.playAnimation(this.assets.IMAGES_HURT_ELECTRIC_SHOCK);
                 this.hurt_shocked_sfx.play();
                 this.characterIsHurtByJelly = false;
             } else if (this.attackedByBoss == true) {
-                this.playAnimation(this.IMAGES_HURT_POISONED);
+                this.playAnimation(this.assets.IMAGES_HURT_POISONED);
                 this.hurt_sfx.play();
                 this.attackedByBoss = false;
             } else if (this.world.keyboard.SPACE) {
-                this.slap = true;
-                this.playAnimation(this.IMAGES_ATTACK_FIN_SLAP);
-                this.slap = false;
+                this.activateSpace();
+                this.playAnimation(this.assets.IMAGES_ATTACK_FIN_SLAP);
+                this.spaceAlreadyPressed = true;
             } else if (this.world.keyboard.D && this.poisonsAmount >= 1 && this.otherDirection == false && this.energy >= 1) {
-                this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
+                this.playAnimation(this.assets.IMAGES_ATTACK_BUBBLE);
                 setTimeout(() => {
                     this.bubble_sfx.play();
                 }, 150);
             }
             else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
-                this.playAnimation(this.IMAGES_SWIMMING);
-            } else
-                this.playAnimation(this.IMAGES_IDLE);
-        }, 500);
+                this.playAnimation(this.assets.IMAGES_SWIMMING);
+            } else if (this.noKeyIsPressed() && !this.isDead()) {
+                this.playAnimation(this.assets.IMAGES_IDLE);
+            }
+        }, 100);
+    }
+
+    activateAttack() {
+        if (!this.attacked) {
+            this.currentImage = 0;
+            let DIsPressed = setInterval(() => {
+                this.attacked = true;
+                this.world.keyboard.D = true;
+            }, 100)
+
+            setTimeout(() => {
+
+                clearInterval(DIsPressed)
+                this.attacked = false;
+                this.world.keyboard.D = false;
+            }, 400)
+        }
+    }
+
+    activateSpace() {
+
+        if (!this.checkAlreadyRunning) {
+            this.currentImage = 0;
+            let spacePressed = setInterval(() => {
+                this.world.keyboard.SPACE = true;
+                this.checkAlreadyRunning = true;
+            }, 100)
+
+            setTimeout(() => {
+                this.world.keyboard.SPACE = false;
+                this.checkAlreadyRunning = false;
+                clearInterval(spacePressed)
+                this.spaceAlreadyPressed = false;
+            }, 800)
+        }
+    }
+
+    checkMovementKeyIsPressed() {
+        return this.world.keyboard.RIGHT ||
+            this.world.keyboard.LEFT ||
+            this.world.keyboard.UP ||
+            this.world.keyboard.DOWN
+    }
+
+    noKeyIsPressed() {
+        return !this.world.keyboard.RIGHT &&
+            !this.world.keyboard.LEFT &&
+            !this.world.keyboard.UP &&
+            !this.world.keyboard.DOWN &&
+            !this.spaceAlreadyPressed &&
+            !this.world.keyboard.D
     }
 }
