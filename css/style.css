@@ -1,5 +1,5 @@
 * {
-    font-family: 'Luckiest Guy' !important;
+    font-family: 'Luckiest Guy', Arial, Helvetica, sans-serif !important;
 }
 
 #rotaDisplay {
@@ -41,6 +41,7 @@ html {
     justify-content: center;
     align-items: center;
     background-image: url('../img/3.Background/background.png');
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
@@ -53,6 +54,8 @@ html {
     display: flex;
     flex-direction: row;
     padding-top: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .canvas-field {
@@ -231,7 +234,10 @@ h1 {
     canvas {
         width: 100%;
     }
+}
 
+@media only screen and (max-height: 480px),
+(max-width: 720px) {
     #toggleGame {
         position: fixed;
         bottom: 25%;
@@ -306,14 +312,6 @@ h1 {
     #slapAttackTouch {
         display: flex;
         transform: rotate(129deg);
-    }
-
-
-    #canvasOver,
-    .canvasOver {
-        display: flex;
-        flex-direction: column;
-        padding-top: 10px;
     }
 
     .attack-btn {

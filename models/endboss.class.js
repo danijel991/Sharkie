@@ -106,10 +106,10 @@ class Endboss extends MovableObject {
                     this.playAnimation(this.IMAGES_BOSS_SWIM);
                 };
                 i++;
-                // if (world.character.x > 1450 && !this.hadFirstContact) {
-                //     i = 0;
-                //     this.hadFirstContact = true;
-                // }
+                if (world.character.x > 1450 && !this.hadFirstContact) {
+                    i = 0;
+                    this.hadFirstContact = true;
+                }
             }, 10000 / 60);
         }, 2500);
     }
