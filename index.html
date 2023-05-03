@@ -55,36 +55,34 @@
         <button onclick="toggleHelp()" class="btn-container btn-text" id="toggleHelp">How to play</button>
     </div>
 
-    <button onclick="window.location.reload()" id="debugBtn" class="btn-container btn-text">refresh</button>
+    <button onclick="window.location.reload()" id="debugBtn" class="btn-container btn-text">freshload</button>
 
     <div id="fullscreen">
+        <h1 id="gameTitle">Sharkie</h1>
         <div class="canvasOver" id="canvasOver">
             <button onclick="fullscreen()" class="btn-container btn-text" id="fullscreen-button">Fullscreen</button>
             <button onclick="toggleHelp()" class="btn-container btn-text" id="toggleHelp">How to play</button>
             <button onclick="togglePlay()" class="btn-container btn-text" id="toggleMusic">Toggle music</button>
+            <button onclick="initLevel();init();resetGame()" class="btn-container btn-text" id="toggleGame">Start
+                game</button>
         </div>
-        <h1 id="gameTitle">Sharkie</h1>
 
         <div class="canvas-field">
             <img id="gameOverScreen" class="displayNone" src="./img/Buttons/Tittles/Gameover/gameover(1).png" alt="">
             <img id="winnerScreen" class="displayNone" src="./img/Buttons/Tittles/Win/winner(1).png" alt="">
             <canvas id="canvas" width="720" height="480"></canvas>
         </div>
-        <div class="canvasSub" id="canvasSub">
-            <button onclick="initLevel();init();resetGame()" class="btn-container btn-text" id="toggleGame">Start
-                game</button>
-        </div>
 
         <div id="touch-area-left">
             <img id="touch-area-left-img" src="./img/Buttons/Key/arrow keys.png" alt="">
             <div class="touchbtn-left">
                 <div class="touchbtn-rows touchbtn-first-row">
-                    <div class="test-color" id="touchbtn-up">A</div>
+                    <div class="test-color" id="touchbtn-up"></div>
                 </div>
                 <div class="touchbtn-rows touchbtn-second-row">
-                    <div class="test-color" id="touchbtn-left">B</div>
-                    <div class="test-color" id="touchbtn-down">C</div>
-                    <div class="test-color" id="touchbtn-right">D</div>
+                    <div class="test-color" id="touchbtn-left"></div>
+                    <div class="test-color" id="touchbtn-down"></div>
+                    <div class="test-color" id="touchbtn-right"></div>
 
                 </div>
             </div>

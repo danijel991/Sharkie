@@ -91,7 +91,8 @@ class Endboss extends MovableObject {
             this.endbossAnimation = setInterval(() => {
                 if (this.bossDead == true || this.energy <= 0) {
                     this.playAnimation(this.IMAGES_BOSS_DEAD);
-                    console.log('boss');
+                    stopGame(1);
+                    console.log('stop this interval');
                 } else if (i < 10) {
                     this.x = 2200;
                     this.playAnimation(this.IMAGES_BOSS_INTRO);
@@ -105,21 +106,11 @@ class Endboss extends MovableObject {
                     this.playAnimation(this.IMAGES_BOSS_SWIM);
                 };
                 i++;
-                if (world.character.x > 1450 && !this.hadFirstContact) {
-                    i = 0;
-                    this.hadFirstContact = true;
-                }
+                // if (world.character.x > 1450 && !this.hadFirstContact) {
+                //     i = 0;
+                //     this.hadFirstContact = true;
+                // }
             }, 10000 / 60);
         }, 2500);
     }
-
-    bossDeadListener() {
-        setInterval(() => {
-            if (this.bossDead == true || this.energy <= 0) {
-                stopGame(1);
-            }
-        }, 100);
-    }
-
-
 }

@@ -12,10 +12,9 @@ let gameWin = false;
 let background_music = new Audio('./audio/background_music.mp3');
 background_music.volume = 0.1; //set audio volume
 let bgMusicIsPlaying = false;
-let stopedIntervals = false;
-let intervalIds = [];
 let i = 1;
 let mobilescreen = false;
+let canvasActive = false;
 
 function init() {
 
@@ -24,6 +23,8 @@ function init() {
     gOverScreen = document.getElementById('gameOverScreen');
     gameTitle = document.getElementById('gameTitle');
 
+
+    checkOrientation();
     world = new World(canvas, keyboard, assets);
     // playBgMusic();
     winScreen.style.display = 'none';
@@ -34,6 +35,7 @@ function init() {
     gameWin = false;
     gameOver = false;
     touchEventListener();
+    mobileScreenListener();
 }
 
 document.addEventListener('keydown', (e) => {
@@ -151,7 +153,7 @@ function exitFullscreen() {
 function checkGameOver() {
 
     document.getElementById('toggleGame').innerHTML = 'Restart game';
-    setInterval(() => {
+
         if (gameOver == true) {
             canvas.style.display = 'none';
             console.log('game over');
@@ -167,7 +169,6 @@ function checkGameOver() {
             gameWin = false;
         }
         console.log('GameStatus Listener');
-    }, 2000);
 }
 
 function resetGame() {
@@ -203,7 +204,6 @@ function toggleHelp() {
 }
 
 function stopGame(vari) {
-    setTimeout(() => {
         console.log("Ending Intervals");
         if (vari == 1) {
             gameWin = true;
@@ -213,47 +213,27 @@ function stopGame(vari) {
             winScreen.style.display = 'none';
             gameTitle.style.display = 'none'
         }
-        clearInterval(world.checkCollisionID);
-        clearInterval(world.checkCollisionCharacterID);
-        clearInterval(world.checkCollisionObjectID);
-        clearInterval(world.checkCollisionBallisticsID);
         clearInterval(world.character.animateIntervalId);
         clearInterval(world.character.keyboardIntervalId);
-        clearInterval(world.character.spacePressed);
-        clearInterval(world.character.DIsPressed);
         clearInterval(world.jellyfish.animatedJellyFishId);
         clearInterval(world.jellyfish.animatedJellyFishIdDead);
         clearInterval(world.jellyfish.animatedJellyFishIdMotion);
         clearInterval(world.pufferfish.fishMotionInterval);
-        clearInterval(world.pufferfish.fishMotionIntervalDead);
         clearInterval(world.endboss.endbossAnimation);
-        gameWin = false;
         gameTitle.style.display = 'block';
-        stopedIntervals = true;
-
-    }, 1000);
-
-    setInterval(() => {
-        if (gameWin = true) {
-            setTimeout(() => {
-                gameWin = false;
-            }, 1000);
-
-        }
-    }, 400);
 }
 
 function mobileScreenListener() {
     let gametogglebtn = document.getElementById('toggleGame');
     let canvasOver = document.getElementById('canvasOver');
-    let canvassub = document.getElementById('canvasSub');
     let canvasblock = document.getElementById('canvas');
-    let playbuttons_left = document.getElementById('playButtonsLeft');
+    let toucharea_left = document.getElementById('touch-area-left');
+    let toucharea_right = document.getElementById('touch-area-right');
 
-    setInterval(() => {
         if (window.innerWidth <= 720) {
             console.log('Mobile screen');
             mobilescreen = true;
+            fullscreen();
         } else {
             console.log('big screen');
             mobilescreen = false;
@@ -262,18 +242,18 @@ function mobileScreenListener() {
         if (canvasblock.style.display != "block") {
             gametogglebtn.style.display = "block"
             canvasOver.style.display = "flex"
-            canvassub.style.display = "flex"
+            toucharea_left.style.display = "none"
+            toucharea_right.style.display = "none"
             console.log(' BLOCK');
-        } else if (canvasblock.style.display != "block" || helpisopen == false) {
-
-        } else {
+        } else if (canvasblock.style.display == "block" || helpisopen == false) {
+            toucharea_left.style.display = "flex"
+            toucharea_right.style.display = "flex"
             gametogglebtn.style.display = "none";
             canvasOver.style.display = "none";
-            canvassub.style.display = "none";
             console.log('none');
-
+        } else {
+            console.log('nix');
         }
-    }, 500);
 }
 
 function touchEventListener() {
@@ -334,7 +314,16 @@ function touchEventListener() {
         e.preventDefault();
         keyboard.SPACE = false;
     });
+}
 
-
-
+function checkOrientation() {
+    if (window.matchMedia("(orientation: landscape)").matches) {
+        if (window.innerHeight < 480) {
+            newHeight = window.innerHeight;
+            document.getElementById('canvas').style.height = `${newHeight}px`;
+        }
+    }
+    else {
+        document.getElementById('canvas').style.height = `100%`;
+    }
 }
