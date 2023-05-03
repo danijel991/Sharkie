@@ -28,40 +28,36 @@ class MovableObject extends Drawableobject {
 
     hit(amount) {
         this.energy -= amount;
-        if (this.energy <= 0) {
+        if (this.energy <= 0)
             this.energy = 0;
-        } else {
+        else
             this.lastHit = new Date().getTime();
-        }
     }
 
     isInvulnerable() {
-        if (this.timepassed < 2) {
+        if (this.timepassed < 2)
             return true;
-        } else {
+        else
             return false;
-        }
     }
 
     fillCoinBar() {
         this.coinsAmount += 15;
-        if (this.coinsAmount > 100) {
+        if (this.coinsAmount > 100)
             this.coinsAmount = 100;
-        }
+
     }
 
     fillPoisonBar() {
         this.poisonsAmount += 30;
-        if (this.poisonsAmount > 100) {
+        if (this.poisonsAmount > 100)
             this.poisonsAmount = 100;
-        }
     }
 
     emptyPoisonbar() {
         this.poisonsAmount -= 10;
-        if (this.poisonsAmount < 0) {
+        if (this.poisonsAmount < 0)
             this.poisonsAmount = 0;
-        }
     }
 
     isDead() {
@@ -87,11 +83,10 @@ class MovableObject extends Drawableobject {
     update() {
         super.update();
 
-        if (this.direction === -1) {
+        if (this.direction === -1)
             this.moveUpDown();
-        } else {
+        else
             this.moveDownUP();
-        }
     }
 
     animateCollectables() {
@@ -103,5 +98,3 @@ class MovableObject extends Drawableobject {
         }, 1000 / 60);
     }
 }
-
-

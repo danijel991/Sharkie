@@ -14,7 +14,6 @@ class Drawableobject {
         }
     }
 
-
     drawFrame(ctx) {
 
         if (this instanceof Character || this instanceof PufferFish || this instanceof JellyFish || this instanceof Endboss ||

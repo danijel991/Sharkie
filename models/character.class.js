@@ -97,39 +97,75 @@ class Character extends MovableObject {
     }
 
     characterAnimation() {
-        if (this.electrized == true && this.isDead()) {
-            this.playAnimation(this.assets.IMAGES_DEAD_ELECTRIC_SHOCK);
-            stopGame(2);
-        } else if (this.electrized == false && this.isDead()) {
-            this.playAnimation(this.assets.IMAGES_DEAD_POISONED);
-            stopGame(2);
-        } else if (this.characterIsHurt == true) {
-            this.playAnimation(this.assets.IMAGES_HURT_POISONED);
-            this.hurt_sfx.play();
-            this.characterIsHurt = false;
-        } else if (this.characterIsHurtByJelly == true) {
-            this.playAnimation(this.assets.IMAGES_HURT_ELECTRIC_SHOCK);
-            this.hurt_shocked_sfx.play();
-            this.characterIsHurtByJelly = false;
-        } else if (this.attackedByBoss == true) {
-            this.playAnimation(this.assets.IMAGES_HURT_POISONED);
-            this.hurt_sfx.play();
-            this.attackedByBoss = false;
-        } else if (this.world.keyboard.SPACE) {
-            this.activateSpace();
-            this.playAnimation(this.assets.IMAGES_ATTACK_FIN_SLAP);
-            this.spaceAlreadyPressed = true;
-        } else if (this.world.keyboard.D && this.poisonsAmount >= 1 && this.otherDirection == false && this.energy >= 1) {
-            this.playAnimation(this.assets.IMAGES_ATTACK_BUBBLE);
-            setTimeout(() => {
-                this.bubble_sfx.play();
-            }, 150);
-        }
-        else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
+        if (this.isCharacterDeadElectrized())
+            this.playDead();
+        else if (this.isCharacterDead())
+            this.playDeadPoisoned();
+        else if (this.isCharacterHurt())
+            this.playHurtAnimation();
+        else if (this.characterIsHurtByJelly == true)
+            this.playHurtAnimationJelly();
+        else if (this.attackedByBoss == true)
+            this.playHurtByBoss();
+        else if (this.world.keyboard.SPACE)
+            this.playAttackFinSlap();
+        else if (this.world.keyboard.D && this.poisonsAmount >= 1 && this.otherDirection == false && this.energy >= 1)
+            this.playAttackBubble();
+        else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN)
             this.playAnimation(this.assets.IMAGES_SWIMMING);
-        } else if (this.noKeyIsPressed() && !this.isDead()) {
+        else if (this.noKeyIsPressed() && !this.isDead())
             this.playAnimation(this.assets.IMAGES_IDLE);
-        }
+    }
+
+    isCharacterDeadElectrized() {
+        return this.electrized == true && this.isDead();
+    }
+    isCharacterDead() {
+        return this.electrized == false && this.isDead();
+    }
+    isCharacterHurt() {
+        return this.characterIsHurt == true;
+    }
+
+    playDead() {
+        this.playAnimation(this.assets.IMAGES_DEAD_ELECTRIC_SHOCK);
+        stopGame(2);
+    }
+
+    playDeadPoisoned() {
+        this.playAnimation(this.assets.IMAGES_DEAD_POISONED);
+        stopGame(2);
+    }
+
+    playHurtAnimation() {
+        this.playAnimation(this.assets.IMAGES_HURT_POISONED);
+        this.hurt_sfx.play();
+        this.characterIsHurt = false;
+    }
+
+    playHurtAnimationJelly() {
+        this.playAnimation(this.assets.IMAGES_HURT_ELECTRIC_SHOCK);
+        this.hurt_shocked_sfx.play();
+        this.characterIsHurtByJelly = false;
+    }
+
+    playHurtByBoss() {
+        this.playAnimation(this.assets.IMAGES_HURT_POISONED);
+        this.hurt_sfx.play();
+        this.attackedByBoss = false;
+    }
+
+    playAttackFinSlap() {
+        this.activateSpace();
+        this.playAnimation(this.assets.IMAGES_ATTACK_FIN_SLAP);
+        this.spaceAlreadyPressed = true;
+    }
+
+    playAttackBubble() {
+        this.playAnimation(this.assets.IMAGES_ATTACK_BUBBLE);
+        setTimeout(() => {
+            this.bubble_sfx.play();
+        }, 150);
     }
 
     activateAttack() {
@@ -150,7 +186,6 @@ class Character extends MovableObject {
     }
 
     activateSpace() {
-
         if (!this.checkAlreadyRunning) {
             this.currentImage = 0;
             let spacePressed = setInterval(() => {

@@ -18,7 +18,6 @@ class CoinBar extends statusBar {
     this.setPercentage(0);
   }
 
-  // You can add a method to update the percentage value
   setPercentageValue(value) {
     this.setPercentage(value);
   }

@@ -2,6 +2,10 @@
     font-family: 'Luckiest Guy', Arial, Helvetica, sans-serif !important;
 }
 
+.d-none {
+    display: none;
+}
+
 #rotaDisplay {
     display: none;
 }
@@ -13,16 +17,6 @@
 #slapAttackTouch {
     display: none;
     opacity: 0.8;
-}
-
-#debugBtn {
-    position: fixed !important;
-    z-index: 999 !important;
-    right: 5px !important;
-    bottom: 5px !important;
-    width: 80px !important;
-    font-size: 12px !important;
-    word-spacing: 0;
 }
 
 body,
@@ -252,9 +246,9 @@ h1 {
     }
 
 
-    #fullscreen-button {
+    /* #fullscreen-button {
         display: none;
-    }
+    } */
 
     .btn-text {
         width: 170px;

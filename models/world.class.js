@@ -88,7 +88,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
             }
             if (this.character.isColliding(pufferfish) && this.character.energy != 0 && !this.character.isInvulnerable() && !this.keyboard.SPACE) {
                 this.character.hittedByPufferfish = true;
-                this.character.hit(5);
+                this.character.hit(100);
                 this.healthBar.setPercentage(this.character.energy);
                 this.character.characterIsHurt = true;
                 setTimeout(() => {
@@ -146,6 +146,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
                 this.throwableObjects.splice(bubbleIndex, 1);
                 if (this.level.endboss[bossIndex].energy <= 0) {
                     this.level.endboss[bossIndex].bossDead = true;
+                    stopGame(1);
                     setTimeout(() => {
                         this.level.endboss.splice(bossIndex, 1);
                     }, 1500);
@@ -217,16 +218,14 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     }
 
     addToMap(mo) {
-        if (mo.otherDirection) {
+        if (mo.otherDirection) 
             this.flipImage(mo);
-        }
 
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
 
-        if (mo.otherDirection) {
+        if (mo.otherDirection) 
             this.flipImageBack(mo);
-        }
     }
 
     flipImage(mo) {

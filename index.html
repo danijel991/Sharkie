@@ -55,7 +55,6 @@
         <button onclick="toggleHelp()" class="btn-container btn-text" id="toggleHelp">How to play</button>
     </div>
 
-    <button onclick="window.location.reload()" id="debugBtn" class="btn-container btn-text">freshload</button>
 
     <div id="fullscreen">
         <h1 id="gameTitle">Sharkie</h1>
@@ -63,8 +62,11 @@
             <button onclick="fullscreen()" class="btn-container btn-text" id="fullscreen-button">Fullscreen</button>
             <button onclick="toggleHelp()" class="btn-container btn-text" id="toggleHelp">How to play</button>
             <button onclick="togglePlay()" class="btn-container btn-text" id="toggleMusic">Toggle music</button>
-            <button onclick="initLevel();init();resetGame()" class="btn-container btn-text" id="toggleGame">Start
-                game</button>
+            <button onclick="init();" class="btn-container btn-text" id="toggleGame">Start game</button>
+        </div>
+
+        <div class="restartBtn d-none" id="restartBtn">
+            <button onclick="window.location.reload()" id="" class="btn-container btn-text d-none">Restart</button>
         </div>
 
         <div class="canvas-field">

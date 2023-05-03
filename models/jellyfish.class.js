@@ -42,9 +42,8 @@ class JellyFish extends MovableObject {
         }, 1000);
 
         this.animatedJellyFishIdDead = setInterval(() => {
-            if (this.jellyDead) {
+            if (this.jellyDead) 
                 this.deadJelly();
-            }
         }, 1000);
     }
 
