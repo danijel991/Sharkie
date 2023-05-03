@@ -88,7 +88,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
             }
             if (this.character.isColliding(pufferfish) && this.character.energy != 0 && !this.character.isInvulnerable() && !this.keyboard.SPACE) {
                 this.character.hittedByPufferfish = true;
-                this.character.hit(100);
+                this.character.hit(5);
                 this.healthBar.setPercentage(this.character.energy);
                 this.character.characterIsHurt = true;
                 setTimeout(() => {
