@@ -2,6 +2,15 @@
     font-family: 'Luckiest Guy', Arial, Helvetica, sans-serif !important;
 }
 
+#loadingscreen {
+    background-image: url('../img/1.Sharkie/3.Swim/PreviewOP2.gif');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100vw;
+    height: 100vh;
+}
+
 .d-none {
     display: none;
 }

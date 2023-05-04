@@ -69,11 +69,6 @@ class Endboss extends MovableObject {
         right: 37
     }
 
-    boss_intro = new Audio('./audio/boss_intro.mp3');
-    hadFirstContact = false;
-    attackImgIndex = 0;
-
-
     constructor() { //super wird geschrieben, wenn Methoden vom übergeordneten obejkt aufgerufen werden sollen
         super().loadImage(this.IMAGES_BOSS_INTRO[0]);
         this.loadImages(this.IMAGES_BOSS_INTRO);
@@ -81,6 +76,10 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_BOSS_ATTACK);
         this.loadImages(this.IMAGES_BOSS_HURT);
         this.loadImages(this.IMAGES_BOSS_DEAD);
+        this.boss_music = new Audio('./audio/endboss_fight.mp3');
+        this.boss_music.volume = 0.1;
+        this.hadFirstContact = false;
+        this.attackImgIndex = 0;
         this.speed = 1.5;
         this.animate();
     }
@@ -112,6 +111,7 @@ class Endboss extends MovableObject {
 
     playBossIntro() {
         setTimeout(() => {
+            this.boss_music.play();
             this.x = 2200;
             this.playAnimation(this.IMAGES_BOSS_INTRO);
         }, 2000); // adjust the delay time as needed

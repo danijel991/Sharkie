@@ -19,6 +19,13 @@ let i = 1;
 let mobilescreen = false;
 let canvasActive = false;
 
+function loadingScreen() {
+    setTimeout(() => {
+        document.getElementById('loadingscreen').style.display = 'none';
+    }, 10);
+
+}
+
 function init() {
     canvasover = document.getElementById('canvasOver');
     canvas = document.getElementById('canvas');
@@ -35,7 +42,6 @@ function init() {
     initLevel();
     checkOrientation();
     world = new World(canvas, keyboard, assets);
-    // playBgMusic();
     checkGameOver();
     touchEventListener();
     mobileScreenListener()
@@ -75,16 +81,14 @@ function playBgMusic() {
 }
 
 function togglePlay() {
-    if (bgMusicIsPlaying) background_music.pause();
-    else background_music.play();
-}
 
-background_music.onplaying = function () {
-    background_music.volume = 0.1;
-    bgMusicIsPlaying = true;
-}
-background_music.onpause = function () {
-    bgMusicIsPlaying = false;
+    if (!bgMusicIsPlaying) {
+        bgMusicIsPlaying = true;
+        background_music.play();
+    } else {
+        bgMusicIsPlaying = false;
+        background_music.pause();
+    }
 }
 
 function fullscreen() {

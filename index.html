@@ -32,30 +32,34 @@
     <title>Sharkie</title>
 </head>
 
-<body onload="mobileScreenListener()">
-    <div id="rotaDisplay">
-        <h1 id>Please rotate your device</h1>
-    </div>
-    <div id="HowToPlay">
-        <h2>Instructions</h2><br>
-        <div class="span-wrap">
-            <span>Be the shark, face the dangers and defeat Orqi, the evil orca that makes his nuisance in the deep
-                waters.
-                Use the fin attack to beat the opponents with Sharkie. When you have collected the poison bottles, you
-                can
-                also shoot bubbles.</span><br>
-            <span>Usw arrow keys to move Sharkie</span><br>
-            <span>Arrow left - move left</span><br>
-            <span>Arrow right - move right</span><br>
-            <span>Arrow up - move up</span><br>
-            <span>Arrow down - move down</span><br>
-            <span>Space/Fins button - Fins attack</span><br>
-            <span>D/Shoot button - Shoot bubbles</span><br>
+<body onload="loadingScreen(), mobileScreenListener()">
+    
+    <div id="loadingscreen">
+
+        <div id="rotaDisplay">
+            <h1 id>Please rotate your device</h1>
         </div>
-        <button onclick="toggleHelp()" class="btn-container btn-text" id="toggleHelp">How to play</button>
+        <div id="HowToPlay">
+            <h2>Instructions</h2><br>
+            <div class="span-wrap">
+                <span>Be the shark, face the dangers and defeat Orqi, the evil orca that makes his nuisance in the deep
+                    waters.
+                    Use the fin attack to beat the opponents with Sharkie. When you have collected the poison bottles,
+                    you
+                    can
+                    also shoot bubbles.</span><br>
+                <span>Usw arrow keys to move Sharkie</span><br>
+                <span>Arrow left - move left</span><br>
+                <span>Arrow right - move right</span><br>
+                <span>Arrow up - move up</span><br>
+                <span>Arrow down - move down</span><br>
+                <span>Space/Fins button - Fins attack</span><br>
+                <span>D/Shoot button - Shoot bubbles</span><br>
+            </div>
+            <button onclick="toggleHelp()" class="btn-container btn-text" id="toggleHelp">How to play</button>
+        </div>
+
     </div>
-
-
     <div id="fullscreen">
         <h1 id="gameTitle">Sharkie</h1>
         <div class="canvasOver" id="canvasOver">
