@@ -25,7 +25,6 @@ class Poisons extends MovableObject {
     constructor(x,y) {
         super().loadImage('./img/4.Marks/poison/animated/1.png');
         this.loadImages(this.IMAGES_ANIMATED_POISONS);
-        this.bottle_sound = new Audio('./audio/bottle.mp3');
         this.x=x;
         this.y=y;
         this.speed = 0.15 + Math.random() * 0.15;
@@ -40,6 +39,6 @@ class Poisons extends MovableObject {
     }
     
     poisonSound() {
-        this.bottle_sound.play();
+        bottle_sound.play();
     }
 }

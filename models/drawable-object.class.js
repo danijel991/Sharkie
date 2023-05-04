@@ -4,7 +4,7 @@ class Drawableobject {
     currentImage = 0;
 
     loadImage(path) {
-        this.img = new Image(); //same like <img=id"" src="">
+        this.img = new Image();
         this.img.src = path;
     }
 
@@ -18,7 +18,7 @@ class Drawableobject {
 
         if (this instanceof Character || this instanceof PufferFish || this instanceof JellyFish || this instanceof Endboss ||
             this instanceof Coins || this instanceof Poisons) {
-            ctx.beginPath(); //shows the frames
+            ctx.beginPath();
             ctx.lineWidth = '3';
             ctx.strokeStyle = 'transparent';
             ctx.rect(this.x, this.y, this.width, this.height);

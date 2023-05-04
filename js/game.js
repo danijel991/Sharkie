@@ -23,6 +23,18 @@ function onloadInit() {
 }
 
 function init() {
+    addVariables();
+    addStyles();
+    initLevel();
+    checkOrientation();
+    checkGameOver();
+    touchEventListener();
+    mobileScreenListener();
+    initMusic();
+    world = new World(canvas, keyboard, assets);
+}
+
+function addVariables() {
     canvasover = document.getElementById('canvasOver');
     canvas = document.getElementById('canvas');
     winScreen = document.getElementById('winnerScreen');
@@ -30,18 +42,14 @@ function init() {
     gameTitle = document.getElementById('gameTitle');
     restartGame = document.getElementById('restartBtn');
     gametogglebtn = document.getElementById('toggleGame');
+}
+
+function addStyles() {
     winScreen.style.display = 'none';
     gameTitle.style.display = 'none';
     canvasover.style.display = 'none';
     gametogglebtn.style.display = 'none';
     canvas.style.display = 'block';
-    initLevel();
-    checkOrientation();
-    world = new World(canvas, keyboard, assets);
-    checkGameOver();
-    touchEventListener();
-    mobileScreenListener();
-    initMusic();
 }
 
 function loadingScreen() {
@@ -139,6 +147,7 @@ function checkGameOver() {
 
 function toggleHelp() {
     let btn = document.getElementById('toggleHelp');
+    let btnopened = document.getElementById('helpbtnopened');
     let help = document.getElementById('HowToPlay');
     let full = document.getElementById('fullscreen');
 
@@ -146,7 +155,7 @@ function toggleHelp() {
         helpisopen = true;
         full.style.display = 'none';
         help.style.display = 'flex';
-        btn.innerHTML = 'Close help';
+        btnopened.innerHTML = 'Close help';
     } else {
         helpisopen = false;
         help.style.display = 'none';
@@ -160,7 +169,6 @@ function stopGame(vari) {
     setInterval(() => {
         if (vari == 1) {
             gameWin = true;
-            victorygame = true;
         }
         else if (vari == 2) gameOver = true;
         else {
@@ -169,12 +177,12 @@ function stopGame(vari) {
         }
     }, 100);
 
-    clerIntervals();
+    clearIntervals();
 
     gameTitle.style.display = 'block';
     restartGame.style.display = 'block';
 }
-function clerIntervals() {
+function clearIntervals() {
     clearInterval(world.character.animateIntervalId);
     clearInterval(world.character.keyboardIntervalId);
     clearInterval(world.jellyfish.animatedJellyFishId);
@@ -192,9 +200,6 @@ function mobileScreenListener() {
     let toucharea_right = document.getElementById('touch-area-right');
 
     setInterval(() => {
-        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 720) {
-            mobilescreen = true;
-        } else mobilescreen = false;
 
         if (canvasblock.style.display != "block") {
             canvasober.style.display = "flex"

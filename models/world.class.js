@@ -48,7 +48,6 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
         }, 1000);
     }
 
-
     checkThrowObjectsBubble() {
         if (this.keyboard.D && this.character.poisonsAmount >= 1 && this.character.otherDirection == false && this.character.energy >= 1) {
             let bubble = new ThrowableObject(this.character.x + 100, this.character.y + 100);
@@ -179,9 +178,9 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
                     this.character.fillPoisonBar();
                     this.poisonbar.setPercentage(this.character.poisonsAmount);
                     setTimeout(() => {
-                        poison.visible = false; // make the poison object invisible
+                        poison.visible = false;
                         this.poison.poisonSound();
-                        this.level.poisons.splice(index, 1); // remove the poison from the poisons array
+                        this.level.poisons.splice(index, 1);
                     }, 0);
                 }
             });
@@ -209,8 +208,8 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
         });
 
         let self = this;
-        requestAnimationFrame(function () { //sobald alles darüber geladen wurde, wird das hier gezeichnet (asynchron)
-            self.draw(); //this wird hier nicht erkannt, deswegen wird staattessen self als variable vergeben
+        requestAnimationFrame(function () {
+            self.draw();
         });
     }
 

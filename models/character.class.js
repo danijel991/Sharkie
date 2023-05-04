@@ -1,6 +1,6 @@
 class Character extends MovableObject {
     y = 80;
-    x = 1000;
+    x = 1400;
     height = 210;
     width = 150;
     speed = 3;
@@ -15,10 +15,6 @@ class Character extends MovableObject {
 
     world;
     assets;
-    swimming_sound = new Audio('./audio/char_swim.mp3');
-    hurt_sfx = new Audio('./audio/hurt.mp3');
-    hurt_shocked_sfx = new Audio('./audio/shocked.mp3');
-    bubble_sfx = new Audio('./audio/bubble_shot.mp3');
     characterIsHurt = false;
     characterIsHurtByJelly = false;
     attackedByBoss = false;
@@ -31,9 +27,6 @@ class Character extends MovableObject {
         super().loadImage('img/1.Sharkie/2.Long_IDLE/i1.png');
         this.world = world;
         this.assets = assets;
-        this.swimming_sound.volume = .5;
-        this.bubble_sfx.volume = .3;
-        this.hurt_shocked_sfx.volume = .3;
         this.loadImages(this.assets.IMAGES_SWIMMING);
         this.loadImages(this.assets.IMAGES_IDLE);
         this.loadImages(this.assets.IMAGES_LONG_IDLE);
@@ -66,21 +59,21 @@ class Character extends MovableObject {
 
     moveRight() {
         super.moveRight();
-        this.swimming_sound.play();
+        swimming_sound.play();
         this.otherDirection = false;
     }
     moveLeft() {
         super.moveLeft();
-        this.swimming_sound.play();
+        swimming_sound.play();
         this.otherDirection = true;
     }
     moveUp() {
         this.y -= this.speed;
-        this.swimming_sound.play();
+        swimming_sound.play();
     }
     moveDown() {
         this.y += this.speed;
-        this.swimming_sound.play();
+        swimming_sound.play();
     }
 
     canMoveRight() {
@@ -139,19 +132,19 @@ class Character extends MovableObject {
 
     playHurtAnimation() {
         this.playAnimation(this.assets.IMAGES_HURT_POISONED);
-        this.hurt_sfx.play();
+        hurt_sfx.play();
         this.characterIsHurt = false;
     }
 
     playHurtAnimationJelly() {
         this.playAnimation(this.assets.IMAGES_HURT_ELECTRIC_SHOCK);
-        this.hurt_shocked_sfx.play();
+        hurt_shocked_sfx.play();
         this.characterIsHurtByJelly = false;
     }
 
     playHurtByBoss() {
         this.playAnimation(this.assets.IMAGES_HURT_POISONED);
-        this.hurt_sfx.play();
+        hurt_sfx.play();
         this.attackedByBoss = false;
     }
 
@@ -164,7 +157,7 @@ class Character extends MovableObject {
     playAttackBubble() {
         this.playAnimation(this.assets.IMAGES_ATTACK_BUBBLE);
         setTimeout(() => {
-            this.bubble_sfx.play();
+            bubble_sfx.play();
         }, 150);
     }
 

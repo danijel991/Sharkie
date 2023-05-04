@@ -2,8 +2,6 @@ class Endboss extends MovableObject {
 
     height = 500;
     width = 600;
-    y = 0;
-    x = 2500;
     world;
     bossIsHurt = false;
     bossDead = false;
@@ -69,8 +67,8 @@ class Endboss extends MovableObject {
         right: 37
     }
 
-    constructor() { //super wird geschrieben, wenn Methoden vom übergeordneten obejkt aufgerufen werden sollen
-        super().loadImage(this.IMAGES_BOSS_INTRO[0]);
+    constructor() {
+        super().loadImage('./img/2.Enemy/3_Final_Enemy/1.Introduce/1.png');
         this.loadImages(this.IMAGES_BOSS_INTRO);
         this.loadImages(this.IMAGES_BOSS_SWIM);
         this.loadImages(this.IMAGES_BOSS_ATTACK);
@@ -79,14 +77,15 @@ class Endboss extends MovableObject {
         this.hadFirstContact = false;
         this.attackImgIndex = 0;
         this.speed = 1.5;
+        this.direction = 1; // 1 = right, -1 = left
+        this.x = 2000; // starting x
+        this.y = -400;
         this.animate();
     }
 
     animate() {
-
         let i = 0;
         let endbossAnimation = setInterval(() => {
-
             if (this.bossDead || this.energy <= 0) {
                 this.playBossDead();
                 clearInterval(endbossAnimation);
@@ -96,8 +95,7 @@ class Endboss extends MovableObject {
                 this.playBossAttack();
             else if (this.bossIsHurt)
                 this.playBossHurt();
-            else
-                this.playAnimation(this.IMAGES_BOSS_SWIM);
+            else this.playBossSwim();
             i++;
 
             if (world.character.x > 1300 && !this.hadFirstContact) {
@@ -105,15 +103,45 @@ class Endboss extends MovableObject {
                 this.currentImage = 0;
                 i = 0;
             }
-        }, 100)
+        }, 5000 / 15)
     }
 
     playBossIntro() {
-        setTimeout(() => {
-            this.x = 2200;
-            this.playAnimation(this.IMAGES_BOSS_INTRO);
-        }, 2000); // adjust the delay time as needed
+        this.currentImage = 0;
+        let introInterval = setInterval(() => {
+            setTimeout(() => {
+                this.x = 2000;
+                this.playAnimation(this.IMAGES_BOSS_INTRO);
+                this.hadFirstContact = true;
+                clearInterval(introInterval);
+            }, 600);
+        }, 100)
+        this.playBossSwim();
     }
+
+    playBossSwim() {
+        this.x += this.direction * 100; // move the boss by 100 pixels
+        this.y += this.direction * 50; // move the boss by 100 pixels
+
+        if (this.x >= 2200) {
+            this.direction = -1; // switch direction when the boss reaches the right edge
+        } else if (this.x <= 1600) {
+            this.direction = 1; // switch direction when the boss reaches the left edge
+        }
+
+        if (this.y >= 0) {
+            this.direction = -1; // switch direction when the boss reaches the right edge
+        } else if (this.y <= -100) {
+            this.direction = 1; // switch direction when the boss reaches the left edge
+        }
+
+        // play the boss swim animation
+        this.playAnimation(this.IMAGES_BOSS_SWIM);
+
+        console.log('x:', this.x);
+        console.log('y:', this.y);
+    }
+
 
     playBossHurt() {
         this.currentImage = 0;
