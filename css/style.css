@@ -9,6 +9,8 @@
     background-size: contain;
     width: 100vw;
     height: 100vh;
+    position: fixed;
+    z-index: 900;
 }
 
 .d-none {
@@ -271,11 +273,13 @@ h1 {
     }
 
     #touch-area-left {
-        display: block;
+        height: 140px;
+        width: 220px;
         position: fixed;
-        left: 10px;
-        bottom: 10px;
-        height: 35%;
+        left: 5%;
+        bottom: 10%;
+        display: flex;
+        flex-direction: column;
     }
 
     #touch-area-right {
@@ -326,12 +330,12 @@ h1 {
 
     .touchbtn-left {
         height: 140px;
-        width: 225px;
+        width: 220px;
         position: fixed;
-        bottom: 5px;
-        left: 10px;
+        left: 5%;
+        bottom: 10%;
         display: flex;
-        flex-direction: column
+        flex-direction: column;
     }
 
     .touchbtn-rows {
@@ -360,7 +364,8 @@ h1 {
     #toggleGame,
     #touch-area-right,
     #bubbleAttackTouch,
-    #slapAttackTouch {
+    #slapAttackTouch,
+    #loadingscreen {
         display: none !important;
     }
 }
