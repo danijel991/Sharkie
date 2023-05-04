@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="img/favico.png" type="image/x-icon">
     <script src="./models/drawable-object.class.js"></script>
     <script src="./models/movable-object.class.js"></script>
-    <script src="models/assets.class.js"></script>
+    <script src="./models/assets.class.js"></script>
     <script src="./models/character.class.js"></script>
     <script src="./models/pufferfish.class.js"></script>
     <script src="./models/jellyfish.class.js"></script>
@@ -29,15 +29,16 @@
     <script src="./models/endboss.class.js"></script>
     <script src="./levels/level1.js"></script>
     <script src="./js/game.js"></script>
+    <script src="./models/audio-files.js"></script>
     <title>Sharkie</title>
 </head>
 
-<body onload="loadingScreen(), mobileScreenListener()">
+<body onload="onloadInit()">
     
     <div id="loadingscreen">
 
         <div id="rotaDisplay">
-            <h1 id>Please rotate your device</h1>
+            <h1>Please rotate your device</h1>
         </div>
         <div id="HowToPlay">
             <h2>Instructions</h2><br>
@@ -56,7 +57,7 @@
                 <span>Space/Fins button - Fins attack</span><br>
                 <span>D/Shoot button - Shoot bubbles</span><br>
             </div>
-            <button onclick="toggleHelp()" class="btn-container btn-text" id="toggleHelp">How to play</button>
+            <button onclick="toggleHelp()" class="btn-container btn-text">How to play</button>
         </div>
 
     </div>
@@ -65,8 +66,8 @@
         <div class="canvasOver" id="canvasOver">
             <button onclick="fullscreen()" class="btn-container btn-text" id="fullscreen-button">Fullscreen</button>
             <button onclick="toggleHelp()" class="btn-container btn-text" id="toggleHelp">How to play</button>
-            <button onclick="togglePlay()" class="btn-container btn-text" id="toggleMusic">Toggle music</button>
-            <button onclick="init();" class="btn-container btn-text" id="toggleGame">Start game</button>
+            <button onclick="togglePlay()" class="btn-container btn-text" id="toggleMusic">Music on</button>
+            <button onclick="init()" class="btn-container btn-text" id="toggleGame">Start game</button>
         </div>
 
         <div class="restartBtn d-none" id="restartBtn">
@@ -80,7 +81,7 @@
         </div>
 
         <div id="touch-area-left">
-            <img id="touch-area-left-img" src="./img/Buttons/Key/arrow keys.png" alt="">
+            <img id="touch-area-left-img" src="./img/Buttons/Key/arrow_keys.png" alt="">
             <div class="touchbtn-left">
                 <div class="touchbtn-rows touchbtn-first-row">
                     <div class="test-color" id="touchbtn-up"></div>

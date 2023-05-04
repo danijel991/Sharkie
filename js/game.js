@@ -12,18 +12,14 @@ let gameOver = false;
 let gameWin = false;
 let landscape = false;
 let canvasover;
-let background_music = new Audio('./audio/background_music.mp3');
-background_music.volume = 0.1; //set audio volume
-let bgMusicIsPlaying = false;
+let bgMusicIsPlaying = true;
 let i = 1;
 let mobilescreen = false;
 let canvasActive = false;
 
-function loadingScreen() {
-    setTimeout(() => {
-        document.getElementById('loadingscreen').style.display = 'none';
-    }, 10);
-
+function onloadInit() {
+    loadingScreen();
+    mobileScreenListener();
 }
 
 function init() {
@@ -44,7 +40,14 @@ function init() {
     world = new World(canvas, keyboard, assets);
     checkGameOver();
     touchEventListener();
-    mobileScreenListener()
+    mobileScreenListener();
+    initMusic();
+}
+
+function loadingScreen() {
+    setTimeout(() => {
+        document.getElementById('loadingscreen').style.display = 'none';
+    }, 10);
 }
 
 document.addEventListener('keydown', (e) => {
@@ -75,19 +78,15 @@ document.addEventListener('keyup', (e) => {
     if (e.keyCode == 72) keyboard.F = false;
 });
 
-function playBgMusic() {
-    background_music.play();
-    bgMusicIsPlaying = true;
-}
-
 function togglePlay() {
+    let musictoggle = document.getElementById('toggleMusic');
 
-    if (!bgMusicIsPlaying) {
-        bgMusicIsPlaying = true;
-        background_music.play();
-    } else {
+    if (bgMusicIsPlaying == true) {
         bgMusicIsPlaying = false;
-        background_music.pause();
+        musictoggle.innerHTML = 'Music off';
+    } else {
+        bgMusicIsPlaying = true;
+        musictoggle.innerHTML = 'Music on';
     }
 }
 
@@ -159,7 +158,10 @@ function toggleHelp() {
 function stopGame(vari) {
     console.log("Ending Intervals");
     setInterval(() => {
-        if (vari == 1) gameWin = true;
+        if (vari == 1) {
+            gameWin = true;
+            victorygame = true;
+        }
         else if (vari == 2) gameOver = true;
         else {
             winScreen.style.display = 'none';

@@ -1,7 +1,7 @@
 class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tastatur, kamera, health bars
     assets;
     character = new Character(this, assets);
-    endboss = new Endboss(this, assets);
+    endboss = new Endboss();
     pufferfish = new PufferFish();
     jellyfish = new JellyFish();
     coin = new Coins();
@@ -153,9 +153,6 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
                     setTimeout(() => {
                         this.level.endboss.splice(bossIndex, 1);
                     }, 3000);
-                    setTimeout(() => {
-                        stopGame(1);
-                    }, 4000);
                 }
             }
         });

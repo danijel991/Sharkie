@@ -238,9 +238,9 @@ h1 {
         top: 49%;
     }
 
-    /* #fullscreen-button {
+    #fullscreen-button {
         display: none;
-    } */
+    }
 
     .btn-text {
         width: 170px;

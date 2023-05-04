@@ -76,8 +76,6 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_BOSS_ATTACK);
         this.loadImages(this.IMAGES_BOSS_HURT);
         this.loadImages(this.IMAGES_BOSS_DEAD);
-        this.boss_music = new Audio('./audio/endboss_fight.mp3');
-        this.boss_music.volume = 0.1;
         this.hadFirstContact = false;
         this.attackImgIndex = 0;
         this.speed = 1.5;
@@ -85,6 +83,7 @@ class Endboss extends MovableObject {
     }
 
     animate() {
+
         let i = 0;
         let endbossAnimation = setInterval(() => {
 
@@ -111,7 +110,6 @@ class Endboss extends MovableObject {
 
     playBossIntro() {
         setTimeout(() => {
-            this.boss_music.play();
             this.x = 2200;
             this.playAnimation(this.IMAGES_BOSS_INTRO);
         }, 2000); // adjust the delay time as needed
@@ -145,5 +143,8 @@ class Endboss extends MovableObject {
     playBossDead() {
         this.playAnimation(this.IMAGES_BOSS_DEAD);
         this.loadImage(this.IMAGES_BOSS_DEAD[4]);
+        setTimeout(() => {
+            stopGame(1);
+        }, 4000);
     }
 }
