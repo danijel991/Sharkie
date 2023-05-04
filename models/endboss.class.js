@@ -2,7 +2,7 @@ class Endboss extends MovableObject {
 
     height = 500;
     width = 600;
-    y = -25;
+    y = 0;
     x = 2500;
     world;
     bossIsHurt = false;
@@ -87,35 +87,54 @@ class Endboss extends MovableObject {
 
     animate() {
         let i = 0;
-        setTimeout(() => {
-            this.endbossAnimation = setInterval(() => {
-                if (this.bossDead || this.energy <= 0) {
-                    this.playAnimation(this.IMAGES_BOSS_DEAD);
-                } else if (i < 10) {
-                    this.playBossIntro();
-                } else if (world.character.attackedByBoss) {
-                    this.playAnimation(this.IMAGES_BOSS_ATTACK);
-                } else if (this.bossIsHurt) {
-                    this.playBossHurt();
-                } else {
-                    this.playAnimation(this.IMAGES_BOSS_SWIM);
-                }
-                i++;
-                if (world.character.x > 1450 && !this.hadFirstContact) {
-                    i = 0;
-                    this.hadFirstContact = true;
-                }
-            }, 10000 / 60);
-        }, 2500);
+        let endbossAnimation = setInterval(() => {
+
+            if (this.bossDead || this.energy <= 0) {
+                this.playBossDead();
+                clearInterval(endbossAnimation);
+            } else if (i < 10 && this.hadFirstContact)
+                this.playBossIntro();
+            else if (world.character.attackedByBoss)
+                this.playBossAttack();
+            else if (this.bossIsHurt)
+                this.playBossHurt();
+            else
+                this.playAnimation(this.IMAGES_BOSS_SWIM);
+            i++;
+
+            if (world.character.x > 1300 && !this.hadFirstContact) {
+                this.hadFirstContact = true;
+                this.currentImage = 0;
+                i = 0;
+            }
+        }, 10000 / 30)
     }
 
     playBossIntro() {
-        this.x = 2200;
-        this.playAnimation(this.IMAGES_BOSS_INTRO);
+        setTimeout(() => {
+            this.x = 2200;
+            this.playAnimation(this.IMAGES_BOSS_INTRO);
+        }, 2000); // adjust the delay time as needed
     }
 
     playBossHurt() {
         this.playAnimation(this.IMAGES_BOSS_HURT);
         this.bossIsHurt = false;
+    }
+
+    playBossAttack() {
+        this.playAnimation(this.IMAGES_BOSS_ATTACK);
+    }
+
+    playBossDead() {
+        let deadBossAnimation = setInterval(() => {
+            this.deadCounter++;
+            this.playAnimation(this.IMAGES_BOSS_DEAD);
+            if (this.deadCounter == this.IMAGES_DEAD.length - 1) {
+                clearInterval(deadBossAnimation);
+                this.deadAlreadyPlayed = true;
+                this.loadImage(this.IMAGES_BOSS_DEAD[4]);
+            }
+        }, 100);
     }
 }

@@ -10,6 +10,10 @@
     display: none;
 }
 
+#restartBtn {
+    z-index: 999;
+}
+
 #touch-area-left,
 #touch-area-left-img,
 #touch-area-right,
@@ -199,9 +203,9 @@ h1 {
     }
 
 
-    /* #fullscreen-button {
+    #fullscreen-button {
         display: none;
-    } */
+    }
 
     .btn-text {
         width: 170px;
@@ -242,13 +246,13 @@ h1 {
     #winnerScreen {
         width: 75%;
         bottom: 50%;
-        top: 50%;
+        top: 49%;
     }
 
 
-    /* #fullscreen-button {
+    #fullscreen-button {
         display: none;
-    } */
+    }
 
     .btn-text {
         width: 170px;

@@ -141,9 +141,13 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
                     }, 2000);
                 }
 
-            } else if (bossIndex != -1) {
+            } if (bossIndex != -1) {
                 this.level.endboss[bossIndex].energy -= 20;
-                this.throwableObjects.splice(bubbleIndex, 1);
+                if (this.level.endboss[bossIndex].energy > 0) {
+                    this.level.endboss[bossIndex].bossIsHurt = true;
+                    this.throwableObjects.splice(bubbleIndex, 1);
+                }
+
                 if (this.level.endboss[bossIndex].energy <= 0) {
                     this.level.endboss[bossIndex].bossDead = true;
                     stopGame(1);
@@ -218,13 +222,13 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     }
 
     addToMap(mo) {
-        if (mo.otherDirection) 
+        if (mo.otherDirection)
             this.flipImage(mo);
 
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
 
-        if (mo.otherDirection) 
+        if (mo.otherDirection)
             this.flipImageBack(mo);
     }
 
