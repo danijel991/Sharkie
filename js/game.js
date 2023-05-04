@@ -13,6 +13,7 @@ let gameWin = false;
 let landscape = false;
 let canvasover;
 let bgMusicIsPlaying = true;
+let sfxplay = true;
 let i = 1;
 let mobilescreen = false;
 let canvasActive = false;
@@ -30,7 +31,7 @@ function init() {
     checkGameOver();
     touchEventListener();
     mobileScreenListener();
-    initMusic();
+    initSound();
     world = new World(canvas, keyboard, assets);
 }
 
@@ -95,6 +96,18 @@ function togglePlay() {
     } else {
         bgMusicIsPlaying = true;
         musictoggle.innerHTML = 'Music on';
+    }
+}
+
+function toggleSfx() {
+    let sfxtoggle = document.getElementById('toggleSfx');
+
+    if (sfxplay == true) {
+        sfxplay = false;
+        sfxtoggle.innerHTML = 'Sfx off';
+    } else {
+        sfxplay = true;
+        sfxtoggle.innerHTML = 'Sfx on';
     }
 }
 

@@ -9,7 +9,7 @@ let bubble_sfx = new Audio('./audio/bubble_shot.mp3');
 let coin_sound = new Audio('./audio/coin.mp3');
 let bottle_sound = new Audio('./audio/bottle.mp3');
 
-function initMusic() {
+function initSound() {
 
     setVolume();
 
@@ -35,11 +35,22 @@ function initMusic() {
             gamelost.play();
             clearInterval(musicinterval);
         }
+    }, 100);
 
+    setInterval(() => {
+        if (!sfxplay)
+            setSfxVolumeOff();
+        else if (sfxplay == true) setSfxVolumeOn()
     }, 100);
 }
 
 function setVolume() {
+    background_music.volume = 0.1;
+    boss_music.volume = 0.1;
+    victory.volume = 0.1;
+}
+
+function setSfxVolumeOn() {
     background_music.volume = 0.1;
     boss_music.volume = 0.1;
     victory.volume = 0.1;
@@ -49,4 +60,16 @@ function setVolume() {
     hurt_sfx.volume = 1;
     coin_sound.volume = .3;
     bottle_sound.volume = .5;
+}
+
+function setSfxVolumeOff() {
+    background_music.volume = 0;
+    boss_music.volume = 0;
+    victory.volume = 0;
+    swimming_sound.volume = 0;
+    bubble_sfx.volume = .3;
+    hurt_shocked_sfx.volume = 0;
+    hurt_sfx.volume = 0;
+    coin_sound.volume = 0;
+    bottle_sound.volume = 0;
 }
