@@ -56,7 +56,7 @@ function addStyles() {
 function loadingScreen() {
     setTimeout(() => {
         document.getElementById('loadingscreen').style.display = 'none';
-    }, 5000);
+    }, 10);
 }
 
 document.addEventListener('keydown', (e) => {

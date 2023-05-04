@@ -292,6 +292,11 @@ h1 {
         transform: rotate(45deg);
     }
 
+    .touchBtn {
+        height: 70px;
+        width: 75px;
+    }
+
     #bubbleAttackTouch,
     #slapAttackTouch {
         display: flex;
