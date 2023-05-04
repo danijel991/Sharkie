@@ -10,6 +10,7 @@ let fullscreenState = false;
 let helpisopen = false;
 let gameOver = false;
 let gameWin = false;
+let landscape = false;
 let canvasover;
 let background_music = new Audio('./audio/background_music.mp3');
 background_music.volume = 0.1; //set audio volume
@@ -88,7 +89,7 @@ background_music.onpause = function () {
 
 function fullscreen() {
     let fullscreen = document.getElementById('fullscreen');
-    if (!fullscreenState || mobilescreen == true) {
+    if (!fullscreenState || mobilescreen == true || land) {
         fullscreenState = true;
         let fullscreenbutton = document.getElementById('fullscreen-button');
         fullscreenbutton.innerHTML = 'Exit fullscreen (F)';
@@ -265,11 +266,15 @@ function touchEventListener() {
 }
 
 function checkOrientation() {
-    if (window.matchMedia("(orientation: landscape)").matches) {
-        if (window.innerHeight < 480) {
-            newHeight = window.innerHeight;
-            document.getElementById('canvas').style.height = `${newHeight}px`;
+    setInterval(() => {
+        if (window.matchMedia("(orientation: landscape)").matches) {
+            if (window.innerHeight < 480) {
+                newHeight = window.innerHeight;
+                document.getElementById('canvas').style.height = `${newHeight}px`;
+                landscape = true;
+            }
         }
-    }
-    else document.getElementById('canvas').style.height = `100%`;
+        else document.getElementById('canvas').style.height = `100%`;
+        landscape = false;
+    }, 1000);
 }

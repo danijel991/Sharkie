@@ -150,10 +150,12 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
 
                 if (this.level.endboss[bossIndex].energy <= 0) {
                     this.level.endboss[bossIndex].bossDead = true;
-                    stopGame(1);
                     setTimeout(() => {
                         this.level.endboss.splice(bossIndex, 1);
-                    }, 1500);
+                    }, 3000);
+                    setTimeout(() => {
+                        stopGame(1);
+                    }, 4000);
                 }
             }
         });

@@ -107,7 +107,7 @@ class Endboss extends MovableObject {
                 this.currentImage = 0;
                 i = 0;
             }
-        }, 10000 / 30)
+        }, 100)
     }
 
     playBossIntro() {
@@ -118,23 +118,32 @@ class Endboss extends MovableObject {
     }
 
     playBossHurt() {
-        this.playAnimation(this.IMAGES_BOSS_HURT);
-        this.bossIsHurt = false;
+        this.currentImage = 0;
+        let hurt = setInterval(() => {
+            this.playAnimation(this.IMAGES_BOSS_HURT);
+        }, 100)
+        setTimeout(() => {
+            this.bossIsHurt = false;
+            clearInterval(hurt)
+        }, 200)
     }
 
     playBossAttack() {
-        this.playAnimation(this.IMAGES_BOSS_ATTACK);
-    }
+        this.currentImage = 0;
+        if (!this.attacking) {
+            let attack = setInterval(() => {
+                this.attacking = true;
+                this.playAnimation(this.IMAGES_BOSS_ATTACK);
+            }, 100)
+            setTimeout(() => {
+                this.attacking = false;
+                clearInterval(attack)
+            }, 600)
+        }
 
+    }
     playBossDead() {
-        let deadBossAnimation = setInterval(() => {
-            this.deadCounter++;
-            this.playAnimation(this.IMAGES_BOSS_DEAD);
-            if (this.deadCounter == this.IMAGES_DEAD.length - 1) {
-                clearInterval(deadBossAnimation);
-                this.deadAlreadyPlayed = true;
-                this.loadImage(this.IMAGES_BOSS_DEAD[4]);
-            }
-        }, 100);
+        this.playAnimation(this.IMAGES_BOSS_DEAD);
+        this.loadImage(this.IMAGES_BOSS_DEAD[4]);
     }
 }
