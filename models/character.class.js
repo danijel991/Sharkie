@@ -1,6 +1,6 @@
 class Character extends MovableObject {
     y = 80;
-    x = 1400;
+    x = 1000;
     height = 210;
     width = 150;
     speed = 3;
@@ -41,7 +41,7 @@ class Character extends MovableObject {
 
     animate() {
         this.animateIntervalId = setInterval(() => this.characterMotion(), 1000 / 60);
-        this.keyboardIntervalId = setInterval(() => this.characterAnimation(), 100);
+        this.keyboardIntervalId = setInterval(() => this.characterAnimation(), 225);
     }
 
     characterMotion() {
