@@ -68,7 +68,7 @@ class Endboss extends MovableObject {
     }
 
     constructor() {
-        super().loadImage('./img/2.Enemy/3_Final_Enemy/1.Introduce/1.png');
+        super().loadImage(this.IMAGES_BOSS_INTRO[0]);
         this.loadImages(this.IMAGES_BOSS_INTRO);
         this.loadImages(this.IMAGES_BOSS_SWIM);
         this.loadImages(this.IMAGES_BOSS_ATTACK);
@@ -77,12 +77,12 @@ class Endboss extends MovableObject {
         this.hadFirstContact = false;
         this.bossIsIdle = false;
         this.speed = 1.5;
-        this.x = 400;
+        this.x = 2000;
         this.y = 0;
         this.angle = 0; // Initialize angle and radius
         this.radius = 100;
-        this.centerX = 1900;
-        this.centerY = -100;
+        this.centerX = 2000;
+        this.centerY = 0;
         this.attacking = false;
         this.bossDead = false; // Initialize bossDead and energy
         this.energy = 100;
@@ -115,12 +115,10 @@ class Endboss extends MovableObject {
     playBossIntro() {
         this.currentImage = 0;
         setTimeout(() => {
-            this.x = 1200; // neue X-Position
-            this.y = 0;
             this.playAnimation(this.IMAGES_BOSS_INTRO);
             this.hadFirstContact = true;
-        }, 1500); // erhöhte Verzögerung
-        this.playBossSwim();
+        }, 1000); // erhöhte Verzögerung
+        // this.playBossSwim();
     }
 
     playBossSwim() {

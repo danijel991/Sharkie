@@ -59,8 +59,8 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
 
     collisionWithCharacter() {
         this.checkCollisionCharacterID = setInterval(() => {
-            this.checkCollisionsWithCaracter();
-        }, 750);
+            this.checkCollisionsWithCharacter();;
+        }, 500);
     }
 
     collisionWithObjects() {
@@ -72,33 +72,50 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     collisionWithBallistics() {
         this.checkCollisionBallisticsID = setInterval(() => {
             this.checkCollisionsWithBubbles();
-        }, 100);
+        }, 10);
     }
 
-    checkCollisionsWithCaracter() {
-        this.level.pufferfish.forEach((pufferfish, index) => {
-            if (this.character.isColliding(pufferfish) && this.keyboard.SPACE && !this.alreadyAttacking) {
+    checkCollisionsWithCharacter() {
+        for (let i = 0; i < this.level.pufferfish.length; i++) {
+            const pufferfish = this.level.pufferfish[i];
+    
+            // Check if the pufferfish is not already dead and the character is attacking
+            if (this.character.isColliding(pufferfish) && !pufferfish.puffFishDead && this.keyboard.SPACE && !this.alreadyAttacking) {
                 this.alreadyAttacking = true;
-                this.level.pufferfish.trashEnergy -= 20;
+                pufferfish.trashEnergy -= 20;
                 setTimeout(() => {
-                    this.level.pufferfish.splice(index, 1);
+                    pufferfish.puffFishDead = true; // Set the puffFishDead property to true when the pufferfish is dead
+                    setTimeout(() => {
+                        const index = this.level.pufferfish.indexOf(pufferfish);
+                        if (index > -1) {
+                            this.level.pufferfish.splice(index, 1); // Remove the pufferfish from the array
+                        }
+                    }, 4000); // Wait for 4 seconds before removing the pufferfish from the array
                     this.alreadyAttacking = false;
-                }, 600)
+                }, 50);
+                break; // Exit the loop after removing the first pufferfish
             }
-            if (this.character.isColliding(pufferfish) && this.character.energy != 0 && !this.character.isInvulnerable() && !this.keyboard.SPACE) {
+
+            // Check if the pufferfish is not dead and the character is not attacking
+            if (this.character.isColliding(pufferfish) && !pufferfish.puffFishDead && this.character.energy != 0 && !this.character.isInvulnerable() && !this.keyboard.SPACE) {
                 this.character.hittedByPufferfish = true;
-                this.character.hit(5);
+                this.character.hit(10);
                 this.healthBar.setPercentage(this.character.energy);
                 this.character.characterIsHurt = true;
                 setTimeout(() => {
                     this.character.hittedByPufferfish = false;
                 }, 900);
             };
-        })
+
+            // Check if the pufferfish is dead and play the dead animation
+            if (pufferfish.puffFishDead) {
+                // play the dead animation or remove the pufferfish from the game
+            }
+        }
 
         this.level.jellyfish.forEach((jellyfish) => {
             if (this.character.isColliding(jellyfish)) {
-                this.character.hit(5);
+                this.character.hit(10);
                 this.healthBar.setPercentage(this.character.energy);
                 this.character.characterIsHurtByJelly = true;
                 this.character.electrized = true;
@@ -108,7 +125,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
         this.level.endboss.forEach((boss) => {
             if (this.character.isColliding(boss)) {
                 this.character.attackedByBoss = true;
-                this.character.hit(10);
+                this.character.hit(20);
                 this.healthBar.setPercentage(this.character.energy);
             }
         });
