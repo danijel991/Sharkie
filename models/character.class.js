@@ -90,24 +90,32 @@ class Character extends MovableObject {
     }
 
     characterAnimation() {
-        if (this.isCharacterDeadElectrized())
+        if (this.isCharacterDeadElectrized()) {
             this.playDead();
-        else if (this.isCharacterDead())
+        } else if (this.isCharacterDead()) {
             this.playDeadPoisoned();
-        else if (this.isCharacterHurt())
+        } else if (this.isCharacterHurt()) {
             this.playHurtAnimation();
-        else if (this.characterIsHurtByJelly == true)
+        } else if (this.characterIsHurtByJelly == true) {
             this.playHurtAnimationJelly();
-        else if (this.attackedByBoss == true)
+        } else if (this.attackedByBoss == true) {
             this.playHurtByBoss();
-        else if (this.world.keyboard.SPACE)
+        } else if (this.world.keyboard.SPACE) {
             this.playAttackFinSlap();
-        else if (this.world.keyboard.D && this.poisonsAmount >= 1 && this.otherDirection == false && this.energy >= 1)
+        } else if (this.world.keyboard.D && this.poisonsAmount >= 1 && this.otherDirection == false && this.energy >= 1) {
             this.playAttackBubble();
-        else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN)
+        } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
             this.playAnimation(this.assets.IMAGES_SWIMMING);
-        else if (this.noKeyIsPressed() && !this.isDead())
-            this.playAnimation(this.assets.IMAGES_IDLE);
+        } else if (this.noKeyIsPressed() && !this.isDead()) {
+            this.idleTimer = (this.idleTimer || 0) + 1;
+            if (this.idleTimer >= 15) { // 180 frames = 3 seconds
+                this.playAnimation(this.assets.IMAGES_LONG_IDLE);
+            } else {
+                this.playAnimation(this.assets.IMAGES_IDLE);
+            }
+        } else {
+            this.idleTimer = 0;
+        }
     }
 
     isCharacterDeadElectrized() {
