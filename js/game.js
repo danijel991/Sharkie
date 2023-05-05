@@ -198,10 +198,10 @@ function stopGame(vari) {
 function clearIntervals() {
     clearInterval(world.character.animateIntervalId);
     clearInterval(world.character.keyboardIntervalId);
-    clearInterval(world.jellyfish.animatedJellyFishId);
-    clearInterval(world.jellyfish.animatedJellyFishIdDead);
-    clearInterval(world.jellyfish.animatedJellyFishIdMotion);
-    clearInterval(world.pufferfish.fishMotionInterval);
+    clearInterval(level1.jellyfish.animatedJellyFishId);
+    clearInterval(level1.jellyfish.animatedJellyFishIdDead);
+    clearInterval(level1.jellyfish.animatedJellyFishIdMotion);
+    clearInterval(level1.pufferfish.fishMotionInterval);
     clearInterval(world.endboss.endbossAnimation);
 }
 

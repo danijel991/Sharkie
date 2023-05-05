@@ -2,9 +2,6 @@ class Endboss extends MovableObject {
 
     height = 500;
     width = 600;
-    world;
-    bossIsHurt = false;
-    bossDead = false;
 
     IMAGES_BOSS_INTRO = [
         './img/2.Enemy/3_Final_Enemy/1.Introduce/1.png',
@@ -67,15 +64,22 @@ class Endboss extends MovableObject {
         right: 37
     }
 
+    world;
+    bossIsHurt = false;
+    bossDead = false;
+    attacking = false;
+    bossDead = false;
+    hadFirstContact = false;
+    bossIsIdle = false;
+    deadFrames = 0;
+
     constructor() {
-        super().loadImage(this.IMAGES_BOSS_INTRO[0]);
+        super().loadImage('./img/2.Enemy/3_Final_Enemy/1.Introduce/1.png');
         this.loadImages(this.IMAGES_BOSS_INTRO);
         this.loadImages(this.IMAGES_BOSS_SWIM);
         this.loadImages(this.IMAGES_BOSS_ATTACK);
         this.loadImages(this.IMAGES_BOSS_HURT);
         this.loadImages(this.IMAGES_BOSS_DEAD);
-        this.hadFirstContact = false;
-        this.bossIsIdle = false;
         this.speed = 1.5;
         this.x = 2000;
         this.y = 0;
@@ -83,51 +87,52 @@ class Endboss extends MovableObject {
         this.radius = 100;
         this.centerX = 2000;
         this.centerY = 0;
-        this.attacking = false;
-        this.bossDead = false; // Initialize bossDead and energy
         this.energy = 100;
-        this.animate();
+        setTimeout(() => {
+            this.animate();
+        }, 1000);
     }
 
     animate() {
+        let i = 0;
 
         let endbossAnimation = setInterval(() => {
-            if (this.bossDead || this.energy <= 0) {
-                this.playBossDead();
-                clearInterval(endbossAnimation);
-            } else if (i < 10 && this.hadFirstContact)
-                this.playBossIntro();
-            else if (world.character.attackedByBoss)
+
+            if (i < 10 && this.hadFirstContact)
+                this.playAnimation(this.IMAGES_BOSS_INTRO);
+            else if (this.world.character.attackedByBoss)
                 this.playBossAttack();
             else if (this.bossIsHurt)
                 this.playBossHurt();
-            else this.playBossSwim();
-            i++;
+            else if (this.bossDead || this.energy <= 0) {
+                this.playBossDead();
+                clearInterval(endbossAnimation);
+            }
+            else this.playAnimation(this.IMAGES_BOSS_SWIM);
 
-            if (world.character.x > 1300 && !this.hadFirstContact) {
+            // this.currentImage = 0;
+            i = 0;
+
+            if (this.world.character.x > 1450 && !this.hadFirstContact) {
                 this.hadFirstContact = true;
                 this.currentImage = 0;
                 i = 0;
+
+                setTimeout(() => {
+                    this.playBossSwim();
+                }, 800);
             }
         }, 100);
     }
 
-    playBossIntro() {
-        this.currentImage = 0;
-        setTimeout(() => {
-            this.playAnimation(this.IMAGES_BOSS_INTRO);
-            this.hadFirstContact = true;
-        }, 1000); // erhöhte Verzögerung
-        // this.playBossSwim();
-    }
-
     playBossSwim() {
-        this.playAnimation(this.IMAGES_BOSS_SWIM);
-        this.angle += 0.05;
-        let newX = this.centerX + Math.cos(this.angle) * this.radius;
-        let newY = this.centerY + Math.sin(this.angle) * this.radius;
-        this.x = newX;
-        this.y = newY;
+        setInterval(() => {
+            this.angle += 0.05;
+            let newX = this.centerX + Math.cos(this.angle) * this.radius;
+            let newY = this.centerY + Math.sin(this.angle) * this.radius;
+            this.x = newX;
+            this.y = newY;
+        }, 1000 / 60);
     }
 
     playBossHurt() {
@@ -137,7 +142,7 @@ class Endboss extends MovableObject {
         }, 100)
         setTimeout(() => {
             this.bossIsHurt = false;
-            clearInterval(hurt)
+            clearInterval(hurt);
         }, 200)
     }
 
@@ -150,7 +155,7 @@ class Endboss extends MovableObject {
             }, 100)
             setTimeout(() => {
                 this.attacking = false;
-                clearInterval(attack)
+                clearInterval(attack);
             }, 600)
         }
 

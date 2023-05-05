@@ -1,22 +1,21 @@
 class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tastatur, kamera, health bars
     assets;
     character = new Character(this, assets);
-    endboss = new Endboss();
-    pufferfish = new PufferFish();
-    jellyfish = new JellyFish();
-    coin = new Coins();
-    poison = new Poisons();
-    level = level1;
-    canvas;
-    ctx;
-    keyboard;
-    camera_x = 0;
     healthBar = new HealthBar();
     coinBar = new CoinBar();
     poisonbar = new Poisonbar();
     statusBar = [this.healthBar, this.coinBar, this.poisonbar];
-    alreadyAttacking = false;
+    coin = new Coins();
+    poison = new Poisons();
     throwableObjects = [];
+    level = level1;
+    endboss = this.level.endboss.find(e => e instanceof Endboss);
+    canvas;
+    ctx;
+    keyboard;
+    camera_x = 0;
+    alreadyAttacking = false;
+
 
     constructor(canvas, keyboard, assets) {
         this.ctx = canvas.getContext('2d');
@@ -29,10 +28,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     }
 
     setWorld() {
-        this.character.world = this;
         this.endboss.world = this;
-        this.pufferfish.world = this;
-        this.jellyfish.world = this;
     }
 
     run() {
@@ -78,7 +74,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     checkCollisionsWithCharacter() {
         for (let i = 0; i < this.level.pufferfish.length; i++) {
             const pufferfish = this.level.pufferfish[i];
-    
+
             // Check if the pufferfish is not already dead and the character is attacking
             if (this.character.isColliding(pufferfish) && !pufferfish.puffFishDead && this.keyboard.SPACE && !this.alreadyAttacking) {
                 this.alreadyAttacking = true;
