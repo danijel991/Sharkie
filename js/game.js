@@ -90,7 +90,7 @@ document.addEventListener('keyup', (e) => {
 function togglePlay() {
     let musictoggle = document.getElementById('toggleMusic');
 
-    if (bgMusicIsPlaying == true) {
+    if (bgMusicIsPlaying) {
         bgMusicIsPlaying = false;
         musictoggle.innerHTML = 'Music off';
     } else {
@@ -102,7 +102,7 @@ function togglePlay() {
 function toggleSfx() {
     let sfxtoggle = document.getElementById('toggleSfx');
 
-    if (sfxplay == true) {
+    if (sfxplay) {
         sfxplay = false;
         sfxtoggle.innerHTML = 'Sfx off';
     } else {
@@ -113,7 +113,7 @@ function toggleSfx() {
 
 function fullscreen() {
     let fullscreen = document.getElementById('fullscreen');
-    if (!fullscreenState || mobilescreen == true || land) {
+    if (!fullscreenState || mobilescreen || landscape) {
         fullscreenState = true;
         let fullscreenbutton = document.getElementById('fullscreen-button');
         fullscreenbutton.innerHTML = 'Exit fullscreen (F)';
@@ -143,12 +143,12 @@ function checkGameOver() {
     document.getElementById('toggleGame').innerHTML = 'Restart game';
 
     setInterval(() => {
-        if (gameOver == true) {
+        if (gameOver) {
             canvas.style.display = 'none';
             winScreen.style.display = 'none';
             gOverScreen.style.display = 'block';
             restartGame.style.display = 'block';
-        } else if (gameWin == true) {
+        } else if (gameWin) {
             canvas.style.display = 'none';
             gOverScreen.style.display = 'none';
             winScreen.style.display = 'block';
@@ -223,7 +223,7 @@ function mobileScreenListener() {
             toucharea_right.style.display = "flex"
             gametogglebtn.style.display = "none";
             canvasober.style.display = "none";
-        } else if (gameOver == true || gameWin == true) {
+        } else if (gameOver|| gameWin) {
             toucharea_left.style.display = "none"
             toucharea_right.style.display = "none"
         }

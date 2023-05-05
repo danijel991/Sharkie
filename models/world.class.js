@@ -1,6 +1,7 @@
 class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tastatur, kamera, health bars
     assets;
     character = new Character(this, assets);
+    endboss = new Endboss();
     healthBar = new HealthBar();
     coinBar = new CoinBar();
     poisonbar = new Poisonbar();
@@ -9,7 +10,6 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     poison = new Poisons();
     throwableObjects = [];
     level = level1;
-    endboss = this.level.endboss.find(e => e instanceof Endboss);
     canvas;
     ctx;
     keyboard;
@@ -28,7 +28,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     }
 
     setWorld() {
-        this.endboss.world = this;
+        this.character.world = this;
     }
 
     run() {
@@ -45,7 +45,7 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     }
 
     checkThrowObjectsBubble() {
-        if (this.keyboard.D && this.character.poisonsAmount >= 1 && this.character.otherDirection == false && this.character.energy >= 1) {
+        if (this.keyboard.D && this.character.poisonsAmount >= 1 && !this.character.otherDirection && this.character.energy >= 1) {
             let bubble = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bubble);
             this.character.emptyPoisonbar();

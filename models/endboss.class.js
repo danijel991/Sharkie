@@ -70,10 +70,9 @@ class Endboss extends MovableObject {
     attacking = false;
     hadFirstContact = false;
     bossIsIdle = false;
-    bossIdle = false;
 
     constructor() {
-        super().loadImage('./img/2.Enemy/3_Final_Enemy/1.Introduce/1.png');
+        super().loadImage(this.IMAGES_BOSS_INTRO[0]);
         this.loadImages(this.IMAGES_BOSS_INTRO);
         this.loadImages(this.IMAGES_BOSS_SWIM);
         this.loadImages(this.IMAGES_BOSS_ATTACK);
@@ -88,54 +87,44 @@ class Endboss extends MovableObject {
         this.centerY = 0;
         this.energy = 100;
         this.introListener();
+        this.animate();
+
     }
 
     introListener() {
         setInterval(() => {
-            if (this.world.character.x > 1450 && !this.hadFirstContact) {
+            if (world.character.x > 1500 && !this.hadFirstContact) {
                 this.hadFirstContact = true;
-                setTimeout(() => {
-                    this.animate();
-                }, 1500);
+                console.log('hadFirstContact' + this.hadFirstContact);
             }
-        }, 500);
-        this.currentImage = 0;
-        i = 0;
+        }, 100);
     }
 
     animate() {
         let i = 0;
         let endbossAnimation = setInterval(() => {
-
-            if (i < 10 && this.hadFirstContact) {
+            if (i < 10 & this.hadFirstContact) {
                 this.playAnimation(this.IMAGES_BOSS_INTRO);
-                this.bossIdle = true;
-            } else if (this.world.character.attackedByBoss)
+            } else if (world.character.attackedByBoss)
                 this.playBossAttack();
             else if (this.bossIsHurt)
                 this.playBossHurt();
             else if (this.bossDead || this.energy <= 0) {
                 this.playBossDead();
                 clearInterval(endbossAnimation);
-            } else if (this.bossIdle == true) {
-                this.playAnimation(this.IMAGES_BOSS_SWIM)
-                this.playBossSwim();
-            }
+            } else
+                this.playAnimation(this.IMAGES_BOSS_SWIM);
+            this.playBossSwim();
+            i++;
         }, 100);
-        this.currentImage = 0;
-        i = 0;
     }
 
     playBossSwim() {
-        setTimeout(() => {
-            setInterval(() => {
                 this.angle += 0.05;
                 let newX = this.centerX + Math.cos(this.angle) * this.radius;
                 let newY = this.centerY + Math.sin(this.angle) * this.radius;
                 this.x = newX;
                 this.y = newY;
-            }, 1000 / 60);
-        }, 800);
     }
 
     playBossHurt() {

@@ -17,19 +17,19 @@ function initSound() {
 
         if (!bgMusicIsPlaying) {
             background_music.pause();
-        } else if (bgMusicIsPlaying == true && world.endboss.hadFirstContact == false) {
+        } else if (bgMusicIsPlaying && !world.endboss.hadFirstContact) {
             background_music.play();
-        } else if (world.endboss.hadFirstContact == true) {
+        } else if (world.endboss.hadFirstContact) {
             background_music.pause();
             boss_music.play();
         }
 
-        if (gameWin == true && !gameOver) {
+        if (gameWin && !gameOver) {
             boss_music.pause();
             victory.play();
             clearInterval(musicinterval);
 
-        } else if (gameOver == true && !gameWin) {
+        } else if (gameOver && !gameWin) {
             background_music.pause();
             boss_music.pause();
             gamelost.play();
@@ -40,7 +40,7 @@ function initSound() {
     setInterval(() => {
         if (!sfxplay)
             setSfxVolumeOff();
-        else if (sfxplay == true) setSfxVolumeOn()
+        else if (sfxplay) setSfxVolumeOn()
     }, 100);
 }
 

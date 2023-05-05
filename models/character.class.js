@@ -1,6 +1,6 @@
 class Character extends MovableObject {
     y = 80;
-    x = 1000;
+    x = 1450;
     height = 210;
     width = 150;
     speed = 3;
@@ -96,13 +96,13 @@ class Character extends MovableObject {
             this.playDeadPoisoned();
         } else if (this.isCharacterHurt()) {
             this.playHurtAnimation();
-        } else if (this.characterIsHurtByJelly == true) {
+        } else if (this.characterIsHurtByJelly) {
             this.playHurtAnimationJelly();
-        } else if (this.attackedByBoss == true) {
+        } else if (this.attackedByBoss) {
             this.playHurtByBoss();
         } else if (this.world.keyboard.SPACE) {
             this.playAttackFinSlap();
-        } else if (this.world.keyboard.D && this.poisonsAmount >= 1 && this.otherDirection == false && this.energy >= 1) {
+        } else if (this.world.keyboard.D && this.poisonsAmount >= 1 && !this.otherDirection && this.energy >= 1) {
             this.playAttackBubble();
         } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
             this.playAnimation(this.assets.IMAGES_SWIMMING);
@@ -119,13 +119,13 @@ class Character extends MovableObject {
     }
 
     isCharacterDeadElectrized() {
-        return this.electrized == true && this.isDead();
+        return !this.electrized && this.isDead();
     }
     isCharacterDead() {
-        return this.electrized == false && this.isDead();
+        return !this.electrized && this.isDead();
     }
     isCharacterHurt() {
-        return this.characterIsHurt == true;
+        return this.characterIsHurt;
     }
 
     playDead() {
