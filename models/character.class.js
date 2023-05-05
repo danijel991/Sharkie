@@ -24,7 +24,7 @@ class Character extends MovableObject {
     spaceAlreadyPressed = false;
 
     constructor(world, assets) {
-        super().loadImage('img/1.Sharkie/2.Long_IDLE/i1.png');
+        super().loadImage('./img/1.Sharkie/2.Long_IDLE/idle_long_(1).png');
         this.world = world;
         this.assets = assets;
         this.loadImages(this.assets.IMAGES_SWIMMING);

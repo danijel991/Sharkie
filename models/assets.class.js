@@ -33,20 +33,20 @@ IMAGES_SWIMMING = [
     ]
 
     IMAGES_LONG_IDLE = [
-        './img/1.Sharkie/2.Long_IDLE/i1.png',
-        './img/1.Sharkie/2.Long_IDLE/i2.png',
-        './img/1.Sharkie/2.Long_IDLE/i3.png',
-        './img/1.Sharkie/2.Long_IDLE/i4.png',
-        './img/1.Sharkie/2.Long_IDLE/i5.png',
-        './img/1.Sharkie/2.Long_IDLE/i6.png',
-        './img/1.Sharkie/2.Long_IDLE/i7.png',
-        './img/1.Sharkie/2.Long_IDLE/i8.png',
-        './img/1.Sharkie/2.Long_IDLE/i9.png',
-        './img/1.Sharkie/2.Long_IDLE/i10.png',
-        './img/1.Sharkie/2.Long_IDLE/i11.png',
-        './img/1.Sharkie/2.Long_IDLE/i12.png',
-        './img/1.Sharkie/2.Long_IDLE/i13.png',
-        './img/1.Sharkie/2.Long_IDLE/i14.png'
+        './img/1.Sharkie/2.Long_IDLE/idle_long_(1).png',
+        './img/1.Sharkie/2.Long_IDLE/idle_long_(2).png',
+        './img/1.Sharkie/2.Long_IDLE/idle_long_(3).png',
+        './img/1.Sharkie/2.Long_IDLE/idle_long_(4).png',
+        './img/1.Sharkie/2.Long_IDLE/idle_long_(5).png',
+        './img/1.Sharkie/2.Long_IDLE/idle_long_(6).png',
+        './img/1.Sharkie/2.Long_IDLE/idle_long_(7).png',
+        './img/1.Sharkie/2.Long_IDLE/idle_long_(8).png',
+        './img/1.Sharkie/2.Long_IDLE/idle_long_(9).png',
+        './img/1.Sharkie/2.Long_IDLE/idle_long_(10).png',
+        './img/1.Sharkie/2.Long_IDLE/idle_long_(11).png',
+        './img/1.Sharkie/2.Long_IDLE/idle_long_(12).png',
+        './img/1.Sharkie/2.Long_IDLE/idle_long_(13).png',
+        './img/1.Sharkie/2.Long_IDLE/idle_long_(14).png'
     ]
 
     IMAGES_ATTACK_BUBBLE = [

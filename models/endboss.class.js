@@ -68,10 +68,9 @@ class Endboss extends MovableObject {
     bossIsHurt = false;
     bossDead = false;
     attacking = false;
-    bossDead = false;
     hadFirstContact = false;
     bossIsIdle = false;
-    deadFrames = 0;
+    bossIdle = false;
 
     constructor() {
         super().loadImage('./img/2.Enemy/3_Final_Enemy/1.Introduce/1.png');
@@ -88,51 +87,55 @@ class Endboss extends MovableObject {
         this.centerX = 2000;
         this.centerY = 0;
         this.energy = 100;
-        setTimeout(() => {
-            this.animate();
-        }, 1000);
+        this.introListener();
+    }
+
+    introListener() {
+        setInterval(() => {
+            if (this.world.character.x > 1450 && !this.hadFirstContact) {
+                this.hadFirstContact = true;
+                setTimeout(() => {
+                    this.animate();
+                }, 1500);
+            }
+        }, 500);
+        this.currentImage = 0;
+        i = 0;
     }
 
     animate() {
         let i = 0;
-
         let endbossAnimation = setInterval(() => {
 
-            if (i < 10 && this.hadFirstContact)
+            if (i < 10 && this.hadFirstContact) {
                 this.playAnimation(this.IMAGES_BOSS_INTRO);
-            else if (this.world.character.attackedByBoss)
+                this.bossIdle = true;
+            } else if (this.world.character.attackedByBoss)
                 this.playBossAttack();
             else if (this.bossIsHurt)
                 this.playBossHurt();
             else if (this.bossDead || this.energy <= 0) {
                 this.playBossDead();
                 clearInterval(endbossAnimation);
-            }
-            else this.playAnimation(this.IMAGES_BOSS_SWIM);
-
-            // this.currentImage = 0;
-            i = 0;
-
-            if (this.world.character.x > 1450 && !this.hadFirstContact) {
-                this.hadFirstContact = true;
-                this.currentImage = 0;
-                i = 0;
-
-                setTimeout(() => {
-                    this.playBossSwim();
-                }, 800);
+            } else if (this.bossIdle == true) {
+                this.playAnimation(this.IMAGES_BOSS_SWIM)
+                this.playBossSwim();
             }
         }, 100);
+        this.currentImage = 0;
+        i = 0;
     }
 
     playBossSwim() {
-        setInterval(() => {
-            this.angle += 0.05;
-            let newX = this.centerX + Math.cos(this.angle) * this.radius;
-            let newY = this.centerY + Math.sin(this.angle) * this.radius;
-            this.x = newX;
-            this.y = newY;
-        }, 1000 / 60);
+        setTimeout(() => {
+            setInterval(() => {
+                this.angle += 0.05;
+                let newX = this.centerX + Math.cos(this.angle) * this.radius;
+                let newY = this.centerY + Math.sin(this.angle) * this.radius;
+                this.x = newX;
+                this.y = newY;
+            }, 1000 / 60);
+        }, 800);
     }
 
     playBossHurt() {
