@@ -1,4 +1,4 @@
-class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tastatur, kamera, health bars
+class World {
     assets;
     character = new Character(this, assets);
     endboss = new Endboss();
@@ -15,7 +15,6 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
     keyboard;
     camera_x = 0;
     alreadyAttacking = false;
-
 
     constructor(canvas, keyboard, assets) {
         this.ctx = canvas.getContext('2d');
@@ -75,24 +74,22 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
         for (let i = 0; i < this.level.pufferfish.length; i++) {
             const pufferfish = this.level.pufferfish[i];
 
-            // Check if the pufferfish is not already dead and the character is attacking
             if (this.character.isColliding(pufferfish) && !pufferfish.puffFishDead && this.keyboard.SPACE && !this.alreadyAttacking) {
                 this.alreadyAttacking = true;
                 pufferfish.trashEnergy -= 20;
                 setTimeout(() => {
-                    pufferfish.puffFishDead = true; // Set the puffFishDead property to true when the pufferfish is dead
+                    pufferfish.puffFishDead = true;
                     setTimeout(() => {
                         const index = this.level.pufferfish.indexOf(pufferfish);
                         if (index > -1) {
-                            this.level.pufferfish.splice(index, 1); // Remove the pufferfish from the array
+                            this.level.pufferfish.splice(index, 1);
                         }
-                    }, 4000); // Wait for 4 seconds before removing the pufferfish from the array
+                    }, 4000);
                     this.alreadyAttacking = false;
                 }, 50);
-                break; // Exit the loop after removing the first pufferfish
+                break;
             }
 
-            // Check if the pufferfish is not dead and the character is not attacking
             if (this.character.isColliding(pufferfish) && !pufferfish.puffFishDead && this.character.energy != 0 && !this.character.isInvulnerable() && !this.keyboard.SPACE) {
                 this.character.hittedByPufferfish = true;
                 this.character.hit(10);
@@ -102,11 +99,6 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
                     this.character.hittedByPufferfish = false;
                 }, 900);
             };
-
-            // Check if the pufferfish is dead and play the dead animation
-            if (pufferfish.puffFishDead) {
-                // play the dead animation or remove the pufferfish from the game
-            }
         }
 
         this.level.jellyfish.forEach((jellyfish) => {
@@ -153,7 +145,8 @@ class World { //hier wird so ziemlich alles was das spiel angeht angegeben, tast
                     }, 2000);
                 }
 
-            } if (bossIndex != -1) {
+            }
+            if (bossIndex != -1) {
                 this.level.endboss[bossIndex].energy -= 20;
                 if (this.level.endboss[bossIndex].energy > 0) {
                     this.level.endboss[bossIndex].bossIsHurt = true;

@@ -118,10 +118,8 @@ function fullscreen() {
         let fullscreenbutton = document.getElementById('fullscreen-button');
         fullscreenbutton.innerHTML = 'Exit fullscreen (F)';
         enterFullscreen(fullscreen);
-        console.log(fullscreenState);
     } else {
         fullscreenState = false;
-        console.log(fullscreenState);
         document.getElementById('fullscreen-button');
         exitFullscreen();
     }
@@ -143,19 +141,25 @@ function checkGameOver() {
     document.getElementById('toggleGame').innerHTML = 'Restart game';
 
     setInterval(() => {
-        if (gameOver) {
-            canvas.style.display = 'none';
-            winScreen.style.display = 'none';
-            gOverScreen.style.display = 'block';
-            restartGame.style.display = 'block';
-        } else if (gameWin) {
-            canvas.style.display = 'none';
-            gOverScreen.style.display = 'none';
-            winScreen.style.display = 'block';
-            restartGame.style.display = 'block';
-        }
-
+        if (gameOver)
+            gameIsOver();
+        else if (gameWin)
+            gameIsWIn()
     }, 100);
+}
+
+function gameIsOver() {
+    canvas.style.display = 'none';
+    winScreen.style.display = 'none';
+    gOverScreen.style.display = 'block';
+    restartGame.style.display = 'block';
+}
+
+function gameIsWIn() {
+    canvas.style.display = 'none';
+    gOverScreen.style.display = 'none';
+    winScreen.style.display = 'block';
+    restartGame.style.display = 'block';
 }
 
 function toggleHelp() {
@@ -178,7 +182,6 @@ function toggleHelp() {
 }
 
 function stopGame(vari) {
-    console.log("Ending Intervals");
     setInterval(() => {
         if (vari == 1) {
             gameWin = true;
@@ -218,12 +221,13 @@ function mobileScreenListener() {
             canvasober.style.display = "flex"
             toucharea_left.style.display = "none"
             toucharea_right.style.display = "none"
+
         } else if (canvasblock.style.display == "block") {
             toucharea_left.style.display = "flex"
             toucharea_right.style.display = "flex"
             gametogglebtn.style.display = "none";
             canvasober.style.display = "none";
-        } else if (gameOver|| gameWin) {
+        } else if (gameOver || gameWin) {
             toucharea_left.style.display = "none"
             toucharea_right.style.display = "none"
         }
