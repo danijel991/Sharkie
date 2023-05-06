@@ -80,11 +80,11 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_BOSS_DEAD);
         this.speed = 1.5;
         this.x = 2000;
-        this.y = 0;
+        this.y = 500;
         this.angle = 0; // Initialize angle and radius
         this.radius = 100;
         this.centerX = 2000;
-        this.centerY = 0;
+        this.centerY = -100;
         this.energy = 100;
         this.introListener();
         this.animate();
@@ -93,7 +93,7 @@ class Endboss extends MovableObject {
 
     introListener() {
         setInterval(() => {
-            if (world.character.x > 1500 && !this.hadFirstContact) {
+            if (world.character.x > 1450 && !this.hadFirstContact) {
                 this.hadFirstContact = true;
                 console.log('hadFirstContact' + this.hadFirstContact);
             }
@@ -104,7 +104,11 @@ class Endboss extends MovableObject {
         let i = 0;
         let endbossAnimation = setInterval(() => {
             if (i < 10 & this.hadFirstContact) {
-                this.playAnimation(this.IMAGES_BOSS_INTRO);
+                setTimeout(() => {
+                    i = 99;
+                    this.y = -100;
+                    this.playAnimation(this.IMAGES_BOSS_INTRO);
+                }, 500);
             } else if (world.character.attackedByBoss)
                 this.playBossAttack();
             else if (this.bossIsHurt)
@@ -113,33 +117,36 @@ class Endboss extends MovableObject {
                 this.playBossDead();
                 clearInterval(endbossAnimation);
             } else
-                this.playAnimation(this.IMAGES_BOSS_SWIM);
-            this.playBossSwim();
+                setTimeout(() => {
+                    this.playAnimation(this.IMAGES_BOSS_SWIM);
+                    this.playBossSwim();
+                }, 1500);
             i++;
-        }, 100);
+        }, 5000 / 30);
     }
 
     playBossSwim() {
-                this.angle += 0.05;
-                let newX = this.centerX + Math.cos(this.angle) * this.radius;
-                let newY = this.centerY + Math.sin(this.angle) * this.radius;
-                this.x = newX;
-                this.y = newY;
+        this.angle += 0.05;
+        let newX = this.centerX + Math.cos(this.angle) * this.radius;
+        let newY = this.centerY + Math.sin(this.angle) * this.radius;
+        this.x = newX;
+        this.y = newY;
     }
 
     playBossHurt() {
-        this.currentImage = 0;
+        this.i = 0;
         let hurt = setInterval(() => {
             this.playAnimation(this.IMAGES_BOSS_HURT);
         }, 100)
         setTimeout(() => {
             this.bossIsHurt = false;
             clearInterval(hurt);
+            i++;
         }, 200)
     }
 
     playBossAttack() {
-        this.currentImage = 0;
+        this.i = 0;
         if (!this.attacking) {
             let attack = setInterval(() => {
                 this.attacking = true;
@@ -148,7 +155,8 @@ class Endboss extends MovableObject {
             setTimeout(() => {
                 this.attacking = false;
                 clearInterval(attack);
-            }, 600)
+                i++;
+            }, 400)
         }
 
     }
