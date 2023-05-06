@@ -197,6 +197,7 @@ function stopGame(vari) {
 
     gameTitle.style.display = 'block';
     restartGame.style.display = 'block';
+    canvasover.style.display = 'block';
 }
 function clearIntervals() {
     clearInterval(world.character.animateIntervalId);
@@ -222,7 +223,7 @@ function mobileScreenListener() {
     setInterval(() => {
 
         if (canvasblock.style.display != "block") {
-            canvasober.style.display = "flex"
+            // canvasblock.style.display = "flex"
             toucharea_left.style.display = "none"
             toucharea_right.style.display = "none"
 

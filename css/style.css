@@ -262,6 +262,12 @@ h1 {
         margin: 0;
     }
 
+    #gameOverScreen,
+#winnerScreen {
+    top: 40px;
+    width: 55%;
+}
+
     #HowToPlay {
         font-size: 14px;
         font-weight: 200;
@@ -308,8 +314,8 @@ h1 {
     }
 
     .attack-btn {
-        height: 100px;
-        width: 100px;
+        height: 115px;
+        width: 115px;
         display: flex;
         justify-content: center;
         align-items: center;
