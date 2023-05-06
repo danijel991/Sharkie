@@ -119,7 +119,7 @@ class Character extends MovableObject {
     }
 
     isCharacterDeadElectrized() {
-        return !this.electrized && this.isDead();
+        return this.electrized && this.isDead();
     }
     isCharacterDead() {
         return !this.electrized && this.isDead();

@@ -69,7 +69,6 @@ class Endboss extends MovableObject {
     bossDead = false;
     attacking = false;
     hadFirstContact = false;
-    bossIsIdle = false;
 
     constructor() {
         super().loadImage(this.IMAGES_BOSS_INTRO[0]);
@@ -86,7 +85,6 @@ class Endboss extends MovableObject {
         this.centerY = -100;
         this.energy = 100;
         this.introListener();
-        this.endBossInitiated = false;
     }
 
     introListener() {
@@ -99,28 +97,29 @@ class Endboss extends MovableObject {
     }
 
     animate() {
+
         let i = 0;
         let endbossAnimation = setInterval(() => {
-            if (i < 10 & this.hadFirstContact)
-                this.playBossIntro();
+            if (i < 10) {
+                // do nothing, wait for 1 sec
+            } else if (i >= 10 && i < 20)
+                this.playBossIntro()
             else if (world.character.attackedByBoss)
                 this.playBossAttack();
             else if (this.bossIsHurt)
                 this.playBossHurt();
             else if (this.bossDead || this.energy <= 0) {
                 this.playBossDead(endbossAnimation);
-            } else if (this.endBossInitiated) {
+            } else {
                     this.playAnimation(this.IMAGES_BOSS_SWIM);
                     this.playBossSwim();
-            } i++;
+            }
+            i++;
         }, 100);
     }
 
     playBossIntro() {
-        setTimeout(() => {
-            this.playAnimation(this.IMAGES_BOSS_INTRO);
-            this.endBossInitiated = true;
-        }, 1000);
+        this.playAnimation(this.IMAGES_BOSS_INTRO)
     }
 
     playBossSwim() {

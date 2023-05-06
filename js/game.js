@@ -32,7 +32,7 @@ function init() {
     touchEventListener();
     mobileScreenListener();
     initSound();
-    world = new World(canvas, keyboard, assets);
+    world = new World(level1, canvas, keyboard, assets);
 }
 
 function addVariables() {
@@ -182,7 +182,7 @@ function toggleHelp() {
 }
 
 function stopGame(vari) {
-    setInterval(() => {
+    setTimeout(() => {
         if (vari == 1) {
             gameWin = true;
         }
@@ -201,10 +201,14 @@ function stopGame(vari) {
 function clearIntervals() {
     clearInterval(world.character.animateIntervalId);
     clearInterval(world.character.keyboardIntervalId);
-    clearInterval(level1.jellyfish.animatedJellyFishId);
-    clearInterval(level1.jellyfish.animatedJellyFishIdDead);
-    clearInterval(level1.jellyfish.animatedJellyFishIdMotion);
-    clearInterval(level1.pufferfish.fishMotionInterval);
+    world.level.jellyfish.forEach((jellyfish) =>  {
+        clearInterval(jellyfish.animatedJellyFishId);
+        clearInterval(jellyfish.animatedJellyFishIdDead);
+        clearInterval(jellyfish.animatedJellyFishIdMotion);
+    });
+    world.level.pufferfish.forEach((pufferfish) => {
+        clearInterval(pufferfish.fishMotionInterval)
+    });
     clearInterval(world.endboss.endbossAnimation);
 }
 

@@ -14,9 +14,7 @@ function initLevel() {
             new JellyFish(950, 200),
             new JellyFish(1300, 250),
         ],
-        [
-            new Endboss(),
-        ],
+        new Endboss(),
         [
             new Light(),
         ],

@@ -1,7 +1,7 @@
 class World {
     assets;
     character = new Character(this, assets);
-    endboss = new Endboss();
+    endboss;
     healthBar = new HealthBar();
     coinBar = new CoinBar();
     poisonbar = new Poisonbar();
@@ -9,18 +9,20 @@ class World {
     coin = new Coins();
     poison = new Poisons();
     throwableObjects = [];
-    level = level1;
+    level;
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
     alreadyAttacking = false;
 
-    constructor(canvas, keyboard, assets) {
+    constructor(level, canvas, keyboard, assets) {
+        this.level = level
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.assets = assets;
+        this.loadLevel();
         this.draw();
         this.setWorld();
         this.run();
@@ -28,6 +30,10 @@ class World {
 
     setWorld() {
         this.character.world = this;
+    }
+
+    loadLevel() {
+        this.endboss = this.level.endboss;
     }
 
     run() {
@@ -110,20 +116,17 @@ class World {
             }
         });
 
-        this.level.endboss.forEach((boss) => {
-            if (this.character.isColliding(boss)) {
-                this.character.attackedByBoss = true;
-                this.character.hit(20);
-                this.healthBar.setPercentage(this.character.energy);
-            }
-        });
+        if (this.character.isColliding(this.level.endboss)) {
+            this.character.attackedByBoss = true;
+            this.character.hit(20);
+            this.healthBar.setPercentage(this.character.energy);
+        }
     }
 
     checkCollisionsWithBubbles() {
         this.throwableObjects.forEach((bubble, bubbleIndex) => {
             let pFishIndex = this.level.pufferfish.findIndex(pufferfish => pufferfish.isColliding(bubble));
             let jellyIndex = this.level.jellyfish.findIndex(jellyfish => jellyfish.isColliding(bubble));
-            let bossIndex = this.level.endboss.findIndex(boss => boss.isColliding(bubble));
 
             if (pFishIndex != -1) {
                 this.level.pufferfish[pFishIndex].trashEnergy -= 20;
@@ -146,18 +149,16 @@ class World {
                 }
 
             }
-            if (bossIndex != -1) {
-                this.level.endboss[bossIndex].energy -= 20;
-                if (this.level.endboss[bossIndex].energy > 0) {
-                    this.level.endboss[bossIndex].bossIsHurt = true;
+
+            if (this.level.endboss.isColliding(bubble)) {
+                this.level.endboss.energy -= 20;
+                if (this.level.endboss.energy > 0) {
+                    this.level.endboss.bossIsHurt = true;
                     this.throwableObjects.splice(bubbleIndex, 1);
                 }
 
-                if (this.level.endboss[bossIndex].energy <= 0) {
-                    this.level.endboss[bossIndex].bossDead = true;
-                    setTimeout(() => {
-                        this.level.endboss.splice(bossIndex, 1);
-                    }, 3000);
+                if (this.level.endboss.energy <= 0) {
+                    this.level.endboss.bossDead = true;
                 }
             }
         });
@@ -200,11 +201,11 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.pufferfish);
         this.addObjectsToMap(this.level.jellyfish);
-        this.addObjectsToMap(this.level.endboss);
         this.addObjectsToMap(this.level.lights);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.poisons);
         this.addObjectsToMap(this.throwableObjects);
+        this.addToMap(this.level.endboss);
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);
 
