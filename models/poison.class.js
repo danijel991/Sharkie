@@ -22,11 +22,11 @@ class Poisons extends MovableObject {
         './img/4.Marks/poison/animated/8.png'
     ];
 
-    constructor(x,y) {
+    constructor(x, y) {
         super().loadImage('./img/4.Marks/poison/animated/1.png');
         this.loadImages(this.IMAGES_ANIMATED_POISONS);
-        this.x=x;
-        this.y=y;
+        this.x = x;
+        this.y = y;
         this.speed = 0.15 + Math.random() * 0.15;
         this.animate();
     }
@@ -37,7 +37,7 @@ class Poisons extends MovableObject {
             this.playAnimation(this.IMAGES_ANIMATED_POISONS);
         }, 1000);
     }
-    
+
     poisonSound() {
         bottle_sound.play();
     }

@@ -56,7 +56,7 @@ function addStyles() {
 function loadingScreen() {
     setTimeout(() => {
         document.getElementById('loadingscreen').style.display = 'none';
-    }, 3000);
+    }, 10); //NOTE: Delete after Dev
 }
 
 document.addEventListener('keydown', (e) => {
@@ -202,7 +202,7 @@ function stopGame(vari) {
 function clearIntervals() {
     clearInterval(world.character.animateIntervalId);
     clearInterval(world.character.keyboardIntervalId);
-    world.level.jellyfish.forEach((jellyfish) =>  {
+    world.level.jellyfish.forEach((jellyfish) => {
         clearInterval(jellyfish.animatedJellyFishId);
         clearInterval(jellyfish.animatedJellyFishIdDead);
         clearInterval(jellyfish.animatedJellyFishIdMotion);
@@ -223,7 +223,6 @@ function mobileScreenListener() {
     setInterval(() => {
 
         if (canvasblock.style.display != "block") {
-            // canvasblock.style.display = "flex"
             toucharea_left.style.display = "none"
             toucharea_right.style.display = "none"
 
@@ -235,6 +234,7 @@ function mobileScreenListener() {
         } else if (gameOver || gameWin) {
             toucharea_left.style.display = "none"
             toucharea_right.style.display = "none"
+            gameTitle.style.display = "none"
         }
     }, 100)
 }

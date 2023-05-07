@@ -41,7 +41,7 @@ class Character extends MovableObject {
 
     animate() {
         this.animateIntervalId = setInterval(() => this.characterMotion(), 1000 / 60);
-        this.keyboardIntervalId = setInterval(() => this.characterAnimation(), 225);
+        this.keyboardIntervalId = setInterval(() => this.characterAnimation(), 100);
     }
 
     characterMotion() {
@@ -108,7 +108,7 @@ class Character extends MovableObject {
             this.playAnimation(this.assets.IMAGES_SWIMMING);
         } else if (this.noKeyIsPressed() && !this.isDead()) {
             this.idleTimer = (this.idleTimer || 0) + 1;
-            if (this.idleTimer >= 15) { // 180 frames = 3 seconds
+            if (this.idleTimer >= 20) {
                 this.playAnimation(this.assets.IMAGES_LONG_IDLE);
             } else {
                 this.playAnimation(this.assets.IMAGES_IDLE);
@@ -166,7 +166,7 @@ class Character extends MovableObject {
         this.playAnimation(this.assets.IMAGES_ATTACK_BUBBLE);
         setTimeout(() => {
             bubble_sfx.play();
-        }, 150);
+        }, 450);
     }
 
     activateAttack() {
@@ -199,6 +199,7 @@ class Character extends MovableObject {
                 this.checkAlreadyRunning = false;
                 clearInterval(spacePressed)
                 this.spaceAlreadyPressed = false;
+                slap_sfx.play();
             }, 800)
         }
     }

@@ -8,6 +8,7 @@ let hurt_shocked_sfx = new Audio('./audio/shocked.mp3');
 let bubble_sfx = new Audio('./audio/bubble_shot.mp3');
 let coin_sound = new Audio('./audio/coin.mp3');
 let bottle_sound = new Audio('./audio/bottle.mp3');
+let slap_sfx = new Audio('./audio/slap.mp3');
 
 function initSound() {
 
@@ -72,4 +73,5 @@ function setSfxVolumeOff() {
     hurt_sfx.volume = 0;
     coin_sound.volume = 0;
     bottle_sound.volume = 0;
+    slap_sfx.volume = 0;
 }

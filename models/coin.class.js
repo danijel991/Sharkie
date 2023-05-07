@@ -33,9 +33,9 @@ class Coins extends MovableObject {
             this.playAnimation(this.IMAGES_ANIMATED_COINS);
         }, 1000);
     }
-    
+
     coinSound() {
         coin_sound.play();
     }
-   
+
 }

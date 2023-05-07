@@ -111,8 +111,8 @@ class Endboss extends MovableObject {
             else if (this.bossDead || this.energy <= 0) {
                 this.playBossDead(endbossAnimation);
             } else {
-                    this.playAnimation(this.IMAGES_BOSS_SWIM);
-                    this.playBossSwim();
+                this.playAnimation(this.IMAGES_BOSS_SWIM);
+                this.playBossSwim();
             }
             i++;
         }, 100);

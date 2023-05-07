@@ -1,8 +1,8 @@
-class Assets{
+class Assets {
 
     // Sharkie
 
-IMAGES_SWIMMING = [
+    IMAGES_SWIMMING = [
         './img/1.Sharkie/3.Swim/1.png',
         './img/1.Sharkie/3.Swim/2.png',
         './img/1.Sharkie/3.Swim/3.png',
@@ -114,6 +114,6 @@ IMAGES_SWIMMING = [
         './img/1.Sharkie/6.dead/2.Electro_shock/10.png'
     ]
 
-        constructor(){
+    constructor() {
     }
 }
