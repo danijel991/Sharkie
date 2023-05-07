@@ -145,7 +145,7 @@ function checkGameOver() {
             gameIsOver();
         else if (gameWin)
             gameIsWIn()
-    }, 100);
+    }, 3000);
 }
 
 function gameIsOver() {
