@@ -22,6 +22,8 @@ class Character extends MovableObject {
     slap = false;
     checkAlreadyRunning = false;
     spaceAlreadyPressed = false;
+    checkDAlreadyRunning = false;
+    dAlreadyPressed = false;
 
     constructor(world, assets) {
         super().loadImage('./img/1.Sharkie/2.Long_IDLE/idle_long_(1).png');
@@ -162,30 +164,6 @@ class Character extends MovableObject {
         this.spaceAlreadyPressed = true;
     }
 
-    playAttackBubble() {
-        this.playAnimation(this.assets.IMAGES_ATTACK_BUBBLE);
-        setTimeout(() => {
-            bubble_sfx.play();
-        }, 450);
-    }
-
-    activateAttack() {
-        if (!this.attacked) {
-            this.currentImage = 0;
-            let DIsPressed = setInterval(() => {
-                this.attacked = true;
-                this.world.keyboard.D = true;
-            }, 100)
-
-            setTimeout(() => {
-
-                clearInterval(DIsPressed)
-                this.attacked = false;
-                this.world.keyboard.D = false;
-            }, 400)
-        }
-    }
-
     activateSpace() {
         if (!this.checkAlreadyRunning) {
             this.currentImage = 0;
@@ -204,6 +182,30 @@ class Character extends MovableObject {
         }
     }
 
+    playAttackBubble() {
+        this.activateD();
+        this.playAnimation(this.assets.IMAGES_ATTACK_BUBBLE);
+        this.dAlreadyPressed = true;
+    }
+
+    activateD() {
+        if (!this.checkDAlreadyRunning) {
+            this.currentImage = 0;
+            let DPressed = setInterval(() => {
+                this.world.keyboard.D = true;
+                this.checkDAlreadyRunning = true;
+            }, 100)
+
+            setTimeout(() => {
+                this.world.keyboard.D = false;
+                this.checkDAlreadyRunning = false;
+                clearInterval(DPressed)
+                this.dAlreadyPressed = false;
+                bubble_sfx.play();
+            }, 800)
+        }
+    }
+
     checkMovementKeyIsPressed() {
         return this.world.keyboard.RIGHT ||
             this.world.keyboard.LEFT ||
@@ -217,6 +219,7 @@ class Character extends MovableObject {
             !this.world.keyboard.UP &&
             !this.world.keyboard.DOWN &&
             !this.spaceAlreadyPressed &&
+            !this.dAlreadyPressed &&
             !this.world.keyboard.D
     }
 }

@@ -56,7 +56,7 @@ function addStyles() {
 function loadingScreen() {
     setTimeout(() => {
         document.getElementById('loadingscreen').style.display = 'none';
-    }, 10); //NOTE: Delete after Dev
+    }, 3000);
 }
 
 document.addEventListener('keydown', (e) => {
@@ -145,7 +145,7 @@ function checkGameOver() {
             gameIsOver();
         else if (gameWin)
             gameIsWIn()
-    }, 3000);
+    }, 100);
 }
 
 function gameIsOver() {
