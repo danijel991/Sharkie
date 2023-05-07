@@ -15,7 +15,6 @@ class Endboss extends MovableObject {
         './img/2.Enemy/3_Final_Enemy/1.Introduce/9.png',
         './img/2.Enemy/3_Final_Enemy/1.Introduce/10.png'
     ];
-
     IMAGES_BOSS_SWIM = [
         './img/2.Enemy/3_Final_Enemy/2.floating/1.png',
         './img/2.Enemy/3_Final_Enemy/2.floating/2.png',
@@ -31,7 +30,6 @@ class Endboss extends MovableObject {
         './img/2.Enemy/3_Final_Enemy/2.floating/12.png',
         './img/2.Enemy/3_Final_Enemy/2.floating/13.png'
     ];
-
     IMAGES_BOSS_ATTACK = [
         './img/2.Enemy/3_Final_Enemy/Attack/1.png',
         './img/2.Enemy/3_Final_Enemy/Attack/2.png',
@@ -40,7 +38,6 @@ class Endboss extends MovableObject {
         './img/2.Enemy/3_Final_Enemy/Attack/5.png',
         './img/2.Enemy/3_Final_Enemy/Attack/6.png'
     ];
-
     IMAGES_BOSS_DEAD = [
         './img/2.Enemy/3_Final_Enemy/Dead/1.png',
         './img/2.Enemy/3_Final_Enemy/Dead/2.png',
@@ -49,7 +46,6 @@ class Endboss extends MovableObject {
         './img/2.Enemy/3_Final_Enemy/Dead/5.png',
         './img/2.Enemy/3_Final_Enemy/Dead/6.png'
     ];
-
     IMAGES_BOSS_HURT = [
         './img/2.Enemy/3_Final_Enemy/Hurt/1.png',
         './img/2.Enemy/3_Final_Enemy/Hurt/2.png',

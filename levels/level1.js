@@ -7,7 +7,6 @@ function initLevel() {
             new PufferFish(350, 200),
             new PufferFish(750, 250),
             new PufferFish(1200, 150),
-
         ],
         [
             new JellyFish(500, 150),

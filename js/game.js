@@ -21,18 +21,36 @@ let canvasActive = false;
 function onloadInit() {
     loadingScreen();
     mobileScreenListener();
+    touchEventListener();
+    addVariables();
+    initLevel();
+    checkOrientation();
+    world = new World(level1, canvas, keyboard, assets);
+    world.preLoad();
 }
 
 function init() {
-    addVariables();
     addStyles();
-    initLevel();
-    checkOrientation();
     checkGameOver();
-    touchEventListener();
-    mobileScreenListener();
     initSound();
-    world = new World(level1, canvas, keyboard, assets);
+    initAssetMotion();
+}
+
+function initAssetMotion() {
+    world.character.animate();
+    world.endboss.introListener();
+    level1.pufferfish.forEach(function (pufferfish) {
+        pufferfish.animate();
+    });
+    level1.jellyfish.forEach(function (jellyfish) {
+        jellyfish.animate();
+    });
+    level1.poisons.forEach(function (poisons) {
+        poisons.animate();
+    });
+    level1.coins.forEach(function (coins) {
+        coins.animate();
+    });
 }
 
 function addVariables() {

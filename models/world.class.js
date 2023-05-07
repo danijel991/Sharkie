@@ -22,10 +22,13 @@ class World {
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.assets = assets;
+    }
+
+    preLoad() {
         this.loadLevel();
-        this.draw();
         this.setWorld();
         this.run();
+        this.draw();
     }
 
     setWorld() {
