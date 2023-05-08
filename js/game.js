@@ -465,6 +465,5 @@ function checkOrientation() {
             document.getElementById('canvas').style.height = `100%`;
             landscape = false;
         }
-        console.log(landscape);
     }, 500);
 }
