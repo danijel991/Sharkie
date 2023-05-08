@@ -18,8 +18,7 @@ let i = 1;
 let mobilescreen = false;
 let canvasActive = false;
 
-function onloadInit() {
-    loadingScreen();
+function onloadInit() { //this is onload
     mobileScreenListener();
     touchEventListener();
     addVariables();
@@ -27,9 +26,12 @@ function onloadInit() {
     checkOrientation();
     world = new World(level1, canvas, keyboard, assets);
     world.preLoad();
+    checkLoaded();
 }
 
-function init() {
+
+
+function init() { //this is onclick
     addStyles();
     checkGameOver();
     initSound();
@@ -71,10 +73,10 @@ function addStyles() {
     canvas.style.display = 'block';
 }
 
-function loadingScreen() {
-    setTimeout(() => {
+function checkLoaded() {
+    if (world.character && world.endboss && level1.pufferfish && level1.jellyfish && level1.poisons && level1.coins && level1.backgroundObjects) {
         document.getElementById('loadingscreen').style.display = 'none';
-    }, 3000);
+    }
 }
 
 document.addEventListener('keydown', (e) => {
