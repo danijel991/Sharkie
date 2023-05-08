@@ -67,10 +67,15 @@ html {
 #canvasOver,
 .canvasOver {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     padding-top: 10px;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
+}
+
+#toggleThings  {
+    display: flex;
 }
 
 .canvas-field {
@@ -237,6 +242,10 @@ h1 {
         position: fixed;
         bottom: 25%;
         top: 75%;
+    }
+
+    #toggleThings {
+        display: none;
     }
 
 

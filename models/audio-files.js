@@ -13,7 +13,6 @@ let coin_sound = new Audio('./audio/coin.mp3');
 let bottle_sound = new Audio('./audio/bottle.mp3');
 let slap_sfx = new Audio('./audio/slap.mp3');
 
-
 /**
  * Depending on the game event the background music changes
  */

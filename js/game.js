@@ -104,8 +104,8 @@ function onloadInit() {
 function init() { //this is onclick
     addStyles();
     checkGameOver();
-    initSound();
     initAssetMotion();
+    initSound();
 }
 
 /**
@@ -317,6 +317,7 @@ function mobileScreenListener() {
     let gametogglebtn = document.getElementById('toggleGame');
     let canvasblock = document.getElementById('canvas');
     let canvasober = document.getElementById('canvasOver');
+    let tglethngs = document.getElementById('toggleThings');
     let toucharea_left = document.getElementById('touch-area-left');
     let toucharea_right = document.getElementById('touch-area-right');
 
@@ -330,10 +331,12 @@ function mobileScreenListener() {
             toucharea_right.style.display = "flex"
             gametogglebtn.style.display = "none";
             canvasober.style.display = "none";
+            tglethngs.style.flexDirection = "row";
         } else if (gameOver || gameWin) {
             toucharea_left.style.display = "none"
             toucharea_right.style.display = "none"
             gameTitle.style.display = "none"
+            tglethngs.style.display = "none"
         }
     }, 100)
 }

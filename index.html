@@ -62,12 +62,18 @@
     </div>
     <div id="fullscreen">
         <h1 id="gameTitle">Sharkie</h1>
-        <div class="canvasOver" id="canvasOver">
-            <button onclick="fullscreen()" class="btn-container btn-text" id="fullscreen-button">Fullscreen</button>
-            <button onclick="toggleHelp()" class="btn-container btn-text" id="toggleHelp">How to play</button>
-            <button onclick="togglePlay()" class="btn-container btn-text" id="toggleMusic">Music on</button>
-            <button onclick="toggleSfx()" class="btn-container btn-text" id="toggleSfx">Sfx on</button>
-            <button onclick="init()" class="btn-container btn-text" id="toggleGame">Start game</button>
+        <div class="canvasOver" >
+            <div id="canvasOver">
+                <button onclick="toggleHelp()" class="btn-container btn-text" id="toggleHelp">How to play</button>
+            </div>
+            <div class="toggleThings" id="toggleThings">
+                <button onclick="fullscreen()" class="btn-container btn-text" id="fullscreen-button">Fullscreen</button>
+                <button onclick="togglePlay()" class="btn-container btn-text" id="toggleMusic">Music on</button>
+                <button onclick="toggleSfx()" class="btn-container btn-text" id="toggleSfx">Sfx on</button>
+            </div>
+            <div>
+                <button onclick="init()" class="btn-container btn-text" id="toggleGame">Start game</button>
+            </div>
         </div>
         <div class="restartBtn d-none" id="restartBtn">
             <button onclick="window.location.reload()" class="btn-container btn-text d-none">Restart</button>
