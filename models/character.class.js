@@ -27,6 +27,7 @@ class Character extends MovableObject {
     spaceAlreadyPressed = false;
     checkDAlreadyRunning = false;
     dAlreadyPressed = false;
+    idleTimer = 0;
 
     /**
      * Loads the resources, parameters,... for the respective object
@@ -55,6 +56,7 @@ class Character extends MovableObject {
     animate() {
         this.animateIntervalId = setInterval(() => this.characterMotion(), 1000 / 60);
         this.keyboardIntervalId = setInterval(() => this.characterAnimation(), 100);
+        this.idleTimerID = setInterval(() => this.characterIdleTimer(), 100);
     }
 
     /**
@@ -77,19 +79,23 @@ class Character extends MovableObject {
         super.moveRight();
         swimming_sound.play();
         this.otherDirection = false;
+        this.resetTimer();
     }
     moveLeft() {
         super.moveLeft();
         swimming_sound.play();
         this.otherDirection = true;
+        this.resetTimer();
     }
     moveUp() {
         this.y -= this.speed;
         swimming_sound.play();
+        this.resetTimer();
     }
     moveDown() {
         this.y += this.speed;
         swimming_sound.play();
+        this.resetTimer();
     }
 
     /**
@@ -99,6 +105,7 @@ class Character extends MovableObject {
     canMoveRight() {
         return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
     }
+    
     /**
      * 
      * @returns Checks if the object moves to the left
@@ -132,7 +139,7 @@ class Character extends MovableObject {
         } else if (this.isCharacterHurt()) {
             this.playHurtAnimation();
         } else if (this.characterIsHurtByJelly) {
-            this.playHurtAnimationJelly();
+            this.playHurtAnimationElectric();
         } else if (this.attackedByBoss) {
             this.playHurtByBoss();
         } else if (this.world.keyboard.SPACE) {
@@ -141,16 +148,27 @@ class Character extends MovableObject {
             this.playAttackBubble();
         } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
             this.playAnimation(this.assets.IMAGES_SWIMMING);
-        } else if (this.noKeyIsPressed() && !this.isDead()) {
-            this.idleTimer = (this.idleTimer || 0) + 1;
-            if (this.idleTimer >= 20) {
-                this.playAnimation(this.assets.IMAGES_LONG_IDLE);
-            } else {
-                this.playAnimation(this.assets.IMAGES_IDLE);
-            }
-        } else {
-            this.idleTimer = 0;
+        } else if (!this.isDead() && this.idleTimer >= 40)
+            this.playAnimation(this.assets.IMAGES_LONG_IDLE);
+        if (this.idleTimer >= 20 && !this.isDead()) {
+            this.playAnimation(this.assets.IMAGES_LONG_IDLE);
         }
+        else this.playAnimation(this.assets.IMAGES_IDLE);
+    }
+
+    /**
+     * Counts frames after motion, 20 and above triggers long_idle_
+     */
+    characterIdleTimer() {
+        this.idleTimer = (this.idleTimer || 0) + 1;
+        console.log("characterIdleTimer" + this.idleTimer);
+    }
+
+    /**
+     * resets idle timer
+     */
+    resetTimer() {
+        this.idleTimer = 0;
     }
 
     /**
@@ -195,14 +213,16 @@ class Character extends MovableObject {
         this.playAnimation(this.assets.IMAGES_HURT_POISONED);
         hurt_sfx.play();
         this.characterIsHurt = false;
+        this.resetTimer();
     }
     /**
      * Play the hurt electrified animation
      */
-    playHurtAnimationJelly() {
+    playHurtAnimationElectric() {
         this.playAnimation(this.assets.IMAGES_HURT_ELECTRIC_SHOCK);
         hurt_shocked_sfx.play();
         this.characterIsHurtByJelly = false;
+        this.resetTimer();
     }
     /**
      * Play the hurt from boss animation
@@ -211,6 +231,7 @@ class Character extends MovableObject {
         this.playAnimation(this.assets.IMAGES_HURT_POISONED);
         hurt_sfx.play();
         this.attackedByBoss = false;
+        this.resetTimer();
     }
     /**
      * Play the blow with fin animation
@@ -219,6 +240,7 @@ class Character extends MovableObject {
         this.activateSpace();
         this.playAnimation(this.assets.IMAGES_ATTACK_FIN_SLAP);
         this.spaceAlreadyPressed = true;
+        this.resetTimer();
     }
 
     /**
@@ -249,6 +271,7 @@ class Character extends MovableObject {
         this.activateD();
         this.playAnimation(this.assets.IMAGES_ATTACK_BUBBLE);
         this.dAlreadyPressed = true;
+        this.resetTimer();
     }
 
     /**
@@ -270,19 +293,5 @@ class Character extends MovableObject {
                 bubble_sfx.play();
             }, 800)
         }
-    }
-
-    /**
-     * 
-     * @returns This function is needed to reset the long idle timer
-     */
-    noKeyIsPressed() {
-        return !this.world.keyboard.RIGHT &&
-            !this.world.keyboard.LEFT &&
-            !this.world.keyboard.UP &&
-            !this.world.keyboard.DOWN &&
-            !this.spaceAlreadyPressed &&
-            !this.dAlreadyPressed &&
-            !this.world.keyboard.D
     }
 }

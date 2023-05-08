@@ -117,7 +117,7 @@ class World {
      */
     collisionWithCharacter() {
         this.checkCollisionCharacterID = setInterval(() => {
-            this.checkCollisionsWithCharacter();;
+            this.checkCollisionsWithCharacter();
         }, 500);
     }
 
