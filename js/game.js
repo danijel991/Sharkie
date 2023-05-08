@@ -321,12 +321,12 @@ function clearIntervals() {
  * Checks if the game is running on a small device to add touch buttons.
  */
 function mobileScreenListener() {
-    const gametogglebtn = document.getElementById('toggleGame');
-    const canvasober = document.getElementById('canvasOver');
-    const canvasoberober = document.getElementById('canvasOverOver');
-    const tglethngs = document.getElementById('toggleThings');
-    const toucharea_left = document.getElementById('touch-area-left');
-    const toucharea_right = document.getElementById('touch-area-right');
+    let gametogglebtn = document.getElementById('toggleGame');
+    let canvasober = document.getElementById('canvasOver');
+    let canvasoberober = document.getElementById('canvasOverOver');
+    let tglethngs = document.getElementById('toggleThings');
+    let toucharea_left = document.getElementById('touch-area-left');
+    let toucharea_right = document.getElementById('touch-area-right');
 
     setInterval(() => {
 
