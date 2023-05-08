@@ -55,7 +55,7 @@ class Character extends MovableObject {
      */
     animate() {
         this.animateIntervalId = setInterval(() => this.characterMotion(), 1000 / 60);
-        this.keyboardIntervalId = setInterval(() => this.characterAnimation(), 100);
+        this.keyboardIntervalId = setInterval(() => this.characterAnimation(), 200);
         this.idleTimerID = setInterval(() => this.characterIdleTimer(), 100);
     }
 
@@ -75,23 +75,38 @@ class Character extends MovableObject {
         this.world.camera_x = -this.x + 100;
     }
 
+    /**
+     * character is moving right
+     */
     moveRight() {
         super.moveRight();
         swimming_sound.play();
         this.otherDirection = false;
         this.resetTimer();
     }
+
+    /**
+     * character is moving left
+     */
     moveLeft() {
         super.moveLeft();
         swimming_sound.play();
         this.otherDirection = true;
         this.resetTimer();
     }
+
+    /**
+     * character is moving up
+     */
     moveUp() {
         this.y -= this.speed;
         swimming_sound.play();
         this.resetTimer();
     }
+
+    /**
+     * character is moving down
+     */
     moveDown() {
         this.y += this.speed;
         swimming_sound.play();
@@ -149,8 +164,6 @@ class Character extends MovableObject {
         } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
             this.playAnimation(this.assets.IMAGES_SWIMMING);
         } else if (!this.isDead() && this.idleTimer >= 40)
-            this.playAnimation(this.assets.IMAGES_LONG_IDLE);
-        if (this.idleTimer >= 20 && !this.isDead())
             this.playAnimation(this.assets.IMAGES_LONG_IDLE);
         else this.playAnimation(this.assets.IMAGES_IDLE);
     }
@@ -213,21 +226,36 @@ class Character extends MovableObject {
      * Play the hurt animation
      */
     playHurtAnimation() {
-        this.playAnimation(this.assets.IMAGES_HURT_POISONED);
-        hurt_sfx.play();
-        this.resetTimer();
-        this.characterIsHurt = false;
+        let i = 0;
+        this.currentImage = 0;
+        let hurt = setInterval(() => {
+            this.playAnimation(this.assets.IMAGES_HURT_POISONED);
+            hurt_sfx.play();
+        }, 100)
+        setTimeout(() => {
+            this.resetTimer();
+            this.characterIsHurt = false;
+            clearInterval(hurt);
+            i++;
+        }, 200)
     }
 
     /**
      * Play the hurt electrified animation
      */
     playHurtAnimationElectric() {
-        this.playAnimation(this.assets.IMAGES_HURT_ELECTRIC_SHOCK);
-        hurt_shocked_sfx.play();
-        this.resetTimer();
-        this.characterIsHurtByJelly = false;
-
+        let i = 0;
+        this.currentImage = 0;
+        let hurt = setInterval(() => {
+            this.playAnimation(this.assets.IMAGES_HURT_ELECTRIC_SHOCK);
+            hurt_shocked_sfx.play();
+        }, 100)
+        setTimeout(() => {
+            this.resetTimer();
+            this.characterIsHurtByJelly = false;
+            clearInterval(hurt);
+            i++;
+        }, 200)
     }
 
     /**

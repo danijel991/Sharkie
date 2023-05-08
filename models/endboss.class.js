@@ -167,6 +167,7 @@ class Endboss extends MovableObject {
      * Plays the boss hurt animation.
      */
     playBossHurt() {
+        let i = 0;
         this.currentImage = 0;
         let hurt = setInterval(() => {
             this.playAnimation(this.IMAGES_BOSS_HURT);
@@ -174,7 +175,7 @@ class Endboss extends MovableObject {
         setTimeout(() => {
             this.bossIsHurt = false;
             clearInterval(hurt);
-
+            i++;
         }, 200)
     }
 
