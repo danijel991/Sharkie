@@ -141,11 +141,29 @@ class World {
 
     /**
      * Checks for collisions between the character and the enemies in the game.
-     * If the character attacks a pufferfish, its trash energy is reduced and the pufferfish may die after 4 seconds.
-     * If the character is hit by a pufferfish or jellyfish, it loses energy and the health bar is updated.
-     * If the character collides with the endboss, it loses energy and the health bar is updated.
      */
     checkCollisionsWithCharacter() {
+        this.checkCollisionsWithEndboss();
+        this.checkCollisionsWithPufferfish();
+        this.checkCollisionsWithJellyfish();
+    }
+
+    /**
+    * If the character collides with the endboss, it loses energy and the health bar is updated.
+    */
+    checkCollisionsWithEndboss() {
+        if (this.character.isColliding(this.level.endboss)) {
+            this.character.attackedByBoss = true;
+            this.character.hit(15);
+            this.healthBar.setPercentage(this.character.energy);
+        }
+    }
+
+    /**
+     * If the character attacks a pufferfish, its trash energy is reduced and the pufferfish may die after 4 seconds.
+     * If the character is hit by a pufferfish it loses energy and the health bar is updated.
+     */
+    checkCollisionsWithPufferfish() {
         for (let i = 0; i < this.level.pufferfish.length; i++) {
             const pufferfish = this.level.pufferfish[i];
 
@@ -167,7 +185,7 @@ class World {
 
             if (this.character.isColliding(pufferfish) && !pufferfish.puffFishDead && this.character.energy != 0 && !this.character.isInvulnerable() && !this.keyboard.SPACE) {
                 this.character.hittedByPufferfish = true;
-                this.character.hit(10);
+                this.character.hit(5);
                 this.healthBar.setPercentage(this.character.energy);
                 this.character.characterIsHurt = true;
                 setTimeout(() => {
@@ -175,22 +193,46 @@ class World {
                 }, 900);
             };
         }
+    }
 
-        this.level.jellyfish.forEach((jellyfish) => {
-            if (this.character.isColliding(jellyfish)) {
-                this.character.hit(10);
+
+      /**
+     * If the character attacks a jellyfish, its trash energy is reduced and the jellyfish may die after 4 seconds.
+     * If the character is hit by a jellyfish it loses energy and the health bar is updated.
+     */
+    checkCollisionsWithJellyfish() {
+        for (let i = 0; i < this.level.jellyfish.length; i++) {
+            const jellyfish = this.level.jellyfish[i];
+
+            if (this.character.isColliding(jellyfish) && !jellyfish.jellyDead && this.keyboard.SPACE && !this.alreadyAttacking) {
+                this.alreadyAttacking = true;
+                jellyfish.jellyEnergy -= 20;
+                setTimeout(() => {
+                    jellyfish.jellyDead = true;
+                    setTimeout(() => {
+                        const index = this.level.jellyfish.indexOf(jellyfish);
+                        if (index > -1) {
+                            this.level.jellyfish.splice(index, 1);
+                        }
+                    }, 4000);
+                    this.alreadyAttacking = false;
+                }, 50);
+                break;
+            }
+
+            if (this.character.isColliding(jellyfish) && !jellyfish.jellyDead && this.character.energy != 0 && !this.character.isInvulnerable() && !this.keyboard.SPACE) {
+                this.character.hittedByJellyfish = true;
+                this.character.hit(5);
                 this.healthBar.setPercentage(this.character.energy);
                 this.character.characterIsHurtByJelly = true;
                 this.character.electrized = true;
+                setTimeout(() => {
+                    this.character.hittedByJellyfish = false;
+                }, 900);
             }
-        });
-
-        if (this.character.isColliding(this.level.endboss)) {
-            this.character.attackedByBoss = true;
-            this.character.hit(20);
-            this.healthBar.setPercentage(this.character.energy);
         }
     }
+
 
     /**
      * Checks collisions between throwable bubbles and game entities (pufferfish, jellyfish, endboss).

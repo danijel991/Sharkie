@@ -229,7 +229,7 @@ function checkGameOver() {
             gameIsOver();
         else if (gameWin)
             gameIsWIn()
-    }, 100);
+    }, 5000);
 }
 
 /**
