@@ -85,6 +85,11 @@ The state of the mobile screen.
 let mobilescreen = false;
 
 /**
+ * checks if game is running
+ */
+let gameIsRunnung = false;
+
+/**
  * Initializes the game on page load.
  */
 function onloadInit() {
@@ -92,10 +97,10 @@ function onloadInit() {
     touchEventListener();
     addVariables();
     initLevel();
-    checkOrientation();
     world = new World(level1, canvas, keyboard, assets);
     world.preLoad();
     checkLoaded();
+    checkOrientation();
 }
 
 /**
@@ -106,6 +111,7 @@ function init() { //this is onclick
     checkGameOver();
     initAssetMotion();
     initSound();
+    gameIsRunnung = true;
 }
 
 /**
@@ -315,22 +321,30 @@ function clearIntervals() {
  */
 function mobileScreenListener() {
     let gametogglebtn = document.getElementById('toggleGame');
-    let canvasblock = document.getElementById('canvas');
     let canvasober = document.getElementById('canvasOver');
+    let canvasoberober = document.getElementById('canvasOverOver');
     let tglethngs = document.getElementById('toggleThings');
     let toucharea_left = document.getElementById('touch-area-left');
     let toucharea_right = document.getElementById('touch-area-right');
 
     setInterval(() => {
 
-        if (canvasblock.style.display != "block") {
+        if (gameIsRunnung == false) {
             toucharea_left.style.display = "none"
             toucharea_right.style.display = "none"
-        } else if (canvasblock.style.display == "block") {
+        } else if (gameIsRunnung == true && landscape == true) {
             toucharea_left.style.display = "flex"
             toucharea_right.style.display = "flex"
             gametogglebtn.style.display = "none";
             canvasober.style.display = "none";
+            canvasoberober.style.display = "none";
+            tglethngs.style.display = "none";
+        } else if (gameIsRunnung == true) {
+            toucharea_left.style.display = "flex"
+            toucharea_right.style.display = "flex"
+            gametogglebtn.style.display = "none";
+            canvasober.style.display = "none";
+            canvasoberober.style.display = "none";
             tglethngs.style.flexDirection = "row";
         } else if (gameOver || gameWin) {
             toucharea_left.style.display = "none"
@@ -439,13 +453,17 @@ function touchEventListener() {
 function checkOrientation() {
     setInterval(() => {
         if (window.matchMedia("(orientation: landscape)").matches) {
-            if (window.innerHeight < 480) {
+            if (window.innerHeight < 480 || window.innerWidth < 720) {
                 newHeight = window.innerHeight;
                 document.getElementById('canvas').style.height = `${newHeight}px`;
                 landscape = true;
+            } else {
+                landscape = false;
             }
+        } else {
+            document.getElementById('canvas').style.height = `100%`;
+            landscape = false;
         }
-        else document.getElementById('canvas').style.height = `100%`;
-        landscape = false;
-    }, 1000);
+        console.log(landscape);
+    }, 500);
 }
