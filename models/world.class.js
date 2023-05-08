@@ -195,11 +195,10 @@ class World {
         }
     }
 
-
-      /**
-     * If the character attacks a jellyfish, its trash energy is reduced and the jellyfish may die after 4 seconds.
-     * If the character is hit by a jellyfish it loses energy and the health bar is updated.
-     */
+    /**
+   * If the character attacks a jellyfish, its trash energy is reduced and the jellyfish may die after 4 seconds.
+   * If the character is hit by a jellyfish it loses energy and the health bar is updated.
+   */
     checkCollisionsWithJellyfish() {
         for (let i = 0; i < this.level.jellyfish.length; i++) {
             const jellyfish = this.level.jellyfish[i];
@@ -233,53 +232,78 @@ class World {
         }
     }
 
-
     /**
-     * Checks collisions between throwable bubbles and game entities (pufferfish, jellyfish, endboss).
-     * If a throwable bubble collides with a pufferfish or a jellyfish, their trashEnergy property is decreased by 20.
-     * If trashEnergy becomes less than or equal to 0, the corresponding pufferfish or jellyfish is removed from the game after 2 seconds.
-     * If a throwable bubble collides with the endboss, its energy property is decreased by 20.
-     * If energy becomes less than or equal to 0, the endboss dies.
+     * Checks for collisions between throwable bubbles and other objects in the game,
+     * including pufferfish, jellyfish, and the endboss. Calls separate handling functions
+     * based on the type of collision detected.
+     * @function
      */
     checkCollisionsWithBubbles() {
         this.throwableObjects.forEach((bubble, bubbleIndex) => {
-            let pFishIndex = this.level.pufferfish.findIndex(pufferfish => pufferfish.isColliding(bubble));
-            let jellyIndex = this.level.jellyfish.findIndex(jellyfish => jellyfish.isColliding(bubble));
+            const pFishIndex = this.level.pufferfish.findIndex(pufferfish => pufferfish.isColliding(bubble));
+            const jellyIndex = this.level.jellyfish.findIndex(jellyfish => jellyfish.isColliding(bubble));
 
             if (pFishIndex != -1) {
-                this.level.pufferfish[pFishIndex].trashEnergy -= 20;
-                this.throwableObjects.splice(bubbleIndex, 1);
-                if (this.level.pufferfish[pFishIndex].trashEnergy <= 0) {
-                    this.level.pufferfish[pFishIndex].puffFishDead = true;
-                    setTimeout(() => {
-                        this.level.pufferfish.splice(pFishIndex, 1);
-                    }, 2000);
-                }
-
+                this.handleBubbleCollisionWithPufferfish(pFishIndex, bubbleIndex);
             } else if (jellyIndex != -1) {
-                this.level.jellyfish[jellyIndex].trashEnergy -= 20;
-                this.throwableObjects.splice(bubbleIndex, 1);
-                if (this.level.jellyfish[jellyIndex].trashEnergy <= 0) {
-                    this.level.jellyfish[jellyIndex].jellyDead = true;
-                    setTimeout(() => {
-                        this.level.jellyfish.splice(jellyIndex, 1);
-                    }, 2000);
-                }
-
+                this.handleBubbleCollisionWithJellyfish(jellyIndex, bubbleIndex);
             }
 
             if (this.level.endboss.isColliding(bubble)) {
-                this.level.endboss.energy -= 20;
-                if (this.level.endboss.energy > 0) {
-                    this.level.endboss.bossIsHurt = true;
-                    this.throwableObjects.splice(bubbleIndex, 1);
-                }
-
-                if (this.level.endboss.energy <= 0) {
-                    this.level.endboss.bossDead = true;
-                }
+                this.handleBubbleCollisionWithEndboss(bubbleIndex);
             }
         });
+    }
+
+    /**
+     * Handles the collision of a bubble with a pufferfish.
+     * @param {*} pFishIndex - The index of the pufferfish in the level's pufferfish array.
+     * @param {*} bubbleIndex - The index of the bubble in the throwableObjects array.
+     */
+    handleBubbleCollisionWithPufferfish(pFishIndex, bubbleIndex) {
+        this.level.pufferfish[pFishIndex].trashEnergy -= 20;
+        this.throwableObjects.splice(bubbleIndex, 1);
+
+        if (this.level.pufferfish[pFishIndex].trashEnergy <= 0) {
+            this.level.pufferfish[pFishIndex].puffFishDead = true;
+            setTimeout(() => {
+                this.level.pufferfish.splice(pFishIndex, 1);
+            }, 2000);
+        }
+    }
+
+    /**
+     * Handles the collision between a bubble and a jellyfish
+     * @param {*} jellyIndex - Handles the collision between a bubble and a jellyfish
+     * @param {*} bubbleIndex - The index of the bubble that collided with the jellyfish
+     */
+    handleBubbleCollisionWithJellyfish(jellyIndex, bubbleIndex) {
+        this.level.jellyfish[jellyIndex].trashEnergy -= 20;
+        this.throwableObjects.splice(bubbleIndex, 1);
+
+        if (this.level.jellyfish[jellyIndex].trashEnergy <= 0) {
+            this.level.jellyfish[jellyIndex].jellyDead = true;
+            setTimeout(() => {
+                this.level.jellyfish.splice(jellyIndex, 1);
+            }, 2000);
+        }
+    }
+
+    /**
+      * Handles the collision of a bubble with the endboss.
+      * @param {*} bubbleIndex - The index of the bubble in the `throwableObjects` array.
+      */
+    handleBubbleCollisionWithEndboss(bubbleIndex) {
+        this.level.endboss.energy -= 20;
+
+        if (this.level.endboss.energy > 0) {
+            this.level.endboss.bossIsHurt = true;
+            this.throwableObjects.splice(bubbleIndex, 1);
+        }
+
+        if (this.level.endboss.energy <= 0) {
+            this.level.endboss.bossDead = true;
+        }
     }
 
     /**
@@ -289,13 +313,7 @@ class World {
         if (this.level.coins) {
             this.level.coins.forEach((coin, index) => {
                 if (this.character.isColliding(coin)) {
-                    this.character.fillCoinBar();
-                    this.coinBar.setPercentage(this.character.coinsAmount);
-                    setTimeout(() => {
-                        coin.visible = false; // make the coin object invisible
-                        this.coin.coinSound();
-                        this.level.coins.splice(index, 1); // remove the coin from the coins array
-                    }, 0);
+                    this.handleCoinCollision(coin, index);
                 }
             });
         }
@@ -303,17 +321,44 @@ class World {
         if (this.level.poisons) {
             this.level.poisons.forEach((poison, index) => {
                 if (this.character.isColliding(poison)) {
-                    this.character.fillPoisonBar();
-                    this.poisonbar.setPercentage(this.character.poisonsAmount);
-                    setTimeout(() => {
-                        poison.visible = false;
-                        this.poison.poisonSound();
-                        this.level.poisons.splice(index, 1);
-                    }, 0);
+                    this.handlePoisonCollision(poison, index);
                 }
             });
         }
     }
+
+    /**
+       * Handles collision between the character and a coin.
+       * @param {Object} coin - The coin object.
+       * @param {number} index - The index of the coin in the coins array.
+       * @returns {void}
+       */
+    handleCoinCollision(coin, index) {
+        this.character.fillCoinBar();
+        this.coinBar.setPercentage(this.character.coinsAmount);
+        setTimeout(() => {
+            coin.visible = false;
+            this.coin.coinSound();
+            this.level.coins.splice(index, 1);
+        }, 0);
+    }
+
+    /**
+    * Handles collision between the character and a poison.
+    * @param {Object} poison - The poison object.
+    * @param {number} index - The index of the poison in the poisons array.
+    * @returns {void}
+    */
+    handlePoisonCollision(poison, index) {
+        this.character.fillPoisonBar();
+        this.poisonbar.setPercentage(this.character.poisonsAmount);
+        setTimeout(() => {
+            poison.visible = false;
+            this.poison.poisonSound();
+            this.level.poisons.splice(index, 1);
+        }, 0);
+    }
+
 
     /**
   * Draw all game objects and status bars on the canvas.
