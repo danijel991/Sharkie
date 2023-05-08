@@ -145,6 +145,7 @@ function addVariables() {
     gameTitle = document.getElementById('gameTitle');
     restartGame = document.getElementById('restartBtn');
     gametogglebtn = document.getElementById('toggleGame');
+    
 }
 
 /**
@@ -320,12 +321,12 @@ function clearIntervals() {
  * Checks if the game is running on a small device to add touch buttons.
  */
 function mobileScreenListener() {
-    let gametogglebtn = document.getElementById('toggleGame');
-    let canvasober = document.getElementById('canvasOver');
-    let canvasoberober = document.getElementById('canvasOverOver');
-    let tglethngs = document.getElementById('toggleThings');
-    let toucharea_left = document.getElementById('touch-area-left');
-    let toucharea_right = document.getElementById('touch-area-right');
+    const gametogglebtn = document.getElementById('toggleGame');
+    const canvasober = document.getElementById('canvasOver');
+    const canvasoberober = document.getElementById('canvasOverOver');
+    const tglethngs = document.getElementById('toggleThings');
+    const toucharea_left = document.getElementById('touch-area-left');
+    const toucharea_right = document.getElementById('touch-area-right');
 
     setInterval(() => {
 
@@ -344,7 +345,7 @@ function mobileScreenListener() {
             toucharea_right.style.display = "flex"
             gametogglebtn.style.display = "none";
             canvasober.style.display = "none";
-            canvasoberober.style.display = "none";
+
             tglethngs.style.flexDirection = "row";
         } else if (gameOver || gameWin) {
             toucharea_left.style.display = "none"
