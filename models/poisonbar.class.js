@@ -1,3 +1,6 @@
+/**
+ * Creates a new Poisonbar object.
+ */
 class Poisonbar extends statusBar {
   x = 475;
   y = 0;
@@ -12,6 +15,9 @@ class Poisonbar extends statusBar {
     './img/4.Marks/green/poisoned_bubbles/100.png'
   ];
 
+  /**
+   * Initializes the Poisonbar object.
+   */
   constructor() {
     super();
     this.loadImages(this.IMAGES);

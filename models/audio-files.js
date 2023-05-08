@@ -1,3 +1,6 @@
+/**
+ * Here are all sound files
+ */
 let background_music = new Audio('./audio/background_music.mp3');
 let boss_music = new Audio('./audio/endboss_fight.mp3');
 let victory = new Audio('./audio/victory.mp3');
@@ -10,6 +13,10 @@ let coin_sound = new Audio('./audio/coin.mp3');
 let bottle_sound = new Audio('./audio/bottle.mp3');
 let slap_sfx = new Audio('./audio/slap.mp3');
 
+
+/**
+ * Depending on the game event the background music changes
+ */
 function initSound() {
 
     setVolume();
@@ -45,12 +52,17 @@ function initSound() {
     }, 100);
 }
 
+/**
+ * Changes the volume of sfx
+ */
 function setVolume() {
     background_music.volume = 0.1;
     boss_music.volume = 0.1;
     victory.volume = 0.1;
 }
-
+/**
+ * Changes the volume of sfx
+ */
 function setSfxVolumeOn() {
     background_music.volume = 0.1;
     boss_music.volume = 0.1;
@@ -62,7 +74,6 @@ function setSfxVolumeOn() {
     coin_sound.volume = .3;
     bottle_sound.volume = .5;
 }
-
 function setSfxVolumeOff() {
     background_music.volume = 0;
     boss_music.volume = 0;

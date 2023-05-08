@@ -1,7 +1,14 @@
+/**
+ * Creates a new Poisonbar object.
+ */
 class PufferFish extends MovableObject {
     height = 120;
     width = 130;
 
+    /**
+    * An array of image URLs for the Coins.
+    * @type {string[]}
+    */
     IMAGES_PUFFERFISH_SWIM = [
         './img/2.Enemy/1_Pufferfish/1.Swim/1.swim1.png',
         './img/2.Enemy/1_Pufferfish/1.Swim/1.swim2.png',
@@ -39,6 +46,12 @@ class PufferFish extends MovableObject {
         right: 10
     }
 
+    /**
+     * Creates a new PufferFish object.
+     * @constructor
+     * @param {*} x The x coordinate of the fish.
+     * @param {*} y The y coordinate of the fish.
+     */
     constructor(x, y) {
         super().loadImage(this.IMAGES_PUFFERFISH_SWIM[0]);
         this.loadImages(this.IMAGES_PUFFERFISH_SWIM);
@@ -49,6 +62,9 @@ class PufferFish extends MovableObject {
         this.puffFishDead = false;
     }
 
+    /**
+     * Animates the PufferFish object by moving it left and playing the swimming animation.
+     */
     animate() {
         this.fishMotionInterval = setInterval(() => {
             this.moveLeft();
@@ -61,6 +77,9 @@ class PufferFish extends MovableObject {
         }, 1000);
     }
 
+    /**
+     * Plays the animation for a dead PufferFish object and stops its motion.
+     */
     deadFish() {
         clearInterval(this.fishMotionInterval);
         this.playAnimation(this.IMAGES_PUFFERFISH_DEAD);

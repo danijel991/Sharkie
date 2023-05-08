@@ -1,3 +1,6 @@
+/**
+ * Class for coins
+ */
 class Coins extends MovableObject {
     height = 50;
     width = 50;
@@ -11,6 +14,10 @@ class Coins extends MovableObject {
         right: 0
     }
 
+    /**
+* An array of image URLs for the Coins.
+* @type {string[]}
+*/
     IMAGES_ANIMATED_COINS = [
         './img/4.Marks/coins/1.png',
         './img/4.Marks/coins/2.png',
@@ -18,6 +25,12 @@ class Coins extends MovableObject {
         './img/4.Marks/coins/4.png'
     ];
 
+    /**
+     * 
+     * Loads the resources, parameters,... for the respective object
+     * @param {*} x - Coordinates of the x axis
+     * @param {*} y - Coordinates of the y axis
+     */
     constructor(x, y) {
         super().loadImage('./img/4.Marks/coins/1.png');
         this.loadImages(this.IMAGES_ANIMATED_COINS);
@@ -26,6 +39,9 @@ class Coins extends MovableObject {
         this.speed = 0.15 + Math.random() * 0.15;
     }
 
+    /**
+     * This function animates the coins
+     */
     animate() {
         this.animateCollectables();
         setInterval(() => {
@@ -33,6 +49,9 @@ class Coins extends MovableObject {
         }, 1000);
     }
 
+    /**
+     * When collecting coins coin_sound sfx is played
+     */
     coinSound() {
         coin_sound.play();
     }

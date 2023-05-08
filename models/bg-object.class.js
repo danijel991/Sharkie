@@ -1,3 +1,6 @@
+/**
+ * Class for background objects
+ */
 class backgroundObject extends MovableObject {
 
     y = 0;

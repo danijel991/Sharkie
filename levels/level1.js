@@ -1,5 +1,8 @@
 let level1;
 
+/**
+ *  Adds the respective objects (enemies, coins, poison bottles, backgrounds)
+ */
 function initLevel() {
 
     level1 = new Level(

@@ -1,7 +1,12 @@
+/**
+ * Represents a collection of images for a character named Sharkie.
+ * @class
+ */
 class Assets {
-
-    // Sharkie
-
+    /**
+     * An array of file paths for images of sharkie
+     * @type {string[]}
+     */
     IMAGES_SWIMMING = [
         './img/1.Sharkie/3.Swim/1.png',
         './img/1.Sharkie/3.Swim/2.png',
@@ -46,6 +51,7 @@ class Assets {
         './img/1.Sharkie/2.Long_IDLE/idle_long_(13).png',
         './img/1.Sharkie/2.Long_IDLE/idle_long_(14).png'
     ]
+
     IMAGES_ATTACK_BUBBLE = [
         './img/1.Sharkie/4.Attack/Bubble_trap/op1_(with_bubble_formation)/1.png',
         './img/1.Sharkie/4.Attack/Bubble_trap/op1_(with_bubble_formation)/2.png',
@@ -56,6 +62,7 @@ class Assets {
         './img/1.Sharkie/4.Attack/Bubble_trap/op1_(with_bubble_formation)/7.png',
         './img/1.Sharkie/4.Attack/Bubble_trap/op1_(with_bubble_formation)/8.png'
     ]
+
     IMAGES_ATTACK_FIN_SLAP = [
         './img/1.Sharkie/4.Attack/Fin_slap/1.png',
         './img/1.Sharkie/4.Attack/Fin_slap/2.png',
@@ -105,7 +112,4 @@ class Assets {
         './img/1.Sharkie/6.dead/2.Electro_shock/9.png',
         './img/1.Sharkie/6.dead/2.Electro_shock/10.png'
     ]
-
-    constructor() {
-    }
 }

@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "chrome",
+            "name": "http://playBossDead",
+            "request": "launch",
+            "url": "http://playBossDead"
+        }
+    ]
+}

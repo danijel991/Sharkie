@@ -1,3 +1,6 @@
+/**
+ * Class for drawing animated objects.
+ */
 class Drawableobject {
     img;
     imgCache = {};
@@ -8,12 +11,20 @@ class Drawableobject {
         this.img.src = path;
     }
 
+    /**
+     * Draws the object on the given canvas context.
+     * @param {CanvasRenderingContext2D} ctx - The canvas context to draw on.
+     */
     draw(ctx) {
         if (this.img) {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
         }
     }
 
+    /**
+     * Draws a frame around the object if it is an instance of Character, PufferFish, JellyFish, Endboss, Coins, or Poisons
+     * @param {*} ctx
+     */
     drawFrame(ctx) {
 
         if (this instanceof Character || this instanceof PufferFish || this instanceof JellyFish || this instanceof Endboss ||
@@ -32,6 +43,10 @@ class Drawableobject {
         }
     }
 
+    /**
+     * This method loads multiple images into the image cache.
+     * @param {*} arr - An array of image paths. 
+     */
     loadImages(arr) {
         arr.forEach(path => {
             let img = new Image();

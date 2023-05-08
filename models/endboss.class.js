@@ -3,6 +3,10 @@ class Endboss extends MovableObject {
     height = 500;
     width = 600;
 
+      /**
+   * An array of image URLs for the Endboss.
+   * @type {string[]}
+   */
     IMAGES_BOSS_INTRO = [
         './img/2.Enemy/3_Final_Enemy/1.Introduce/1.png',
         './img/2.Enemy/3_Final_Enemy/1.Introduce/2.png',
@@ -60,12 +64,31 @@ class Endboss extends MovableObject {
         right: 37
     }
 
+    /**
+     * The world where the boss exists.
+     */
     world;
+    /**
+     * Indicates whether the boss is currently hurt or not.
+     */
     bossIsHurt = false;
+    /**
+     * Indicates whether the boss is dead or not.
+     */
     bossDead = false;
+    /**
+     * Indicates whether the boss is currently attacking or not.
+     */
     attacking = false;
+    /**
+     * Indicates whether the player has had first contact with the boss or not.
+     */
     hadFirstContact = false;
 
+    /**
+     * Boss class constructor
+     * @constructor
+     */
     constructor() {
         super().loadImage(this.IMAGES_BOSS_INTRO[0]);
         this.loadImages(this.IMAGES_BOSS_INTRO);
@@ -83,6 +106,11 @@ class Endboss extends MovableObject {
         this.introListener();
     }
 
+    /**
+     * Listens for the character's first contact with the boss during the intro sequence.
+     * If the character's x position is greater than 1450 and there hasn't been any previous contact,
+     * the boss starts the intro animation.
+     */
     introListener() {
         setInterval(() => {
             if (world.character.x > 1450 && !this.hadFirstContact) {
@@ -92,8 +120,11 @@ class Endboss extends MovableObject {
         }, 100);
     }
 
+    /**
+     * Starts the animation loop for the boss character, playing the appropriate
+     * animation based on the boss's current state.
+     */
     animate() {
-
         let i = 0;
         let endbossAnimation = setInterval(() => {
             if (i < 10) {
@@ -114,10 +145,16 @@ class Endboss extends MovableObject {
         }, 100);
     }
 
+    /**
+     * Plays the introductory animation for the boss character.
+     */
     playBossIntro() {
         this.playAnimation(this.IMAGES_BOSS_INTRO)
     }
 
+    /**
+     * Animates the boss character swimming in a circular path.
+     */
     playBossSwim() {
         this.angle += 0.05;
         let newX = this.centerX + Math.cos(this.angle) * this.radius;
@@ -126,6 +163,9 @@ class Endboss extends MovableObject {
         this.y = newY;
     }
 
+    /**
+     * Plays the boss hurt animation.
+     */
     playBossHurt() {
         this.currentImage = 0;
         let hurt = setInterval(() => {
@@ -138,6 +178,9 @@ class Endboss extends MovableObject {
         }, 200)
     }
 
+    /**
+     * Plays the boss attack animation.
+     */
     playBossAttack() {
         this.currentImage = 0;
         if (!this.attacking) {
@@ -153,6 +196,10 @@ class Endboss extends MovableObject {
         }
     }
 
+    /**
+     * Plays the boss dead animation and stops the game after a delay.
+     * @param {number} endbossAnimation The ID of the interval to stop.
+     */
     playBossDead(endbossAnimation) {
         this.playAnimation(this.IMAGES_BOSS_DEAD);
         this.loadImage(this.IMAGES_BOSS_DEAD[4]);

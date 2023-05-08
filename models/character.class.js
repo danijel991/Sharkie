@@ -1,3 +1,6 @@
+/**
+ * Class for character
+ */
 class Character extends MovableObject {
     y = 80;
     x = 0;
@@ -25,6 +28,11 @@ class Character extends MovableObject {
     checkDAlreadyRunning = false;
     dAlreadyPressed = false;
 
+    /**
+     * Loads the resources, parameters,... for the respective object
+     * @param {*} world - gets the data from world
+     * @param {*} assets - gets the data from assets
+     */
     constructor(world, assets) {
         super().loadImage('./img/1.Sharkie/2.Long_IDLE/idle_long_(1).png');
         this.world = world;
@@ -40,11 +48,18 @@ class Character extends MovableObject {
         this.loadImages(this.assets.IMAGES_DEAD_ELECTRIC_SHOCK);
     }
 
+    /**
+     * animateIntervalId: The ID of the interval used to update the character's motion.
+     * keyboardIntervalId: The ID of the interval used to update the character's animation.
+     */
     animate() {
         this.animateIntervalId = setInterval(() => this.characterMotion(), 1000 / 60);
         this.keyboardIntervalId = setInterval(() => this.characterAnimation(), 100);
     }
 
+    /**
+     * x,y change depending on movement
+     */
     characterMotion() {
         if (this.canMoveRight())
             this.moveRight();
@@ -77,24 +92,43 @@ class Character extends MovableObject {
         swimming_sound.play();
     }
 
+    /**
+     * 
+     * @returns Checks if the object moves to the right
+     */
     canMoveRight() {
         return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
     }
+    /**
+     * 
+     * @returns Checks if the object moves to the left
+     */
     canMoveLeft() {
         return this.world.keyboard.LEFT && this.x > -100;
     }
+    /**
+     * 
+     * @returns Checks if the object moves to the up
+     */
     canMoveUp() {
         return this.world.keyboard.UP && this.y > 0;
     }
+    /**
+     * 
+     * @returns Checks if the object moves to the down
+     */
     canMoveDown() {
         return this.world.keyboard.DOWN && this.y < 250;
     }
 
+    /**
+     * Animation depending on action
+     */
     characterAnimation() {
         if (this.isCharacterDeadElectrized()) {
-            this.playDead();
+            this.playDeadElectrized();
         } else if (this.isCharacterDead()) {
-            this.playDeadPoisoned();
+            this.playDead();
         } else if (this.isCharacterHurt()) {
             this.playHurtAnimation();
         } else if (this.characterIsHurtByJelly) {
@@ -119,50 +153,77 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * 
+     * @returns Checks if the character dies in the electrified state, then plays the dead animation electrized
+     */
     isCharacterDeadElectrized() {
         return this.electrized && this.isDead();
     }
+    /**
+     * 
+     * @returns Checks if the character dies in "normal" state, then plays the dead animation
+     */
     isCharacterDead() {
         return !this.electrized && this.isDead();
     }
+    /**
+     * 
+     * @returns Checks if the character is in "normal" violation
+     */
     isCharacterHurt() {
         return this.characterIsHurt;
     }
-
-    playDead() {
+    /**
+     * Play the electrified dead animation
+     */
+    playDeadElectrized() {
         this.playAnimation(this.assets.IMAGES_DEAD_ELECTRIC_SHOCK);
         stopGame(2);
     }
-
-    playDeadPoisoned() {
+    /**
+     * Play the normal dead animation
+     */
+    playDead() {
         this.playAnimation(this.assets.IMAGES_DEAD_POISONED);
         stopGame(2);
     }
-
+    /**
+     * Play the hurt animation
+     */
     playHurtAnimation() {
         this.playAnimation(this.assets.IMAGES_HURT_POISONED);
         hurt_sfx.play();
         this.characterIsHurt = false;
     }
-
+    /**
+     * Play the hurt electrified animation
+     */
     playHurtAnimationJelly() {
         this.playAnimation(this.assets.IMAGES_HURT_ELECTRIC_SHOCK);
         hurt_shocked_sfx.play();
         this.characterIsHurtByJelly = false;
     }
-
+    /**
+     * Play the hurt from boss animation
+     */
     playHurtByBoss() {
         this.playAnimation(this.assets.IMAGES_HURT_POISONED);
         hurt_sfx.play();
         this.attackedByBoss = false;
     }
-
+    /**
+     * Play the blow with fin animation
+     */
     playAttackFinSlap() {
         this.activateSpace();
         this.playAnimation(this.assets.IMAGES_ATTACK_FIN_SLAP);
         this.spaceAlreadyPressed = true;
     }
 
+    /**
+     * This function activates the spacebar so that the player does not have to hold the spacebar until the slap ability is completed. 
+     */
     activateSpace() {
         if (!this.checkAlreadyRunning) {
             this.currentImage = 0;
@@ -181,12 +242,18 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Play the bubble attack animation
+     */
     playAttackBubble() {
         this.activateD();
         this.playAnimation(this.assets.IMAGES_ATTACK_BUBBLE);
         this.dAlreadyPressed = true;
     }
 
+    /**
+    * This function activates the space bar so that the player does not have to hold the D key until the bubble attack ability is completed. 
+    */
     activateD() {
         if (!this.checkDAlreadyRunning) {
             this.currentImage = 0;
@@ -205,13 +272,10 @@ class Character extends MovableObject {
         }
     }
 
-    checkMovementKeyIsPressed() {
-        return this.world.keyboard.RIGHT ||
-            this.world.keyboard.LEFT ||
-            this.world.keyboard.UP ||
-            this.world.keyboard.DOWN
-    }
-
+    /**
+     * 
+     * @returns This function is needed to reset the long idle timer
+     */
     noKeyIsPressed() {
         return !this.world.keyboard.RIGHT &&
             !this.world.keyboard.LEFT &&
