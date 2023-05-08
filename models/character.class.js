@@ -3,7 +3,7 @@
  */
 class Character extends MovableObject {
     y = 80;
-    x = 0;
+    x = 1400;
     height = 210;
     width = 150;
     speed = 3;
@@ -105,7 +105,7 @@ class Character extends MovableObject {
     canMoveRight() {
         return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
     }
-    
+
     /**
      * 
      * @returns Checks if the object moves to the left
@@ -150,9 +150,8 @@ class Character extends MovableObject {
             this.playAnimation(this.assets.IMAGES_SWIMMING);
         } else if (!this.isDead() && this.idleTimer >= 40)
             this.playAnimation(this.assets.IMAGES_LONG_IDLE);
-        if (this.idleTimer >= 20 && !this.isDead()) {
+        if (this.idleTimer >= 20 && !this.isDead())
             this.playAnimation(this.assets.IMAGES_LONG_IDLE);
-        }
         else this.playAnimation(this.assets.IMAGES_IDLE);
     }
 
@@ -160,8 +159,7 @@ class Character extends MovableObject {
      * Counts frames after motion, 20 and above triggers long_idle_
      */
     characterIdleTimer() {
-        this.idleTimer = (this.idleTimer || 0) + 1;
-        console.log("characterIdleTimer" + this.idleTimer);
+        this.idleTimer = this.idleTimer + 1;
     }
 
     /**
@@ -178,6 +176,7 @@ class Character extends MovableObject {
     isCharacterDeadElectrized() {
         return this.electrized && this.isDead();
     }
+
     /**
      * 
      * @returns Checks if the character dies in "normal" state, then plays the dead animation
@@ -185,6 +184,7 @@ class Character extends MovableObject {
     isCharacterDead() {
         return !this.electrized && this.isDead();
     }
+
     /**
      * 
      * @returns Checks if the character is in "normal" violation
@@ -192,6 +192,7 @@ class Character extends MovableObject {
     isCharacterHurt() {
         return this.characterIsHurt;
     }
+
     /**
      * Play the electrified dead animation
      */
@@ -199,6 +200,7 @@ class Character extends MovableObject {
         this.playAnimation(this.assets.IMAGES_DEAD_ELECTRIC_SHOCK);
         stopGame(2);
     }
+
     /**
      * Play the normal dead animation
      */
@@ -206,33 +208,40 @@ class Character extends MovableObject {
         this.playAnimation(this.assets.IMAGES_DEAD_POISONED);
         stopGame(2);
     }
+
     /**
      * Play the hurt animation
      */
     playHurtAnimation() {
         this.playAnimation(this.assets.IMAGES_HURT_POISONED);
         hurt_sfx.play();
-        this.characterIsHurt = false;
         this.resetTimer();
+        this.characterIsHurt = false;
     }
+
     /**
      * Play the hurt electrified animation
      */
     playHurtAnimationElectric() {
         this.playAnimation(this.assets.IMAGES_HURT_ELECTRIC_SHOCK);
         hurt_shocked_sfx.play();
-        this.characterIsHurtByJelly = false;
         this.resetTimer();
+        this.characterIsHurtByJelly = false;
+
     }
+
     /**
      * Play the hurt from boss animation
      */
     playHurtByBoss() {
         this.playAnimation(this.assets.IMAGES_HURT_POISONED);
         hurt_sfx.play();
-        this.attackedByBoss = false;
+        setTimeout(() => {
+            this.attackedByBoss = false;
+        }, 500);
         this.resetTimer();
     }
+
     /**
      * Play the blow with fin animation
      */

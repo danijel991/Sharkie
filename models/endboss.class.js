@@ -3,10 +3,10 @@ class Endboss extends MovableObject {
     height = 500;
     width = 600;
 
-      /**
-   * An array of image URLs for the Endboss.
-   * @type {string[]}
-   */
+    /**
+ * An array of image URLs for the Endboss.
+ * @type {string[]}
+ */
     IMAGES_BOSS_INTRO = [
         './img/2.Enemy/3_Final_Enemy/1.Introduce/1.png',
         './img/2.Enemy/3_Final_Enemy/1.Introduce/2.png',
@@ -174,7 +174,7 @@ class Endboss extends MovableObject {
         setTimeout(() => {
             this.bossIsHurt = false;
             clearInterval(hurt);
-            i++;
+
         }, 200)
     }
 
@@ -182,6 +182,7 @@ class Endboss extends MovableObject {
      * Plays the boss attack animation.
      */
     playBossAttack() {
+        let i = 0;
         this.currentImage = 0;
         if (!this.attacking) {
             let attack = setInterval(() => {
