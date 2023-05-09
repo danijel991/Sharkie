@@ -2,8 +2,8 @@
  * Class for coins
  */
 class Coins extends MovableObject {
-    height = 50;
-    width = 50;
+    height = 35;
+    width = 35;
     img;
     currentImage = 0;
     imgCache = {};

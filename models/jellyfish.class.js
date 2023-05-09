@@ -4,8 +4,8 @@
  */
 class JellyFish extends MovableObject {
 
-    height = 120;
-    width = 130;
+    height = 80;
+    width = 85;
 
       /**
    * An array of image URLs for the JellyFish.
@@ -24,10 +24,10 @@ class JellyFish extends MovableObject {
         './img/2.Enemy/2_Jellyfish/Dead/Lila/L4.png'
     ];
     offset = {
-        top: 10,
+        top: 5,
         bottom: 10,
-        left: 10,
-        right: 10
+        left: 5,
+        right: 5
     }
 
 /**

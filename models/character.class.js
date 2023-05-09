@@ -2,18 +2,18 @@
  * Class for character
  */
 class Character extends MovableObject {
-    y = 80;
+    y = 200;
     x = 0;
-    height = 210;
-    width = 150;
+    height = 250;
+    width = 180;
     speed = 3;
     attack = 0;
 
     offset = {
-        top: 100,
-        bottom: 45,
-        left: 25,
-        right: 25
+        top: 120,
+        bottom: 55,
+        left: 35,
+        right: 35
     }
 
     world;

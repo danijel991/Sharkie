@@ -3,16 +3,16 @@
  * @extends MovableObject
  */
 class Poisons extends MovableObject {
-    height = 50;
-    width = 50;
+    height = 35;
+    width = 35;
     img;
     currentImage = 0;
     imgCache = {};
     offset = {
-        top: 5,
+        top: 0,
         bottom: 0,
-        left: 10,
-        right: 10
+        left: 5,
+        right: 5
     }
 
     IMAGES_ANIMATED_POISONS = [

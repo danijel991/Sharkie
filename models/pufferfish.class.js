@@ -2,8 +2,8 @@
  * Creates a new Poisonbar object.
  */
 class PufferFish extends MovableObject {
-    height = 120;
-    width = 130;
+    height = 80;
+    width = 85;
 
     /**
     * An array of image URLs for the Coins.
@@ -41,9 +41,9 @@ class PufferFish extends MovableObject {
 
     offset = {
         top: 10,
-        bottom: 30,
-        left: 10,
-        right: 10
+        bottom: 20,
+        left: 0,
+        right: 5
     }
 
     /**

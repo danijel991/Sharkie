@@ -101,17 +101,18 @@ function onloadInit() {
     world.preLoad();
     checkLoaded();
     checkOrientation();
+    addStyles();
+    checkGameOver();
+    initAssetMotion();
+    initSound();
+    gameIsRunnung = true;
 }
 
 /**
  * Loads all functions after start the game
  */
 function init() { //this is onclick
-    addStyles();
-    checkGameOver();
-    initAssetMotion();
-    initSound();
-    gameIsRunnung = true;
+
 }
 
 /**
