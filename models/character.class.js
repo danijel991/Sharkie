@@ -80,7 +80,7 @@ class Character extends MovableObject {
      */
     moveRight() {
         super.moveRight();
-        swimming_sound.play();
+        sounds.swimming_sound.play();
         this.otherDirection = false;
         this.resetTimer();
     }
@@ -90,7 +90,7 @@ class Character extends MovableObject {
      */
     moveLeft() {
         super.moveLeft();
-        swimming_sound.play();
+        sounds.swimming_sound.play();
         this.otherDirection = true;
         this.resetTimer();
     }
@@ -100,7 +100,7 @@ class Character extends MovableObject {
      */
     moveUp() {
         this.y -= this.speed;
-        swimming_sound.play();
+        sounds.swimming_sound.play();
         this.resetTimer();
     }
 
@@ -109,7 +109,7 @@ class Character extends MovableObject {
      */
     moveDown() {
         this.y += this.speed;
-        swimming_sound.play();
+        sounds.swimming_sound.play();
         this.resetTimer();
     }
 
@@ -152,15 +152,15 @@ class Character extends MovableObject {
         } else if (this.isCharacterDead()) {
             this.playDead();
         } else if (this.isCharacterHurt()) {
-            this.playHurtAnimation();
+            this.playHurtAnimation(1);
         } else if (this.characterIsHurtByJelly) {
-            this.playHurtAnimationElectric();
+            this.playHurtAnimation(2);
         } else if (this.attackedByBoss) {
-            this.playHurtByBoss();
+            this.playHurtAnimation(3);
         } else if (this.world.keyboard.SPACE) {
-            this.playAttackFinSlap();
+            this.sharkieAttack(1);
         } else if (this.world.keyboard.D && this.poisonsAmount >= 1 && !this.otherDirection && this.energy >= 1) {
-            this.playAttackBubble();
+            this.sharkieAttack(2);
         } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
             this.playAnimation(this.assets.IMAGES_SWIMMING);
         } else if (!this.isDead() && this.idleTimer >= 40)
@@ -223,89 +223,107 @@ class Character extends MovableObject {
     }
 
     /**
-     * Play the hurt animation
+     * Play the appropriate hurt animation based on the type of attack
+     * @param {number} type - type of attack (1: pufferfish, 2: jellyfish, 3: endboss)
      */
-    playHurtAnimation() {
+    playHurtAnimation(type) {
+        if (type == 1) {
+            this.playHurtAnimationPufferfish();
+        } else if (type == 2) {
+            this.playHurtAnimationJellyfish();
+        } else if (type == 3) {
+            this.playHurtAnimationEndboss();
+        }
+    }
+
+    /**
+     * Set the interval to play the hurt animation for pufferfish attack
+     */
+    playHurtAnimationPufferfish() {
         let i = 0;
         this.currentImage = 0;
         let hurt = setInterval(() => {
             this.playAnimation(this.assets.IMAGES_HURT_POISONED);
-            hurt_sfx.play();
-        }, 100)
+            sounds.hurt_sfx.play();
+        }, 100);
         setTimeout(() => {
             this.resetTimer();
             this.characterIsHurt = false;
             clearInterval(hurt);
             i++;
-        }, 200)
+        }, 200);
     }
 
     /**
-     * Play the hurt electrified animation
+     * Set the interval to play the hurt animation for jellyfish attack
      */
-    playHurtAnimationElectric() {
+    playHurtAnimationJellyfish() {
         let i = 0;
         this.currentImage = 0;
         let hurt = setInterval(() => {
             this.playAnimation(this.assets.IMAGES_HURT_ELECTRIC_SHOCK);
-            hurt_shocked_sfx.play();
-        }, 100)
+            sounds.hurt_shocked_sfx.play();
+        }, 100);
         setTimeout(() => {
             this.resetTimer();
             this.characterIsHurtByJelly = false;
             clearInterval(hurt);
             i++;
-        }, 200)
+        }, 200);
     }
 
     /**
-     * Play the hurt from boss animation
+     * Play the hurt animation for endboss attack
      */
-    playHurtByBoss() {
+    playHurtAnimationEndboss() {
         this.playAnimation(this.assets.IMAGES_HURT_POISONED);
-        hurt_sfx.play();
+        sounds.hurt_sfx.play();
         setTimeout(() => {
             this.attackedByBoss = false;
         }, 500);
         this.resetTimer();
     }
 
+    sharkieAttack(type) {
+        if (type == 1)
+            this.playAttackFinSlap();
+        else if (type == 2)
+            this.playAttackBubble();
+    }
+    
     /**
-     * Play the blow with fin animation
-     */
+ * Play the blow with fin animation
+ */
     playAttackFinSlap() {
-        this.activateSpace();
+        if (!this.checkAlreadyRunning) this.activateSpace();
         this.playAnimation(this.assets.IMAGES_ATTACK_FIN_SLAP);
         this.spaceAlreadyPressed = true;
         this.resetTimer();
     }
-
     /**
      * This function activates the spacebar so that the player does not have to hold the spacebar until the slap ability is completed. 
      */
     activateSpace() {
-        if (!this.checkAlreadyRunning) {
-            this.currentImage = 0;
-            let spacePressed = setInterval(() => {
-                this.world.keyboard.SPACE = true;
-                this.checkAlreadyRunning = true;
-            }, 100)
+        this.currentImage = 0;
+        let spacePressed = setInterval(() => {
+            this.world.keyboard.SPACE = true;
+            this.checkAlreadyRunning = true;
+        }, 100)
 
-            setTimeout(() => {
-                this.world.keyboard.SPACE = false;
-                this.checkAlreadyRunning = false;
-                clearInterval(spacePressed)
-                this.spaceAlreadyPressed = false;
-                slap_sfx.play();
-            }, 800)
-        }
+        setTimeout(() => {
+            this.world.keyboard.SPACE = false;
+            this.checkAlreadyRunning = false;
+            clearInterval(spacePressed)
+            this.spaceAlreadyPressed = false;
+            sounds.slap_sfx.play();
+        }, 800)
     }
 
     /**
      * Play the bubble attack animation
      */
     playAttackBubble() {
-        this.activateD();
+        if (!this.checkDAlreadyRunning) this.activateD();
         this.playAnimation(this.assets.IMAGES_ATTACK_BUBBLE);
         this.dAlreadyPressed = true;
         this.resetTimer();
@@ -315,20 +333,18 @@ class Character extends MovableObject {
     * This function activates the space bar so that the player does not have to hold the D key until the bubble attack ability is completed. 
     */
     activateD() {
-        if (!this.checkDAlreadyRunning) {
-            this.currentImage = 0;
-            let DPressed = setInterval(() => {
-                this.world.keyboard.D = true;
-                this.checkDAlreadyRunning = true;
-            }, 100)
+        this.currentImage = 0;
+        let DPressed = setInterval(() => {
+            this.world.keyboard.D = true;
+            this.checkDAlreadyRunning = true;
+        }, 100)
 
-            setTimeout(() => {
-                this.world.keyboard.D = false;
-                this.checkDAlreadyRunning = false;
-                clearInterval(DPressed)
-                this.dAlreadyPressed = false;
-                bubble_sfx.play();
-            }, 800)
-        }
+        setTimeout(() => {
+            this.world.keyboard.D = false;
+            this.checkDAlreadyRunning = false;
+            clearInterval(DPressed)
+            this.dAlreadyPressed = false;
+            sounds.bubble_sfx.play();
+        }, 800)
     }
 }

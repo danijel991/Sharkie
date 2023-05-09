@@ -115,6 +115,7 @@ class Endboss extends MovableObject {
         setInterval(() => {
             if (world.character.x > 1450 && !this.hadFirstContact) {
                 this.hadFirstContact = true;
+                this.y = -100;
                 this.animate();
             }
         }, 100);
@@ -132,9 +133,9 @@ class Endboss extends MovableObject {
             } else if (i >= 10 && i < 20)
                 this.playBossIntro()
             else if (world.character.attackedByBoss)
-                this.playBossAttack();
+                this.playBoss(1);
             else if (this.bossIsHurt)
-                this.playBossHurt();
+                this.playBoss(2);
             else if (this.bossDead || this.energy <= 0) {
                 this.playBossDead(endbossAnimation);
             } else {
@@ -164,28 +165,22 @@ class Endboss extends MovableObject {
     }
 
     /**
-     * Plays the boss hurt animation.
+     * triggers the respective function depending on the passed parameters.
      */
-    playBossHurt() {
-        let i = 0;
-        this.currentImage = 0;
-        let hurt = setInterval(() => {
-            this.playAnimation(this.IMAGES_BOSS_HURT);
-        }, 100)
-        setTimeout(() => {
-            this.bossIsHurt = false;
-            clearInterval(hurt);
-            i++;
-        }, 200)
+    playBoss(param) {
+        if (param == 1) {
+            this.playBossAttack();
+        } else if (param == 2) {
+            this.playBossHurt();
+        }
     }
 
     /**
      * Plays the boss attack animation.
      */
     playBossAttack() {
-        let i = 0;
-        this.currentImage = 0;
         if (!this.attacking) {
+            this.currentImage = 0;
             let attack = setInterval(() => {
                 this.attacking = true;
                 this.playAnimation(this.IMAGES_BOSS_ATTACK);
@@ -193,10 +188,24 @@ class Endboss extends MovableObject {
             setTimeout(() => {
                 this.attacking = false;
                 clearInterval(attack);
-                i++;
             }, 100)
         }
     }
+
+    /**
+     * Plays the boss hurt animation.
+     */
+    playBossHurt() {
+        this.currentImage = 0;
+        let hurt = setInterval(() => {
+            this.playAnimation(this.IMAGES_BOSS_HURT);
+        }, 100)
+        setTimeout(() => {
+            this.bossIsHurt = false;
+            clearInterval(hurt);
+        }, 100)
+    }
+
 
     /**
      * Plays the boss dead animation and stops the game after a delay.

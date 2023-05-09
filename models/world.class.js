@@ -227,6 +227,7 @@ class World {
                 this.character.electrized = true;
                 setTimeout(() => {
                     this.character.hittedByJellyfish = false;
+                    this.character.electrized = false;
                 }, 900);
             }
         }

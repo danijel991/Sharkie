@@ -53,7 +53,7 @@ class Coins extends MovableObject {
      * When collecting coins coin_sound sfx is played
      */
     coinSound() {
-        coin_sound.play();
+        sounds.coin_sound.play();
     }
 
 }

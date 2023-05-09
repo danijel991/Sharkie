@@ -101,18 +101,17 @@ function onloadInit() {
     world.preLoad();
     checkLoaded();
     checkOrientation();
-    addStyles();
-    checkGameOver();
-    initAssetMotion();
-    initSound();
-    gameIsRunnung = true;
 }
 
 /**
  * Loads all functions after start the game
  */
-function init() { //this is onclick
-
+function init() {
+    addStyles();
+    checkGameOver();
+    initAssetMotion();
+    initSound();
+    gameIsRunnung = true;
 }
 
 /**
@@ -146,17 +145,13 @@ function addVariables() {
     gameTitle = document.getElementById('gameTitle');
     restartGame = document.getElementById('restartBtn');
     gametogglebtn = document.getElementById('toggleGame');
-    
 }
 
 /**
  * Adds the respective styles
  */
 function addStyles() {
-    winScreen.style.display = 'none';
-    gameTitle.style.display = 'none';
-    canvasover.style.display = 'none';
-    gametogglebtn.style.display = 'none';
+    [winScreen, gameTitle, canvasover, gametogglebtn].forEach(el => el.style.display = 'none');
     canvas.style.display = 'block';
 }
 
@@ -164,7 +159,8 @@ function addStyles() {
  * Exits the loading screen only when all conditions are met/assets are loaded
  */
 function checkLoaded() {
-    if (world.character && world.endboss && level1.pufferfish && level1.jellyfish && level1.poisons && level1.coins && level1.backgroundObjects) {
+    const assetsLoaded = world.character && world.endboss && level1.pufferfish && level1.jellyfish && level1.poisons && level1.coins && level1.backgroundObjects;
+    if (assetsLoaded) {
         document.getElementById('loadingscreen').style.display = 'none';
     }
 }
@@ -172,31 +168,17 @@ function checkLoaded() {
 /**
  * Toggles music on or off
  */
-function togglePlay() {
-    let musictoggle = document.getElementById('toggleMusic');
-
-    if (bgMusicIsPlaying) {
-        bgMusicIsPlaying = false;
-        musictoggle.innerHTML = 'Music off';
-    } else {
-        bgMusicIsPlaying = true;
-        musictoggle.innerHTML = 'Music on';
-    }
+function toggleMusic() {
+    bgMusicIsPlaying = !bgMusicIsPlaying;
+    document.getElementById('toggleMusic').innerHTML = bgMusicIsPlaying ? 'Music on' : 'Music off';
 }
 
 /**
  * Toggles sfx on or off
  */
 function toggleSfx() {
-    let sfxtoggle = document.getElementById('toggleSfx');
-
-    if (sfxplay) {
-        sfxplay = false;
-        sfxtoggle.innerHTML = 'Sfx off';
-    } else {
-        sfxplay = true;
-        sfxtoggle.innerHTML = 'Sfx on';
-    }
+    sfxplay = !sfxplay;
+    document.getElementById('toggleSfx').innerHTML = sfxplay ? 'Sfx on' : 'Sfx off';
 }
 
 /**
@@ -204,55 +186,62 @@ function toggleSfx() {
  */
 function fullscreen() {
     let fullscreen = document.getElementById('fullscreen');
-    if (!fullscreenState || mobilescreen || landscape) {
-        fullscreenState = true;
-        let fullscreenbutton = document.getElementById('fullscreen-button');
-        fullscreenbutton.innerHTML = 'Exit fullscreen (F)';
-        enterFullscreen(fullscreen);
-    } else {
-        fullscreenState = false;
-        document.getElementById('fullscreen-button');
-        exitFullscreen();
+    let fullscreenbutton = document.getElementById('fullscreen-button');
+    fullscreenState = (!fullscreenState || mobilescreen || landscape);
+    fullscreenbutton.innerHTML = (fullscreenState) ? 'Exit fullscreen (F)' : 'Fullscreen (F)';
+    (fullscreenState) ? requestFullscreen(fullscreen) : exitFullscreen();
+}
+
+function requestFullscreen(element) {
+    let funcs = ['requestFullscreen', 'msRequestFullscreen', 'webkitRequestFullscreen'];
+    for (let i = 0; i < funcs.length; i++) {
+        if (element[funcs[i]]) {
+            element[funcs[i]]();
+            break;
+        }
     }
 }
-function enterFullscreen(element) {
-    if (element.requestFullscreen) element.requestFullscreen();
-    else if (element.msRequestFullscreen) element.msRequestFullscreen();
-    else if (element.webkitRequestFullscreen) element.webkitRequestFullscreen();
-}
+
 function exitFullscreen() {
-    if (document.exitFullscreen) document.exitFullscreen();
-    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+    let funcs = ['exitFullscreen', 'webkitExitFullscreen'];
+    for (let i = 0; i < funcs.length; i++) {
+        if (document[funcs[i]]) {
+            document[funcs[i]]();
+            break;
+        }
+    }
 }
 
 /**
  * Depending on the boolean of the end of the game, the following function is retrieved
- * @param {boolean} gameWin - Whether the game has been won or not.
- * @param {boolean} gameOver - Whether the game is over or not.
  */
 function checkGameOver() {
     document.getElementById('toggleGame').innerHTML = 'Restart game';
     setInterval(() => {
-        if (gameOver)
-            gameIsOver();
-        else if (gameWin)
-            gameIsWIn()
+        if (gameOver || gameWin) {
+            changeGameOverScreen(gameWin, gameOver);
+        }
     }, 5000);
 }
 
 /**
- * Depending on the game end the styling in question
+ * Changes the game over screen depending on whether the game was won or lost.
+ * @param {boolean} gameWin - Whether the game has been won or not.
+ * @param {boolean} gameOver - Whether the game is over or not.
  */
-function gameIsOver() {
-    canvas.style.display = 'none';
-    winScreen.style.display = 'none';
-    gOverScreen.style.display = 'block';
-    restartGame.style.display = 'block';
-}
-function gameIsWIn() {
-    canvas.style.display = 'none';
-    gOverScreen.style.display = 'none';
-    winScreen.style.display = 'block';
+function changeGameOverScreen(gameWin, gameOver) {
+    let canvasDisplay = 'none';
+    let winScreenDisplay = 'none';
+    let gameOverScreenDisplay = 'none';
+
+    if (gameOver) {
+        gameOverScreenDisplay = 'block';
+    } else if (gameWin) {
+        winScreenDisplay = 'block';
+    }
+    canvas.style.display = canvasDisplay;
+    winScreen.style.display = winScreenDisplay;
+    gOverScreen.style.display = gameOverScreenDisplay;
     restartGame.style.display = 'block';
 }
 
@@ -260,21 +249,21 @@ function gameIsWIn() {
  * Open the game instructions
  */
 function toggleHelp() {
-    let btn = document.getElementById('toggleHelp');
-    let btnopened = document.getElementById('helpbtnopened');
-    let help = document.getElementById('HowToPlay');
-    let full = document.getElementById('fullscreen');
+    const btn = document.getElementById('toggleHelp');
+    const btnopened = document.getElementById('helpbtnopened');
+    const help = document.getElementById('HowToPlay');
+    const full = document.getElementById('fullscreen');
 
     if (!helpisopen) {
         helpisopen = true;
         full.style.display = 'none';
         help.style.display = 'flex';
-        btnopened.innerHTML = 'Close help';
+        btnopened.textContent = 'Close help';
     } else {
         helpisopen = false;
         help.style.display = 'none';
         full.style.display = 'flex';
-        btn.innerHTML = 'How to play';
+        btn.textContent = 'How to play';
     }
 }
 
@@ -284,11 +273,11 @@ function toggleHelp() {
  */
 function stopGame(vari) {
     setTimeout(() => {
-        if (vari == 1) {
+        if (vari === 1) {
             gameWin = true;
-        }
-        else if (vari == 2) gameOver = true;
-        else {
+        } else if (vari === 2) {
+            gameOver = true;
+        } else {
             winScreen.style.display = 'none';
             gameTitle.style.display = 'none';
         }
@@ -322,40 +311,58 @@ function clearIntervals() {
  * Checks if the game is running on a small device to add touch buttons.
  */
 function mobileScreenListener() {
-    let gametogglebtn = document.getElementById('toggleGame');
-    let canvasober = document.getElementById('canvasOver');
-    let canvasoberober = document.getElementById('canvasOverOver');
-    let tglethngs = document.getElementById('toggleThings');
-    let toucharea_left = document.getElementById('touch-area-left');
-    let toucharea_right = document.getElementById('touch-area-right');
+    const gametogglebtn = document.getElementById('toggleGame');
+    const canvasober = document.getElementById('canvasOver');
+    const canvasoberober = document.getElementById('canvasOverOver');
+    const tglethngs = document.getElementById('toggleThings');
+    const toucharea_left = document.getElementById('touch-area-left');
+    const toucharea_right = document.getElementById('touch-area-right');
+
+    function hideTouchAreas() {
+        toucharea_left.style.display = 'none';
+        toucharea_right.style.display = 'none';
+    }
+
+    function showTouchAreas() {
+        toucharea_left.style.display = 'flex';
+        toucharea_right.style.display = 'flex';
+    }
+
+    function hideElements() {
+        gametogglebtn.style.display = 'none';
+        canvasober.style.display = 'none';
+        canvasoberober.style.display = 'none';
+        tglethngs.style.display = 'none';
+    }
+
+    function showElements() {
+        gametogglebtn.style.display = 'none';
+        canvasober.style.display = 'none';
+        tglethngs.style.flexDirection = 'row';
+    }
+
+    function hideGameTitle() {
+        gameTitle.style.display = 'none';
+    }
 
     setInterval(() => {
-
-        if (gameIsRunnung == false) {
-            toucharea_left.style.display = "none"
-            toucharea_right.style.display = "none"
-        } else if (gameIsRunnung == true && landscape == true) {
-            toucharea_left.style.display = "flex"
-            toucharea_right.style.display = "flex"
-            gametogglebtn.style.display = "none";
-            canvasober.style.display = "none";
-            canvasoberober.style.display = "none";
-            tglethngs.style.display = "none";
-        } else if (gameIsRunnung == true) {
-            toucharea_left.style.display = "flex"
-            toucharea_right.style.display = "flex"
-            gametogglebtn.style.display = "none";
-            canvasober.style.display = "none";
-
-            tglethngs.style.flexDirection = "row";
+        if (!gameIsRunnung) {
+            hideTouchAreas();
+        } else if (gameIsRunnung && landscape) {
+            showTouchAreas();
+            hideElements();
+        } else if (gameIsRunnung) {
+            showTouchAreas();
+            hideGameTitle();
+            showElements();
         } else if (gameOver || gameWin) {
-            toucharea_left.style.display = "none"
-            toucharea_right.style.display = "none"
-            gameTitle.style.display = "none"
-            tglethngs.style.display = "none"
+            hideTouchAreas();
+            hideGameTitle();
+            tglethngs.style.display = 'none';
         }
-    }, 100)
+    }, 100);
 }
+
 
 /**
  * Keyboard key listener
@@ -391,63 +398,45 @@ document.addEventListener('keyup', (e) => {
  * Display Touch keys listener
  */
 function touchEventListener() {
-    const arrowup = document.getElementById('touchbtn-up');
-    const arrowleft = document.getElementById('touchbtn-left');
-    const arrowdown = document.getElementById('touchbtn-down');
-    const arrowright = document.getElementById('touchbtn-right');
-    const bubbletouch = document.getElementById('bubbleAttackTouch');
-    const slaptouch = document.getElementById('slapAttackTouch');
+    const keyboardButtons = {
+        arrowup: {
+            key: 'UP',
+            element: document.getElementById('touchbtn-up'),
+        },
+        arrowleft: {
+            key: 'LEFT',
+            element: document.getElementById('touchbtn-left'),
+        },
+        arrowdown: {
+            key: 'DOWN',
+            element: document.getElementById('touchbtn-down'),
+        },
+        arrowright: {
+            key: 'RIGHT',
+            element: document.getElementById('touchbtn-right'),
+        },
+        bubbletouch: {
+            key: 'D',
+            element: document.getElementById('bubbleAttackTouch'),
+        },
+        slaptouch: {
+            key: 'SPACE',
+            element: document.getElementById('slapAttackTouch'),
+        },
+    };
 
-    arrowup.addEventListener('touchstart', (e) => {
+    function handleTouchEvent(e, button) {
         e.preventDefault();
-        keyboard.UP = true;
-    });
-    arrowup.addEventListener('touchend', (e) => {
-        e.preventDefault();
+        keyboard[button.key] = e.type === 'touchstart';
+    }
 
-        keyboard.UP = false;
-    });
-    arrowleft.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        keyboard.LEFT = true;
-    });
-    arrowleft.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        keyboard.LEFT = false;
-    });
-    arrowright.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        keyboard.RIGHT = true;
-    });
-    arrowright.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        keyboard.RIGHT = false;
-    });
-    arrowdown.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        keyboard.DOWN = true;
-    });
-    arrowdown.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        keyboard.DOWN = false;
-    });
-    bubbletouch.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        keyboard.D = true;
-    });
-    bubbletouch.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        keyboard.D = false;
-    });
-    slaptouch.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        keyboard.SPACE = true;
-    });
-    slaptouch.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        keyboard.SPACE = false;
+    Object.values(keyboardButtons).forEach((button) => {
+        const { element, key } = button;
+        element.addEventListener('touchstart', (e) => handleTouchEvent(e, button));
+        element.addEventListener('touchend', (e) => handleTouchEvent(e, button));
     });
 }
+
 
 /**
  * Checks whether the device is in portrait or landscape format

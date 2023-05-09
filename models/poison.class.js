@@ -53,6 +53,6 @@ class Poisons extends MovableObject {
      * Plays the sound when the poison is collected.
      */
     poisonSound() {
-        bottle_sound.play();
+        sounds.bottle_sound.play();
     }
 }
