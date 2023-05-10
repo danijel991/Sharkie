@@ -48,11 +48,4 @@ class Poisons extends MovableObject {
             this.playAnimation(this.IMAGES_ANIMATED_POISONS);
         }, 1000);
     }
-
-    /**
-     * Plays the sound when the poison is collected.
-     */
-    poisonSound() {
-        sounds.bottle_sound.play();
-    }
 }

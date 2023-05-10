@@ -244,12 +244,12 @@ class Character extends MovableObject {
         this.currentImage = 0;
         let hurt = setInterval(() => {
             this.playAnimation(this.assets.IMAGES_HURT_POISONED);
-            sounds.hurt_sfx.play();
         }, 100);
         setTimeout(() => {
             this.resetTimer();
             this.characterIsHurtByPufferfish = false;
             clearInterval(hurt);
+            sounds.hurt_sfx.play();
             i++;
         }, 200);
     }
@@ -262,12 +262,12 @@ class Character extends MovableObject {
         this.currentImage = 0;
         let hurt = setInterval(() => {
             this.playAnimation(this.assets.IMAGES_HURT_ELECTRIC_SHOCK);
-            sounds.hurt_shocked_sfx.play();
         }, 100);
         setTimeout(() => {
             this.resetTimer();
             this.characterIsHurtByJelly = false;
             clearInterval(hurt);
+            sounds.hurt_shocked_sfx.play();
             i++;
         }, 200);
     }
@@ -290,7 +290,7 @@ class Character extends MovableObject {
         else if (type == 2)
             this.playAttackBubble();
     }
-    
+
     /**
  * Play the blow with fin animation
  */
@@ -324,6 +324,7 @@ class Character extends MovableObject {
      */
     playAttackBubble() {
         if (!this.checkDAlreadyRunning) this.activateD();
+        sounds.bubble_sfx.play();
         this.playAnimation(this.assets.IMAGES_ATTACK_BUBBLE);
         this.dAlreadyPressed = true;
         this.resetTimer();
@@ -344,7 +345,6 @@ class Character extends MovableObject {
             this.checkDAlreadyRunning = false;
             clearInterval(DPressed)
             this.dAlreadyPressed = false;
-            sounds.bubble_sfx.play();
         }, 800)
     }
 }

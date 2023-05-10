@@ -19,6 +19,7 @@ const sounds = {
  * Depending on the game event the background music changes
  */
 function initSound() {
+
   // Check for stored settings and use them if available
   if (localStorage.getItem('bgMusicIsPlaying') !== null) {
     bgMusicIsPlaying = JSON.parse(localStorage.getItem('bgMusicIsPlaying'));
@@ -39,11 +40,11 @@ function initSound() {
       sounds.boss_music.play();
     }
 
-    if (gameWin && !gameOver) {
+    if (gameWin && !gameOver && bgMusicIsPlaying) {
       sounds.boss_music.pause();
       sounds.victory.play();
       clearInterval(musicinterval);
-    } else if (gameOver && !gameWin) {
+    } else if (gameOver && !gameWin && bgMusicIsPlaying) {
       sounds.background_music.pause();
       sounds.boss_music.pause();
       sounds.gamelost.play();

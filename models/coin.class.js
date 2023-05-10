@@ -48,12 +48,4 @@ class Coins extends MovableObject {
             this.playAnimation(this.IMAGES_ANIMATED_COINS);
         }, 1000);
     }
-
-    /**
-     * When collecting coins coin_sound sfx is played
-     */
-    coinSound() {
-        sounds.coin_sound.play();
-    }
-
 }

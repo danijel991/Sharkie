@@ -261,12 +261,12 @@ class World {
         if (type === "coin") {
             character.fillCoinBar();
             this.coinBar.setPercentage(character.coinsAmount);
-            this.coin.coinSound();
+            sounds.coin_sound.play();
             this.level.coins.splice(index, 1);
         } else if (type === "poison") {
             character.fillPoisonBar();
             this.poisonbar.setPercentage(character.poisonsAmount);
-            this.poison.poisonSound();
+            sounds.bottle_sound.play();
             this.level.poisons.splice(index, 1);
         }
     }
