@@ -1,98 +1,33 @@
-/**
-The canvas element.
-@type {HTMLElement}
-*/
 let canvas;
-/**
-The element for the win screen.
-@type {HTMLElement}
-*/
 let winScreen;
-/**
-The element for the game over screen.
-@type {HTMLElement}
-*/
 let gOverScreen;
-/**
-The world object.
-@type {World}
-*/
 let world;
-/**
-The element for the game title.
-@type {HTMLElement}
-*/
 let gameTitle;
-/**
-The element for the restart game button.
-@type {HTMLElement}
-*/
 let restartGame;
-/**
-The keyboard object.
-@type {Keyboard}
-*/
-let keyboard = new Keyboard();
-/**
-The assets object.
-@type {Assets}
-*/
-let assets = new Assets();
-/**
-The state of the fullscreen mode.
-@type {boolean}
-*/
-let fullscreenState = false;
-/**
-The state of the help window.
-@type {boolean}
-*/
-let helpisopen = false;
-/**
-The state of the game over screen.
-@type {boolean}
-*/
-let gameOver = false;
-/**
-The state of the game win screen.
-@type {boolean}
-*/
-let gameWin = false;
-/**
-The state of the landscape mode.
-@type {boolean}
-*/
-let landscape = false;
-/**
-The canvas element for the game over screen.
-@type {HTMLElement}
-*/
+let gametogglebtn;
 let canvasover;
-/**
-The state of the background music.
-@type {boolean}
-*/
-let bgMusicIsPlaying = true;
-/**
-The state of the sound effects.
-@type {boolean}
-*/
-let sfxplay = true;
-/**
-The state of the mobile screen.
-@type {boolean}
-*/
+let canvasoberober;
+let btn;
+let btnopened;
+let help;
+let full;
+let tglethngs;
+let toucharea_left;
+let toucharea_right;
+let keyboard = new Keyboard();
+const assets = new Assets();
+let fullscreenState = false;
+let helpisopen = false;
+let gameOver = false;
+let gameWin = false;
+let landscape = false;
 let mobilescreen = false;
-
-/**
- * checks if game is running
- */
-let gameIsRunnung = false;
-
+let gameIsRunning = false;
 /**
  * Initializes the game on page load.
  */
 function onloadInit() {
+    updateButtons();
     mobileScreenListener();
     touchEventListener();
     addVariables();
@@ -102,7 +37,6 @@ function onloadInit() {
     checkLoaded();
     checkOrientation();
 }
-
 /**
  * Loads all functions after start the game
  */
@@ -111,9 +45,8 @@ function init() {
     checkGameOver();
     initAssetMotion();
     initSound();
-    gameIsRunnung = true;
+    gameIsRunning = true;
 }
-
 /**
  * Starts motion of assets
  */
@@ -133,20 +66,26 @@ function initAssetMotion() {
         coins.animate();
     });
 }
-
 /**
  * Adds the respective variables 
  */
 function addVariables() {
     canvasover = document.getElementById('canvasOver');
+    canvasoberober = document.getElementById('canvasOverOver');
     canvas = document.getElementById('canvas');
     winScreen = document.getElementById('winnerScreen');
     gOverScreen = document.getElementById('gameOverScreen');
     gameTitle = document.getElementById('gameTitle');
     restartGame = document.getElementById('restartBtn');
     gametogglebtn = document.getElementById('toggleGame');
+    btn = document.getElementById('toggleHelp');
+    btnopened = document.getElementById('helpbtnopened');
+    help = document.getElementById('HowToPlay');
+    full = document.getElementById('fullscreen');
+    tglethngs = document.getElementById('toggleThings');
+    toucharea_left = document.getElementById('touch-area-left');
+    toucharea_right = document.getElementById('touch-area-right');
 }
-
 /**
  * Adds the respective styles
  */
@@ -154,7 +93,6 @@ function addStyles() {
     [winScreen, gameTitle, canvasover, gametogglebtn].forEach(el => el.style.display = 'none');
     canvas.style.display = 'block';
 }
-
 /**
  * Exits the loading screen only when all conditions are met/assets are loaded
  */
@@ -164,23 +102,6 @@ function checkLoaded() {
         document.getElementById('loadingscreen').style.display = 'none';
     }
 }
-
-/**
- * Toggles music on or off
- */
-function toggleMusic() {
-    bgMusicIsPlaying = !bgMusicIsPlaying;
-    document.getElementById('toggleMusic').innerHTML = bgMusicIsPlaying ? 'Music on' : 'Music off';
-}
-
-/**
- * Toggles sfx on or off
- */
-function toggleSfx() {
-    sfxplay = !sfxplay;
-    document.getElementById('toggleSfx').innerHTML = sfxplay ? 'Sfx on' : 'Sfx off';
-}
-
 /**
  * Toggles fullscreen on or off
  */
@@ -211,19 +132,17 @@ function exitFullscreen() {
         }
     }
 }
-
 /**
  * Depending on the boolean of the end of the game, the following function is retrieved
  */
 function checkGameOver() {
-    document.getElementById('toggleGame').innerHTML = 'Restart game';
+    gametogglebtn.innerHTML = 'Restart game';
     setInterval(() => {
         if (gameOver || gameWin) {
             changeGameOverScreen(gameWin, gameOver);
         }
     }, 5000);
 }
-
 /**
  * Changes the game over screen depending on whether the game was won or lost.
  * @param {boolean} gameWin - Whether the game has been won or not.
@@ -244,15 +163,10 @@ function changeGameOverScreen(gameWin, gameOver) {
     gOverScreen.style.display = gameOverScreenDisplay;
     restartGame.style.display = 'block';
 }
-
 /**
  * Open the game instructions
  */
 function toggleHelp() {
-    const btn = document.getElementById('toggleHelp');
-    const btnopened = document.getElementById('helpbtnopened');
-    const help = document.getElementById('HowToPlay');
-    const full = document.getElementById('fullscreen');
 
     if (!helpisopen) {
         helpisopen = true;
@@ -266,7 +180,6 @@ function toggleHelp() {
         btn.textContent = 'How to play';
     }
 }
-
 /**
  * Depending on the end of the game the respective boolean will be set to true, until then the win- and gameover screen will be hidden 
  * @param {*} vari - 1 = game won, 2 = game lost
@@ -289,7 +202,6 @@ function stopGame(vari) {
     restartGame.style.display = 'block';
     canvasover.style.display = 'block';
 }
-
 /**
  * The intervals after the end of the game in the game are ended
  */
@@ -306,17 +218,11 @@ function clearIntervals() {
     });
     clearInterval(world.endboss.endbossAnimation);
 }
-
 /**
  * Checks if the game is running on a small device to add touch buttons.
  */
 function mobileScreenListener() {
-    const gametogglebtn = document.getElementById('toggleGame');
-    const canvasober = document.getElementById('canvasOver');
-    const canvasoberober = document.getElementById('canvasOverOver');
-    const tglethngs = document.getElementById('toggleThings');
-    const toucharea_left = document.getElementById('touch-area-left');
-    const toucharea_right = document.getElementById('touch-area-right');
+    // const gametogglebtn = document.getElementById('toggleGame');
 
     function hideTouchAreas() {
         toucharea_left.style.display = 'none';
@@ -330,14 +236,14 @@ function mobileScreenListener() {
 
     function hideElements() {
         gametogglebtn.style.display = 'none';
-        canvasober.style.display = 'none';
+        canvasover.style.display = 'none';
         canvasoberober.style.display = 'none';
         tglethngs.style.display = 'none';
     }
 
     function showElements() {
         gametogglebtn.style.display = 'none';
-        canvasober.style.display = 'none';
+        canvasover.style.display = 'none';
         tglethngs.style.flexDirection = 'row';
     }
 
@@ -346,12 +252,12 @@ function mobileScreenListener() {
     }
 
     setInterval(() => {
-        if (!gameIsRunnung) {
+        if (!gameIsRunning) {
             hideTouchAreas();
-        } else if (gameIsRunnung && landscape) {
+        } else if (gameIsRunning && landscape) {
             showTouchAreas();
             hideElements();
-        } else if (gameIsRunnung) {
+        } else if (gameIsRunning) {
             showTouchAreas();
             hideGameTitle();
             showElements();
@@ -362,8 +268,6 @@ function mobileScreenListener() {
         }
     }, 100);
 }
-
-
 /**
  * Keyboard key listener
  */
@@ -393,7 +297,6 @@ document.addEventListener('keyup', (e) => {
     if (e.keyCode == 70) keyboard.F = false;
     if (e.keyCode == 72) keyboard.F = false;
 });
-
 /**
  * Display Touch keys listener
  */
@@ -436,8 +339,6 @@ function touchEventListener() {
         element.addEventListener('touchend', (e) => handleTouchEvent(e, button));
     });
 }
-
-
 /**
  * Checks whether the device is in portrait or landscape format
  */
@@ -446,13 +347,13 @@ function checkOrientation() {
         if (window.matchMedia("(orientation: landscape)").matches) {
             if (window.innerHeight < 480 || window.innerWidth < 720) {
                 newHeight = window.innerHeight;
-                document.getElementById('canvas').style.height = `${newHeight}px`;
+                canvas.style.height = `${newHeight}px`;
                 landscape = true;
             } else {
                 landscape = false;
             }
         } else {
-            document.getElementById('canvas').style.height = `100%`;
+            canvas.style.height = `100%`;
             landscape = false;
         }
     }, 500);

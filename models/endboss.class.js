@@ -75,7 +75,7 @@ class Endboss extends MovableObject {
     /**
      * Indicates whether the boss is dead or not.
      */
-    bossDead = false;
+    dead = false;
     /**
      * Indicates whether the boss is currently attacking or not.
      */
@@ -136,7 +136,7 @@ class Endboss extends MovableObject {
                 this.playBoss(1);
             else if (this.bossIsHurt)
                 this.playBoss(2);
-            else if (this.bossDead || this.energy <= 0) {
+            else if (this.dead || this.energy <= 0) {
                 this.playBossDead(endbossAnimation);
             } else {
                 this.playAnimation(this.IMAGES_BOSS_SWIM);

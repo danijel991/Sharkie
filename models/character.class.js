@@ -18,7 +18,7 @@ class Character extends MovableObject {
 
     world;
     assets;
-    characterIsHurt = false;
+    characterIsHurtByPufferfish = false;
     characterIsHurtByJelly = false;
     attackedByBoss = false;
     electrized = false;
@@ -203,7 +203,7 @@ class Character extends MovableObject {
      * @returns Checks if the character is in "normal" violation
      */
     isCharacterHurt() {
-        return this.characterIsHurt;
+        return this.characterIsHurtByPufferfish;
     }
 
     /**
@@ -248,7 +248,7 @@ class Character extends MovableObject {
         }, 100);
         setTimeout(() => {
             this.resetTimer();
-            this.characterIsHurt = false;
+            this.characterIsHurtByPufferfish = false;
             clearInterval(hurt);
             i++;
         }, 200);

@@ -42,7 +42,7 @@ class JellyFish extends MovableObject {
         this.x = x;
         this.y = y;
         this.speed = 0.15 + Math.random() * 0.15;
-        this.jellyDead = false;
+        this.dead = false;
     }
 
 /**
@@ -55,7 +55,7 @@ class JellyFish extends MovableObject {
         }, 1000);
 
         this.animatedJellyFishIdDead = setInterval(() => {
-            if (this.jellyDead)
+            if (this.dead)
                 this.deadJelly();
         }, 1000);
     }

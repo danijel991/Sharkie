@@ -59,7 +59,7 @@ class PufferFish extends MovableObject {
         this.x = x;
         this.y = y;
         this.speed = 0.15 + Math.random() * 0.15;
-        this.puffFishDead = false;
+        this.toggleMusic = false;
     }
 
     /**
@@ -72,7 +72,7 @@ class PufferFish extends MovableObject {
         }, 1000 / 60);
 
         this.fishMotionIntervalDead = setInterval(() => {
-            if (this.puffFishDead)
+            if (this.dead)
                 this.deadFish();
         }, 1000);
     }
