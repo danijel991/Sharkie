@@ -34,77 +34,77 @@
 </head>
 
 <body onload="onloadInit()">
-    <div id="loadingscreen">
-        <div id="loadingScreenSubDiv"></div>
-    </div>
-    <div id="rotaDisplay">
-        <h1>Please rotate your device</h1>
-    </div>
-    <div id="HowToPlay">
-        <h2>Instructions</h2><br>
-        <div class="span-wrap">
+<div id="loadingscreen">
+    <div id="loadingScreenSubDiv"></div>
+</div>
+<div id="rotaDisplay">
+    <h1>Please rotate your device</h1>
+</div>
+<div id="HowToPlay">
+    <h2>Instructions</h2><br>
+    <div class="span-wrap">
             <span>Be the shark, face the dangers and defeat Orqi, the evil orca that makes his nuisance in the deep
                 waters.
                 Use the fin attack to beat the opponents with Sharkie. When you have collected the poison bottles,
                 you
                 can
                 also shoot bubbles.</span><br>
-            <span>Usw arrow keys to move Sharkie</span><br>
-            <span>Arrow left - move left</span><br>
-            <span>Arrow right - move right</span><br>
-            <span>Arrow up - move up</span><br>
-            <span>Arrow down - move down</span><br>
-            <span>Space/Fins button - Fins attack</span><br>
-            <span>D/Shoot button - Shoot bubbles</span><br>
-        </div>
-        <button onclick="toggleHelp()" id="helpbtnopened" class="btn-container btn-text">How to play</button>
+        <span>Usw arrow keys to move Sharkie</span><br>
+        <span>Arrow left - move left</span><br>
+        <span>Arrow right - move right</span><br>
+        <span>Arrow up - move up</span><br>
+        <span>Arrow down - move down</span><br>
+        <span>Space/Fins button - Fins attack</span><br>
+        <span>D/Shoot button - Shoot bubbles</span><br>
     </div>
+    <button onclick="toggleHelp()" id="helpbtnopened" class="btn-container btn-text">How to play</button>
+</div>
+</div>
+<div id="fullscreen">
+    <h1 id="gameTitle">Sharkie</h1>
+    <div class="canvasOver" id="canvasOverOver">
+        <div id="canvasOver">
+            <button onclick="toggleHelp()" class="btn-container btn-text" id="toggleHelp">How to play</button>
+        </div>
+        <div class="toggleThings" id="toggleThings">
+            <button onclick="fullscreen()" class="btn-container btn-text" id="fullscreen-button">Fullscreen</button>
+            <button onclick="toggleMusic()" class="btn-container btn-text" id="toggleMusic">Music on</button>
+            <button onclick="toggleSfx()" class="btn-container btn-text" id="toggleSfx">Sfx on</button>
+        </div>
+        <div>
+            <button onclick="init()" class="btn-container btn-text" id="toggleGame">Start game</button>
+        </div>
     </div>
-    <div id="fullscreen">
-        <h1 id="gameTitle">Sharkie</h1>
-        <div class="canvasOver" id="canvasOverOver">
-            <div id="canvasOver">
-                <button onclick="toggleHelp()" class="btn-container btn-text" id="toggleHelp">How to play</button>
+    <div class="restartBtn" id="restartBtn">
+        <button onclick="window.location.reload()" class="btn-container btn-text">Restart</button>
+    </div>
+    <div class="canvas-field">
+        <img id="gameOverScreen" class="displayNone" src="./img/Buttons/Tittles/Gameover/gameover(1).png" alt="">
+        <img id="winnerScreen" class="displayNone" src="./img/Buttons/Tittles/Win/winner(5).png" alt="">
+        <canvas id="canvas" width="720" height="480"></canvas>
+    </div>
+    <div id="touch-area-left">
+        <img id="touch-area-left-img" src="./img/Buttons/Key/arrow_keys.png" alt="">
+        <div class="touchbtn-left">
+            <div class="touchbtn-rows touchbtn-first-row">
+                <div id="touchbtn-up" class="touchBtn"></div>
             </div>
-            <div class="toggleThings" id="toggleThings">
-                <button onclick="fullscreen()" class="btn-container btn-text" id="fullscreen-button">Fullscreen</button>
-                <button onclick="toggleMusic()" class="btn-container btn-text" id="toggleMusic">Music on</button>
-                <button onclick="toggleSfx()" class="btn-container btn-text" id="toggleSfx">Sfx on</button>
-            </div>
-            <div>
-                <button onclick="init()" class="btn-container btn-text" id="toggleGame">Start game</button>
-            </div>
-        </div>
-        <div class="restartBtn" id="restartBtn">
-            <button onclick="window.location.reload()" class="btn-container btn-text">Restart</button>
-        </div>
-        <div class="canvas-field">
-            <img id="gameOverScreen" class="displayNone" src="./img/Buttons/Tittles/Gameover/gameover(1).png" alt="">
-            <img id="winnerScreen" class="displayNone" src="./img/Buttons/Tittles/Win/winner(5).png" alt="">
-            <canvas id="canvas" width="720" height="480"></canvas>
-        </div>
-        <div id="touch-area-left">
-            <img id="touch-area-left-img" src="./img/Buttons/Key/arrow_keys.png" alt="">
-            <div class="touchbtn-left">
-                <div class="touchbtn-rows touchbtn-first-row">
-                    <div id="touchbtn-up" class="touchBtn"></div>
-                </div>
-                <div class="touchbtn-rows touchbtn-second-row">
-                    <div id="touchbtn-left" class="touchBtn"></div>
-                    <div id="touchbtn-down" class="touchBtn"></div>
-                    <div id="touchbtn-right" class="touchBtn"></div>
-                </div>
-            </div>
-        </div>
-        <div id="touch-area-right">
-            <div id="bubbleAttackTouch" class="attack-btn">
-                <img src="./img/touchbtns/arrow_btn_bubble.png" alt="">
-            </div>
-            <div id="slapAttackTouch" class="attack-btn">
-                <img src="./img/touchbtns/arrow_btn_slap.png" alt="">
+            <div class="touchbtn-rows touchbtn-second-row">
+                <div id="touchbtn-left" class="touchBtn"></div>
+                <div id="touchbtn-down" class="touchBtn"></div>
+                <div id="touchbtn-right" class="touchBtn"></div>
             </div>
         </div>
     </div>
+    <div id="touch-area-right">
+        <div id="bubbleAttackTouch" class="attack-btn">
+            <img src="./img/touchbtns/arrow_btn_bubble.png" alt="">
+        </div>
+        <div id="slapAttackTouch" class="attack-btn">
+            <img src="./img/touchbtns/arrow_btn_slap.png" alt="">
+        </div>
+    </div>
+</div>
 </body>
 
 </html>
